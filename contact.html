@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Contact Rikash Gebeya - Get in touch with us via email, social media, or visit our location in Addis Ababa">
+    <meta name="author" content="Rikash Gebeya">
+    <title>Rikash Gebeya | Contact Us</title>
+    
+    <style>
+        /* ========== RESET & BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* ========== TYPOGRAPHY ========== */
+        h1, h2, h3, h4, .nav-menu a {
+            font-family: 'Merriweather', 'Times New Roman', serif;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222222;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #c0392b;
+        }
+
+        /* ========== HEADER SECTION ========== */
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Brand / Logo Area */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+            color: #222;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li a {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li.active a {
+            color: #c0392b;
+        }
+
+        /* Mobile Toggle Button */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ========== PAGE CONTENT ========== */
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-section h2 {
+            color: #c0392b;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Info Cards */
+        .contact-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+        }
+
+        .contact-card {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #c0392b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Two Column Layout (Form + Map) */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c0392b;
+        }
+
+        .btn-submit {
+            background-color: #c0392b;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #a93226;
+        }
+
+        /* Map Placeholder */
+        .map-placeholder {
+            background-color: #e0e0e0;
+            height: 250px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Location Info */
+        .location-info {
+            margin-top: 1rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #c0392b;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .social-link:hover {
+            background-color: #a93226;
+            transform: scale(1.05);
+        }
+
+        .social-link span {
+            font-size: 1.2rem;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background-color: #f8f8f8;
+            border-top: 1px solid #eaeaea;
+            margin-top: 3rem;
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0.8rem 1rem;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: white;
+                padding: 1rem 0;
+                border-top: 1px solid #eee;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li a {
+                padding: 0.8rem 1rem;
+                display: block;
+                width: 100%;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .brand-name {
+                font-size: 1.2rem;
+            }
+
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .page-content {
+                padding: 1rem;
+            }
+
+            .two-columns {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="brand">
+            <img class="logo" src="images/rikash_logo.svg" alt="Rikash Gebeya Logo">
+            <span class="brand-name">Rikash Gebeya</span>
+        </a>
+
+        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li class="active"><a href="contact.html">Contact us</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="career.html">Career</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <div class="page-content">
+        
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h2>Information</h2>
+            <p>We pride ourselves on our adaptability and commitment to excellence in every aspect of our service. Explore what we have to offer and how we can contribute to your success.</p>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p>contact@rikashgebeya.com</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🌐</div>
+                <h3>Socials</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/rikashgebeya" target="_blank" rel="noopener" class="social-link"><span>📘</span></a>
+                    <a href="https://instagram.com/rikashgebeya" target="_blank" rel="noopener" class="social-link"><span>📷</span></a>
+                    <a href="https://youtube.com/rikashgebeya" target="_blank" rel="noopener" class="social-link"><span>▶️</span></a>
+                    <a href="https://tiktok.com/@rikashgebeya" target="_blank" rel="noopener" class="social-link"><span>🎵</span></a>
+                    <a href="https://t.me/rikashgebeya" target="_blank" rel="noopener" class="social-link"><span>📨</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form + Location -->
+        <div class="two-columns">
+            <div class="col">
+                <h2>Contact us</h2>
+                <form id="contactForm" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit form</button>
+                </form>
+                <p style="font-size: 0.8rem; margin-top: 1rem; color: #666;">* Required fields</p>
+            </div>
+
+            <div class="col">
+                <div class="map-placeholder">
+                    📍 Map View - Town Square Mall, Addis Ababa
+                </div>
+                <div class="location-info">
+                    <h3>Location</h3>
+                    <p>Djibouti Street,<br>Town Square Mall 22, Addis Ababa</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        © 2026 Rikash Gebeya. All rights reserved.
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle functionality
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (toggleBtn && navMenu) {
+        toggleBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // Simple form handling (prevents actual submission - you'll need backend for email)
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.\n\nNote: To actually receive emails, you need to set up a backend form handler (e.g., Formspree, Netlify Forms, or a PHP script).');
+            contactForm.reset();
+        });
+    }
+</script>
+
+</body>
+</html>
