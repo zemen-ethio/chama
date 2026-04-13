@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Shop with Rikash Gebeya - Quality products and exceptional service">
+    <meta name="author" content="Rikash Gebeya">
+    <title>Rikash Gebeya | Shop</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --fb-blue: #1877f2; --fb-blue-dark: #1464c7; --fb-blue-darker: #0e5fd1; --pure-white: #ffffff; --white-soft: #f0f2f5; }
+        body { font-family: 'Lato', 'Segoe UI', Arial, sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
+        h1, h2, h3, h4, .nav-menu a { font-family: 'Merriweather', 'Times New Roman', serif; color: var(--pure-white); }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; text-align: center; }
+        h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .logo { width: 60px; height: 60px; object-fit: contain; filter: brightness(0) invert(1); }
+        .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; color: var(--pure-white); }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; flex-wrap: wrap; }
+        .nav-menu li a { display: inline-block; padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); font-weight: 500; transition: opacity 0.2s; font-size: 1rem; opacity: 0.9; }
+        .nav-menu li a:hover, .nav-menu li.active a { opacity: 1; }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; padding: 0.5rem; color: var(--pure-white); }
+        .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .hero-banner { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 3rem; }
+        .hero-banner h1 { color: var(--pure-white); margin-bottom: 0; }
+        .split-section { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; }
+        .split-section.reverse { flex-direction: row-reverse; }
+        .split-image { flex: 1; min-width: 280px; }
+        .split-image img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
+        .split-content { flex: 1; padding: 2.5rem; }
+        .product-gallery { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 3rem 0; }
+        .product-card { flex: 1; min-width: 250px; max-width: 350px; text-align: center; background: var(--fb-blue-darker); border-radius: 12px; overflow: hidden; transition: transform 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; opacity: 0.9; }
+        .product-info { padding: 1.5rem; }
+        .product-card h3 { margin-bottom: 0.5rem; color: var(--pure-white); }
+        .footer { background-color: var(--fb-blue-dark); border-top: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; padding: 2rem; text-align: center; color: var(--pure-white); font-size: 0.9rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .spacer-large { height: 60px; }
+        @media (max-width: 768px) {
+            .header-container { padding: 0.8rem 1rem; }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; width: 100%; flex-direction: column; background: var(--fb-blue-dark); padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.15); }
+            .nav-menu.active { display: flex; }
+            .nav-menu li a { padding: 0.8rem 1rem; display: block; width: 100%; }
+            .split-section, .split-section.reverse { flex-direction: column; }
+            .split-content { padding: 1.5rem; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .brand-name { font-size: 1.2rem; }
+            .logo { width: 45px; height: 45px; }
+            .page-content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header-container">
+        <div class="brand"><img class="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff' rx='16'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%231877f2' font-family='Arial' font-weight='bold'%3ERG%3C/text%3E%3C/svg%3E" alt="Logo"><span class="brand-name">Rikash Gebeya</span></div>
+        <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu"><li><a href="index.html">Home</a></li><li class="active"><a href="shop.html">Shop</a></li><li><a href="products.html">Products</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact us</a></li><li><a href="payment.html">Payment</a></li><li><a href="career.html">Career</a></li></ul>
+    </div>
+</header>
+<main>
+    <div class="page-content">
+        <div class="hero-banner"><h1>shop with us</h1></div>
+        <div class="split-section">
+            <div class="split-content"><p>Our upcoming product line is crafted for individuals who appreciate innovation, quality, and distinctive style. We envision our customers as those who seek products that not only meet their needs but also elevate their everyday experiences. You are our ideal customer, and we can't wait to share our creations with you.</p></div>
+            <div class="split-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' font-size='32' fill='%23ffffff' text-anchor='middle'%3EProduct%3C/text%3E%3C/svg%3E" alt="Product showcase"></div>
+        </div>
+        <div class="product-gallery">
+            <div class="product-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%231464c7'/%3E%3Ctext x='200' y='220' font-size='28' fill='%23ffffff' text-anchor='middle'%3EPremium%3C/text%3E%3C/svg%3E" alt="Product"><div class="product-info"><h3>Premium Collection</h3><p>Elegant design meets functionality</p></div></div>
+            <div class="product-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%231464c7'/%3E%3Ctext x='200' y='220' font-size='28' fill='%23ffffff' text-anchor='middle'%3ESignature%3C/text%3E%3C/svg%3E" alt="Product"><div class="product-info"><h3>Signature Series</h3><p>Crafted for excellence</p></div></div>
+        </div>
+        <div class="spacer-large"></div>
+        <div class="split-section reverse">
+            <div class="split-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' font-size='32' fill='%23ffffff' text-anchor='middle'%3EExperience%3C/text%3E%3C/svg%3E" alt="Experience"></div>
+            <div class="split-content"><h2>An experience to cherish</h2><p>When you browse our shop, we want you to feel inspired, excited, and confident in your choices. Our goal is to create a seamless and enjoyable shopping journey, from discovery to delivery. Prepare for an experience that brings joy and satisfaction with every visit.</p></div>
+        </div>
+    </div>
+</main>
+<footer class="footer"><div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div></footer>
+<script>const toggleBtn=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');if(toggleBtn&&navMenu){toggleBtn.addEventListener('click',function(){navMenu.classList.toggle('active');});}</script>
+</body>
+</html>
