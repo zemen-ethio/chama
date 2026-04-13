@@ -83,5 +83,41 @@
 </main>
 <footer class="footer"><div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div></footer>
 <script>const toggleBtn=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');if(toggleBtn&&navMenu){toggleBtn.addEventListener('click',function(){navMenu.classList.toggle('active');});}</script>
+<script>
+(function() {
+    const body = document.body;
+    const originalHTML = body.innerHTML;
+    
+    // Clear and rebuild
+    body.innerHTML = '';
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;overflow-x:hidden;position:relative;';
+    
+    const container = document.createElement('div');
+    container.style.cssText = 'display:flex;width:fit-content;animation:scrollRL 50s linear infinite;';
+    
+    function makeCopy() {
+        const copy = document.createElement('div');
+        copy.style.cssText = 'width:100vw;flex-shrink:0;overflow-y:auto;max-height:100vh;';
+        copy.innerHTML = originalHTML;
+        return copy;
+    }
+    
+    container.appendChild(makeCopy());
+    container.appendChild(makeCopy());
+    wrapper.appendChild(container);
+    body.appendChild(wrapper);
+    
+    // Add keyframes
+    const style = document.createElement('style');
+    style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
+    document.head.appendChild(style);
+    
+    // Pause on hover
+    wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
+    wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
+})();
+</script>
 </body>
 </html>
