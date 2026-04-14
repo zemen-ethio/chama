@@ -18,7 +18,6 @@
         }
         body { font-family: 'Lato', sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
 
-        /* Ticker Styling */
         .ticker-wrapper { 
             background-color: var(--fb-blue-darker); 
             overflow: hidden; 
@@ -32,7 +31,6 @@
         .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header & Nav */
         .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid var(--white-transparent); position: sticky; top: 0; z-index: 1000; }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
@@ -43,7 +41,6 @@
         .nav-menu li.active a { background-color: var(--white-transparent); opacity: 1; }
         .mobile-toggle { display: none; font-size: 1.8rem; background: none; border: none; color: white; cursor: pointer; }
 
-        /* Page Layout */
         .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         .hero-section { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 3rem; }
         .split-section { display: flex; flex-wrap: wrap; gap: 2rem; background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; }
@@ -51,7 +48,6 @@
         .split-image img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
         .split-content { flex: 1; padding: 2.5rem; }
 
-        /* Dropdown Styling */
         .dropdown-container { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
         .dropdown-container label { font-weight: bold; font-size: 1rem; color: var(--pure-white); }
         .payment-select { 
@@ -69,7 +65,6 @@
             .nav-menu { display: none; width: 100%; flex-direction: column; background: var(--fb-blue-dark); padding: 1rem 0; }
             .nav-menu.active { display: flex; }
             .split-section { flex-direction: column; }
-            .split-content { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -151,15 +146,11 @@
                 </div>
 
                 <div id="payment-btn-container" style="display: none; margin-top: 2rem; text-align: center;">
-                    <button id="unified-pay-btn" style="background-color: #ffd700; color: #0e5fd1; padding: 15px 30px; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; width: 100%; transition: transform 0.2s;">
+                    <button id="unified-pay-btn" style="background-color: #ffd700; color: #0e5fd1; padding: 15px 30px; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; width: 100%;">
                         Proceed to Payment
                     </button>
                     <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.9;">Securely processed by Rikash Gebeya Gateway</p>
                 </div>
-
-                <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.8;">
-                    <em>Note: Your transaction will be processed securely via your chosen provider.</em>
-                </p>
             </div>
         </div>
     </div>
@@ -170,62 +161,43 @@
 </footer>
 
 <script>
-    // Elements references
-    const globalSelect = document.getElementById('global-gateways');
-    const localSelect = document.getElementById('local-payments');
-    const btnContainer = document.getElementById('payment-btn-container');
-    const payBtn = document.getElementById('unified-pay-btn');
-
     let selectedMethod = "";
 
-    // Handle Dropdown Selection logic
-    function updateSelection(e) {
-        selectedMethod = e.target.value;
-        if (selectedMethod) {
-            // Deselect the other dropdown to keep UI clean
-            if (e.target.id === 'global-gateways') {
-                localSelect.selectedIndex = 0;
-            } else {
-                globalSelect.selectedIndex = 0;
-            }
+    function processSelection(target, container) {
+        selectedMethod = target.value;
+        if (!selectedMethod) return;
 
-            // Show unified button and update its text
-            btnContainer.style.display = 'block';
-            payBtn.innerText = `Pay Now with ${selectedMethod.toUpperCase()}`;
-            payBtn.disabled = false;
-        }
+        const parent = target.closest('.split-content');
+        const gSelect = parent.querySelector('#global-gateways');
+        const lSelect = parent.querySelector('#local-payments');
+        const btnCont = parent.querySelector('#payment-btn-container');
+        const pBtn = parent.querySelector('#unified-pay-btn');
+
+        if (target.id === 'global-gateways') lSelect.selectedIndex = 0;
+        else gSelect.selectedIndex = 0;
+
+        btnCont.style.display = 'block';
+        pBtn.innerText = `Pay Now with ${selectedMethod.toUpperCase()}`;
+        pBtn.disabled = false;
+
+        container.style.animationPlayState = 'paused';
     }
 
-    globalSelect.addEventListener('change', updateSelection);
-    localSelect.addEventListener('change', updateSelection);
-
-    // Unified Pay Button Logic
-    payBtn.addEventListener('click', async () => {
-        payBtn.disabled = true;
-        payBtn.innerText = "Initializing Transaction...";
-
+    async function handlePayClick(btn) {
+        btn.disabled = true;
+        btn.innerText = "Initializing...";
         if (selectedMethod === 'chapa') {
-            // Automated API Flow (Telebirr/Banks via Chapa)
             if (typeof startCheckout === "function") {
                 await startCheckout("150.00", "customer@rikashgebeya.com", "Valued Guest");
             } else {
-                alert("Payment system is still loading. Please refresh.");
+                alert("Loading system...");
                 location.reload();
             }
         } else {
-            // Manual/Direct Redirect Flow for all other methods
             window.location.href = `receipt.html?method=${selectedMethod}`;
         }
-    });
-
-    // Mobile menu toggle
-    const toggleBtn = document.getElementById('mobileMenuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (toggleBtn && navMenu) {
-        toggleBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
     }
 
-    // Infinite Full Page Scroll Logic
     (function() {
         const body = document.body;
         const originalHTML = body.innerHTML;
@@ -246,50 +218,9 @@
         container.appendChild(makeCopy());
         wrapper.appendChild(container);
         body.appendChild(wrapper);
-        
-        const style = document.createElement('style');
-        style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
-        document.head.appendChild(style);
 
-        // Re-bind events because cloning innerHTML loses listeners
+        wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
+        wrapper.addEventListener('mouseleave', () => { if(!selectedMethod) container.style.animationPlayState = 'running'; });
+
         container.addEventListener('change', (e) => {
-            if (e.target.classList.contains('payment-trigger')) {
-                // Find the elements within the specific clone
-                const currentClone = e.target.closest('div[style*="width:100vw"]');
-                const gSelect = currentClone.querySelector('#global-gateways');
-                const lSelect = currentClone.querySelector('#local-payments');
-                const bCont = currentClone.querySelector('#payment-btn-container');
-                const pBtn = currentClone.querySelector('#unified-pay-btn');
-
-                selectedMethod = e.target.value;
-                if (e.target.id === 'global-gateways') lSelect.selectedIndex = 0;
-                else gSelect.selectedIndex = 0;
-
-                bCont.style.display = 'block';
-                pBtn.innerText = `Pay Now with ${selectedMethod.toUpperCase()}`;
-                pBtn.disabled = false;
-            }
-        });
-
-        container.addEventListener('click', async (e) => {
-            if (e.target.id === 'unified-pay-btn' && !e.target.disabled) {
-                e.target.disabled = true;
-                e.target.innerText = "Initializing Transaction...";
-                
-                if (selectedMethod === 'chapa') {
-                    if (typeof startCheckout === "function") {
-                        await startCheckout("150.00", "customer@rikashgebeya.com", "Valued Guest");
-                    } else {
-                        alert("System loading...");
-                        location.reload();
-                    }
-                } else {
-                    window.location.href = `receipt.html?method=${selectedMethod}`;
-                }
-            }
-        });
-    })();
-</script>
-<script src="main.js"></script>
-</body>
-</html>
+            if (e.target.classList.contains('payment-trigger')) processSelection(e.
