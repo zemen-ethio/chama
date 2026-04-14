@@ -318,38 +318,28 @@ a:hover {
 }
 
 /* ---------- Homepage Specific Styles ---------- */
-.hero-section-home {
-    display: flex;
-    flex-direction: row; /* Keeps them side-by-side */
-    align-items: stretch;
-    background-color: var(--fb-blue-dark);
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-}
+/* Update this specific part in your design.css */
+@media (max-width: 768px) {
+    .hero-section {
+        /* This line is the key: change 'column' to 'row' */
+        flex-direction: row; 
+        flex-wrap: nowrap; /* Prevents them from jumping to the next line */
+        padding: 0.5rem;   /* Reduce padding so it fits on small screens */
+    }
 
-.hero-image {
-   flex: 1;
-    min-width: 280px;
-    height: 100%; 
-    overflow: hidden; 
-    border-radius: var(--border-radius-md); /* Fixed the typo here */
-    display: flex; /* Ensures the image centers correctly */
-}
+    .hero-image, .hero-content {
+        flex: 1;
+        min-width: 0; /* Allows boxes to shrink smaller than 280px to fit mobile */
+    }
 
-.hero-image img {
-   width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    .hero-content {
+        padding: 1rem; /* Smaller padding so text isn't cramped */
+    }
 
-.hero-content {
-    flex: 1;
-    padding: 2.5rem;
-    background-color: var(--fb-blue);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centers the Address text vertically */
+    .hero-content h2 {
+        font-size: 1.2rem; /* Shrink the 'Address' title so it fits */
+    }
+}
 
 .info-block {
     margin: 1.2rem 0;
