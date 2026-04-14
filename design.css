@@ -329,39 +329,63 @@ a:hover {
     }
 
     /* Update the main desktop section */
-.hero-image {
-    flex: 0 0 20%;      /* Hard-lock to 20% width */
-    max-width: 20%;     /* Prevents it from growing larger */
-    height: auto; 
-    overflow: hidden;
+/* This applies to BOTH Desktop and Mobile */
+.hero-section {
+    display: flex;
+    flex-direction: row; /* Always side-by-side */
+    align-items: center; /* Centers the small image vertically next to text */
+    background-color: var(--fb-blue-dark);
     border-radius: var(--border-radius-md);
+    padding: 20px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.hero-image {
+    flex: 0 0 20%; /* Hard-locked to 20% width */
+    max-width: 20%;
+    /* REMOVED fixed height to stop the zoom/stretch */
 }
 
 .hero-main-img {
     width: 100%;
-    height: auto;
-    object-fit: contain; /* Keeps the whole sneaker poster visible */
+    height: auto; /* Lets the image keep its natural shape */
+    object-fit: contain; /* Shows the WHOLE image, no zooming */
     display: block;
 }
 
 .hero-content {
-    flex: 0 0 80%;      /* Gives the Address side the rest of the 80% */
-    padding: 2rem;
+    flex: 0 0 80%; /* Address takes the rest of the space */
+    padding: 10px;
 }
+
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: row !important; /* Forces side-by-side on phones */
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .hero-image {
+        flex: 0 0 25% !important; /* Slightly bigger on mobile so it's readable */
+        max-width: 25% !important;
+    }
+
+    .hero-content {
+        flex: 0 0 75% !important;
+    }
 
     .hero-content h2 {
-        font-size: 1rem;    /* Smaller title for better mobile fit */
-        margin-bottom: 0.3rem;
+        font-size: 1rem;
     }
 
-    .hero-content p, .info-title {
-        font-size: 0.75rem; /* Slightly smaller text so it doesn't wrap too much */
-        line-height: 1.2;
+    .hero-content p {
+        font-size: 0.75rem;
     }
 }
-
 .info-block {
-    margin: 1.2rem 0;
+    margin: 0.5rem 0; /* Changed from 1.2rem to 0.5rem */
 }
 
 .info-title {
