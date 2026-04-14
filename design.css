@@ -328,24 +328,26 @@ a:hover {
         gap: 15px; /* Slightly more gap for better breathing room */
     }
 
-    .hero-image {
-        flex: 0 0 20%;      /* Image is now 20% of the width (80% reduction from full) */
-        max-width: 20%;
-        height: auto;       /* Let the height adjust naturally to the small width */
-        border-radius: var(--border-radius-sm);
-    }
+    /* Update the main desktop section */
+.hero-image {
+    flex: 0 0 20%;      /* Hard-lock to 20% width */
+    max-width: 20%;     /* Prevents it from growing larger */
+    height: auto; 
+    overflow: hidden;
+    border-radius: var(--border-radius-md);
+}
 
-    .hero-content {
-        flex: 0 0 80%;      /* Address text takes the remaining 80% */
-        padding: 0.5rem;
-    }
+.hero-main-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Keeps the whole sneaker poster visible */
+    display: block;
+}
 
-    .hero-main-img {
-        width: 100%;
-        height: auto;       /* Proportional height */
-        object-fit: contain;
-        background-color: transparent; /* Clean look for the small icon/image */
-    }
+.hero-content {
+    flex: 0 0 80%;      /* Gives the Address side the rest of the 80% */
+    padding: 2rem;
+}
 
     .hero-content h2 {
         font-size: 1rem;    /* Smaller title for better mobile fit */
