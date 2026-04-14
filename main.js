@@ -4,8 +4,15 @@
  */
 
 // 1. Supabase Credentials
-const SUPABASE_URL = 'https://yiyeuyxbigiitwfdlzhl.supabase.co';
-const SUPABASE_ANON_KEY ='sb_publishable_JiGXBgIrk1O96LoFUtVMsg_GyKWsEW0';
+/**
+ * Rikash Gebeya - Secure Payment Logic
+ */
+
+// These will be replaced by Cloudflare during deployment
+const SUPABASE_URL = typeof process !== 'undefined' ? process.env.SUPABASE_URL : 'https://yiyeuyxbigiitwfdlzhl.supabase.co';
+const SUPABASE_ANON_KEY = typeof process !== 'undefined' ? process.env.SUPABASE_ANON_KEY : 'YOUR_FALLBACK_ANON_KEY'; 
+
+// ... rest of your processPayment and handleRedirection functions ...
 
 document.addEventListener('DOMContentLoaded', () => {
     const globalSelect = document.getElementById('global-gateways');
