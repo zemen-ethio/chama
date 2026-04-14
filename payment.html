@@ -6,154 +6,210 @@
     <meta name="description" content="Secure and flexible payment options at Rikash Gebeya">
     <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --fb-blue: #1877f2; --fb-blue-dark: #1464c7; --fb-blue-darker: #0e5fd1; --pure-white: #ffffff; }
-        body { font-family: 'Lato', 'Segoe UI', Arial, sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
-        h1, h2, h3, h4, .nav-menu a { font-family: 'Merriweather', 'Times New Roman', serif; color: var(--pure-white); }
-        h1 { font-size: 2.5rem; text-align: center; }
-        h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 100; }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        :root { 
+            --fb-blue: #1877f2; 
+            --fb-blue-dark: #1464c7; 
+            --fb-blue-darker: #0e5fd1; 
+            --pure-white: #ffffff; 
+            --white-transparent: rgba(255, 255, 255, 0.15);
+        }
+        body { font-family: 'Lato', sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
+
+        /* Ticker Styling (Maintained from index.html) */
+        .ticker-wrapper { 
+            background-color: var(--fb-blue-darker); 
+            overflow: hidden; 
+            white-space: nowrap; 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--white-transparent); 
+            position: relative; 
+            z-index: 100; 
+        }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Header & Nav */
+        .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid var(--white-transparent); position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .logo { width: 60px; height: 60px; filter: brightness(0) invert(1); }
+        .logo { width: 55px; height: 55px; filter: brightness(0) invert(1); }
         .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; color: var(--pure-white); }
-        .nav-menu { display: flex; list-style: none; gap: 0.25rem; flex-wrap: wrap; }
-        .nav-menu li a { display: inline-block; padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); font-weight: 500; opacity: 0.9; }
-        .nav-menu li a:hover, .nav-menu li.active a { opacity: 1; }
-        .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--pure-white); }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); border-radius: 8px; font-weight: 500; }
+        .nav-menu li.active a { background-color: var(--white-transparent); opacity: 1; }
+        .mobile-toggle { display: none; font-size: 1.8rem; background: none; border: none; color: white; cursor: pointer; }
+
+        /* Page Layout */
         .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         .hero-section { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 3rem; }
-        .hero-section h1 { color: var(--pure-white); }
-        .split-section { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem; background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; }
+        .split-section { display: flex; flex-wrap: wrap; gap: 2rem; background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; }
         .split-image { flex: 1; min-width: 280px; }
         .split-image img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
         .split-content { flex: 1; padding: 2.5rem; }
-        .payment-methods { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; justify-content: center; }
-        .payment-method { background-color: var(--fb-blue-darker); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; min-width: 120px; transition: transform 0.2s; }
-        .payment-method:hover { transform: translateY(-3px); }
-        .payment-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-        .footer { background-color: var(--fb-blue-dark); border-top: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; padding: 2rem; text-align: center; font-size: 0.9rem; }
+
+        /* Dropdown Styling */
+        .dropdown-container { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; text-align: left; }
+        .dropdown-container label { font-weight: bold; font-size: 1rem; color: var(--pure-white); }
+        .payment-select { 
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--white-transparent); 
+            background-color: var(--fb-blue-darker); color: white; font-size: 1rem; cursor: pointer; appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center; background-size: 20px;
+        }
+        .payment-select optgroup { background-color: var(--fb-blue-dark); color: #ffd700; font-weight: bold; }
+        .payment-select option { background-color: var(--fb-blue-darker); color: white; }
+
+        .footer { background-color: var(--fb-blue-dark); padding: 2rem; text-align: center; margin-top: 3rem; border-top: 1px solid var(--white-transparent); }
+
         @media (max-width: 768px) {
-            .header-container { padding: 0.8rem 1rem; }
             .mobile-toggle { display: block; }
             .nav-menu { display: none; width: 100%; flex-direction: column; background: var(--fb-blue-dark); padding: 1rem 0; }
             .nav-menu.active { display: flex; }
-            .nav-menu li a { padding: 0.8rem 1rem; display: block; }
             .split-section { flex-direction: column; }
-			
-            <div class="split-content">
-    <h2>Select Payment Type:</h2>
-    
-    <div class="dropdown-container">
-        <label for="global-gateways">🌐 Global Payment Gateways</label>
-        <select id="global-gateways" class="payment-select">
-            <option value="" disabled selected>Select an International Gateway</option>
-            <option value="stripe">Stripe</option>
-            <option value="paypal">PayPal</option>
-            <option value="checkout">Checkout.com</option>
-            <option value="adyen">Adyen</option>
-            <option value="authorize">Authorize.net</option>
-        </select>
-    </div>
-
-    <div class="dropdown-container" style="margin-top: 1.5rem;">
-        <label for="local-payments">🇪🇹 Local Ethiopian Payments</label>
-        <select id="local-payments" class="payment-select">
-            <option value="" disabled selected>Select a Bank or Local Gateway</option>
-            <optgroup label="Mobile Wallets & Gateways">
-                <option value="telebirr">Telebirr</option>
-                <option value="chapa">Chapa</option>
-                <option value="arifpay">ArifPay</option>
-                <option value="amole">Amole (Dashen Bank)</option>
-                <option value="santimpay">SantimPay</option>
-            </optgroup>
-            <optgroup label="Direct Bank Transfer">
-                <option value="cbe">Commercial Bank of Ethiopia (CBE)</option>
-                <option value="awash">Awash Bank</option>
-                <option value="dashen">Dashen Bank</option>
-                <option value="abyssinia">Bank of Abyssinia</option>
-                <option value="hibret">Hibret Bank</option>
-            </optgroup>
-        </select>
-    </div>
-
-    <p style="font-size: 0.9rem; margin-top: 1.5rem; opacity: 0.8;">
-        <em>Transactions are processed securely according to international and local standards.</em>
-    </p>
-</div>
-			
+            .split-content { padding: 1.5rem; }
             h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            .brand-name { font-size: 1.2rem; }
-            .logo { width: 45px; height: 45px; }
-            .page-content { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-   
+
+<div class="ticker-wrapper">
+    <div class="ticker-content">
+        <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
+        <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
+        <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
+        <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
+        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
+        <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
+    </div>
+</div>
+
 <header class="header">
     <div class="header-container">
         <div class="brand">
-           <img class="logo" src="img-logo.png" alt="Rikash Gebeya Logo" style="width: 50px; height: auto;">
+            <img class="logo" src="img-logo.png" alt="Rikash Gebeya Logo">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
-        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
+        <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
         <ul class="nav-menu" id="navMenu">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact us</a></li>
-            <li><a href="payment.html">Payment</a></li>
+            <li class="active"><a href="payment.html">Payment</a></li>
             <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
+
 <main>
     <div class="page-content">
-        <div class="hero-section"><h1>Secure and flexible payments</h1><p>We are committed to making your shopping experience as smooth and secure as possible. Learn about our payment options and our dedication to your peace of mind.</p></div>
-        <div class="split-section"><div class="split-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' fill='white' text-anchor='middle'%3EPayment%3C/text%3E%3C/svg%3E"></div><div class="split-content"><h2>Payment methods:</h2><p>We are currently working diligently to integrate a variety of convenient and secure payment options for you. Soon, you'll be able to choose from popular methods like credit cards, PayPal, and potentially cash on delivery. Please check back regularly for updates as we roll out these new features!</p><div class="payment-methods"><div class="payment-method"><div class="payment-icon">💳</div><span>Credit Cards</span></div><div class="payment-method"><div class="payment-icon">🅿️</div><span>PayPal</span></div><div class="payment-method"><div class="payment-icon">🚚</div><span>Cash on Delivery</span></div><div class="payment-method"><div class="payment-icon">🏦</div><span>Bank Transfer</span></div></div><p style="font-size: 0.9rem; margin-top: 1rem;"><em>More payment options coming soon!</em></p></div></div>
+        <div class="hero-section">
+            <h1>Secure and flexible payments</h1>
+            <p>Choose from our wide range of international and local Ethiopian payment options for a seamless shopping experience.</p>
+        </div>
+
+        <div class="split-section">
+            <div class="split-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' fill='white' text-anchor='middle'%3EPayment Options%3C/text%3E%3C/svg%3E" alt="Payment Methods">
+            </div>
+            
+            <div class="split-content">
+                <h2>Choose Payment Method:</h2>
+                
+                <div class="dropdown-container">
+                    <label for="global-gateways">🌐 Global Payment Gateways</label>
+                    <select id="global-gateways" class="payment-select payment-trigger">
+                        <option value="" disabled selected>Select International Gateway</option>
+                        <option value="stripe">Stripe</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="checkout">Checkout.com</option>
+                        <option value="adyen">Adyen</option>
+                        <option value="authorize">Authorize.net</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-container" style="margin-top: 1.5rem;">
+                    <label for="local-payments">🇪🇹 Local Ethiopian Payments</label>
+                    <select id="local-payments" class="payment-select payment-trigger">
+                        <option value="" disabled selected>Select Local Bank or Gateway</option>
+                        <optgroup label="Major Payment Gateways">
+                            <option value="telebirr">Telebirr</option>
+                            <option value="chapa">Chapa</option>
+                            <option value="arifpay">ArifPay</option>
+                            <option value="amole">Amole (Dashen Bank)</option>
+                            <option value="santimpay">SantimPay</option>
+                        </optgroup>
+                        <optgroup label="Major Ethiopian Banks">
+                            <option value="cbe">Commercial Bank of Ethiopia (CBE)</option>
+                            <option value="awash">Awash Bank</option>
+                            <option value="dashen">Dashen Bank</option>
+                            <option value="abyssinia">Bank of Abyssinia</option>
+                            <option value="hibret">Hibret Bank</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.8;">
+                    <em>Note: Your transaction will be processed securely via your chosen provider.</em>
+                </p>
+            </div>
+        </div>
     </div>
 </main>
-<footer class="footer"><div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div></footer>
-<script>const toggleBtn=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');if(toggleBtn&&navMenu){toggleBtn.addEventListener('click',function(){navMenu.classList.toggle('active');});}</script>
-    <script>
-(function() {
-    const body = document.body;
-    const originalHTML = body.innerHTML;
-    
-    // Clear and rebuild
-    body.innerHTML = '';
-    
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'width:100%;overflow-x:hidden;position:relative;';
-    
-    const container = document.createElement('div');
-    container.style.cssText = 'display:flex;width:fit-content;animation:scrollRL 50s linear infinite;';
-    
-    function makeCopy() {
-        const copy = document.createElement('div');
-        copy.style.cssText = 'width:100vw;flex-shrink:0;overflow-y:auto;max-height:100vh;';
-        copy.innerHTML = originalHTML;
-        return copy;
+
+<footer class="footer">
+    <div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (toggleBtn && navMenu) {
+        toggleBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
     }
-    
-    container.appendChild(makeCopy());
-    container.appendChild(makeCopy());
-    wrapper.appendChild(container);
-    body.appendChild(wrapper);
-    
-    // Add keyframes
-    const style = document.createElement('style');
-    style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
-    document.head.appendChild(style);
-    
-    // Pause on hover
-    wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
-    wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
-})();
+
+    // Payment Redirection Logic
+    document.querySelectorAll('.payment-trigger').forEach(select => {
+        select.addEventListener('change', function() {
+            if (this.value) {
+                // Redirects to receipt.html with the payment method as a parameter
+                window.location.href = `receipt.html?method=${this.value}`;
+            }
+        });
+    });
+
+    // Infinite Full Page Scroll Logic (Maintained from your file)
+    (function() {
+        const body = document.body;
+        const originalHTML = body.innerHTML;
+        body.innerHTML = '';
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'width:100%;overflow-x:hidden;position:relative;';
+        const container = document.createElement('div');
+        container.style.cssText = 'display:flex;width:fit-content;animation:scrollRL 50s linear infinite;';
+        function makeCopy() {
+            const copy = document.createElement('div');
+            copy.style.cssText = 'width:100vw;flex-shrink:0;overflow-y:auto;max-height:100vh;';
+            copy.innerHTML = originalHTML;
+            return copy;
+        }
+        container.appendChild(makeCopy());
+        container.appendChild(makeCopy());
+        wrapper.appendChild(container);
+        body.appendChild(wrapper);
+        const style = document.createElement('style');
+        style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
+        document.head.appendChild(style);
+        wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
+        wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
+    })();
 </script>
 </body>
 </html>

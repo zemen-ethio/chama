@@ -760,6 +760,7 @@ a:hover {
     margin-bottom: 0.5rem;
 }
 
+/* Dropdown Specific Styling */
 .dropdown-container {
     display: flex;
     flex-direction: column;
@@ -770,6 +771,39 @@ a:hover {
 .dropdown-container label {
     font-weight: bold;
     font-size: 1rem;
+    color: var(--pure-white);
+}
+
+.payment-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: var(--fb-blue-darker);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.payment-select optgroup {
+    background-color: var(--fb-blue-dark);
+    font-weight: bold;
+    color: #ffd700; /* Distinct color for group headers */
+}
+
+.payment-select option {
+    background-color: var(--fb-blue-darker);
+    color: white;
+}
+
+.payment-select:focus {
+    outline: 2px solid var(--pure-white);
+}
 }
 
 .payment-select {
