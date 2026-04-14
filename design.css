@@ -321,23 +321,39 @@ a:hover {
 /* Update this specific part in your design.css */
 @media (max-width: 768px) {
     .hero-section {
-        /* This line is the key: change 'column' to 'row' */
-        flex-direction: row; 
-        flex-wrap: nowrap; /* Prevents them from jumping to the next line */
-        padding: 0.5rem;   /* Reduce padding so it fits on small screens */
+        display: flex;
+        flex-direction: row; /* Keeps them side-by-side */
+        align-items: center; /* Centers them vertically */
+        padding: 0.5rem;
+        gap: 10px; /* Adds a small space between image and text */
     }
 
-    .hero-image, .hero-content {
-        flex: 1;
-        min-width: 0; /* Allows boxes to shrink smaller than 280px to fit mobile */
+    .hero-image {
+        flex: 0 0 40%; /* Forces the image to only take 40% of the width */
+        max-width: 40%;
+        height: 180px; /* Limits the height so it doesn't get huge */
+        border-radius: var(--border-radius-sm);
     }
 
     .hero-content {
-        padding: 1rem; /* Smaller padding so text isn't cramped */
+        flex: 0 0 60%; /* Gives the text 60% of the width */
+        padding: 0.8rem;
+    }
+
+    .hero-main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* ensures the whole sneaker poster is visible */
+        background-color: var(--fb-blue-dark);
     }
 
     .hero-content h2 {
-        font-size: 1.2rem; /* Shrink the 'Address' title so it fits */
+        font-size: 1.1rem; /* Shrinks 'Address' title for mobile */
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-content p, .info-title {
+        font-size: 0.85rem; /* Shrinks text slightly to fit side-by-side */
     }
 }
 
