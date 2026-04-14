@@ -333,15 +333,16 @@ a:hover {
 }
 
 .hero-image {
-    flex: 0 0 10%;      /* Image takes only 10% of the width (50% smaller than before) */
-    max-width: 10%;
-    height: auto;
+   flex: 0 0 20%;      /* Lock width to 20% */
+    max-width: 20%;
+    height: auto;       /* No fixed height = no stretching */
+    overflow: hidden;
 }
 
 .hero-main-img {
     width: 100%;
     height: auto;
-    object-fit: contain; /* Prevents stretching and zooming */
+    object-fit: contain; /* Shows the entire poster, no cropping */
     display: block;
 }
 
@@ -355,26 +356,6 @@ a:hover {
         padding: 10px;
         gap: 10px;
     }
-
-    .hero-image {
-        flex: 0 0 15% !important; /* Slightly larger than desktop but still very small */
-        max-width: 15% !important;
-    }
-
-    .hero-content {
-        flex: 0 0 85% !important;
-    }
-
-    .hero-content h2 {
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    .hero-content p, .info-block {
-        font-size: 0.75rem;
-        margin: 0.3rem 0; /* Tightens the spacing further */
-    }
-}
 
 
 .info-block {
