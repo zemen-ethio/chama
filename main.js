@@ -6,7 +6,7 @@ async function startCheckout(orderAmount, customerEmail, customerName) {
     const payBtn = document.getElementById('unified-pay-btn');
     
     try {
-        console.log("Initializing secure payment...");
+        console.log("Initializing secure payment via Chapa...");
         const transactionRef = "rikash-" + Date.now();
 
         const response = await fetch("/api/pay", {
@@ -23,20 +23,19 @@ async function startCheckout(orderAmount, customerEmail, customerName) {
         const result = await response.json();
 
         if (result.status === "success" && result.data.checkout_url) {
-            // Success: Redirect to Chapa (Telebirr/CBE Birr/Bank)
+            // Redirect to Chapa secure portal
             window.location.href = result.data.checkout_url;
         } else {
-            throw new Error(result.message || "Gateway Error");
+            throw new Error(result.message || "Gateway Initialization Failed");
         }
     } catch (err) {
         console.error("Payment Error:", err);
-        alert("Payment initialization failed. Please try again.");
+        alert("Payment initialization failed: " + err.message);
         
         // Reset the button so the user can try again
         if (payBtn) {
             payBtn.disabled = false;
             payBtn.innerText = "Try Payment Again";
-            payBtn.style.opacity = "1";
         }
     }
 }
