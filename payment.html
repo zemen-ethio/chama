@@ -41,7 +41,48 @@
             .nav-menu.active { display: flex; }
             .nav-menu li a { padding: 0.8rem 1rem; display: block; }
             .split-section { flex-direction: column; }
-            .split-content { padding: 1.5rem; }
+			
+            <div class="split-content">
+    <h2>Select Payment Type:</h2>
+    
+    <div class="dropdown-container">
+        <label for="global-gateways">🌐 Global Payment Gateways</label>
+        <select id="global-gateways" class="payment-select">
+            <option value="" disabled selected>Select an International Gateway</option>
+            <option value="stripe">Stripe</option>
+            <option value="paypal">PayPal</option>
+            <option value="checkout">Checkout.com</option>
+            <option value="adyen">Adyen</option>
+            <option value="authorize">Authorize.net</option>
+        </select>
+    </div>
+
+    <div class="dropdown-container" style="margin-top: 1.5rem;">
+        <label for="local-payments">🇪🇹 Local Ethiopian Payments</label>
+        <select id="local-payments" class="payment-select">
+            <option value="" disabled selected>Select a Bank or Local Gateway</option>
+            <optgroup label="Mobile Wallets & Gateways">
+                <option value="telebirr">Telebirr</option>
+                <option value="chapa">Chapa</option>
+                <option value="arifpay">ArifPay</option>
+                <option value="amole">Amole (Dashen Bank)</option>
+                <option value="santimpay">SantimPay</option>
+            </optgroup>
+            <optgroup label="Direct Bank Transfer">
+                <option value="cbe">Commercial Bank of Ethiopia (CBE)</option>
+                <option value="awash">Awash Bank</option>
+                <option value="dashen">Dashen Bank</option>
+                <option value="abyssinia">Bank of Abyssinia</option>
+                <option value="hibret">Hibret Bank</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <p style="font-size: 0.9rem; margin-top: 1.5rem; opacity: 0.8;">
+        <em>Transactions are processed securely according to international and local standards.</em>
+    </p>
+</div>
+			
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.5rem; }
             .brand-name { font-size: 1.2rem; }
