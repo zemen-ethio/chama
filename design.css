@@ -319,71 +319,64 @@ a:hover {
 
 /* ---------- Homepage Specific Styles ---------- */
 /* Update this specific part in your design.css */
-@media (max-width: 768px) {
-    .hero-section {
-        display: flex;
-        flex-direction: row; /* Keeps them side-by-side */
-        align-items: center; 
-        padding: 0.5rem;
-        gap: 15px; /* Slightly more gap for better breathing room */
-    }
 
-    /* Update the main desktop section */
-/* This applies to BOTH Desktop and Mobile */
 .hero-section {
     display: flex;
-    flex-direction: row; /* Always side-by-side */
-    align-items: center; /* Centers the small image vertically next to text */
+    flex-direction: row; /* Side-by-side */
+    align-items: center; /* Vertically centered */
     background-color: var(--fb-blue-dark);
     border-radius: var(--border-radius-md);
-    padding: 20px;
+    padding: 1.5rem;
     gap: 20px;
-    max-width: 1200px;
     margin: 2rem auto;
+    max-width: 1200px;
 }
 
 .hero-image {
-    flex: 0 0 20%; /* Hard-locked to 20% width */
-    max-width: 20%;
-    /* REMOVED fixed height to stop the zoom/stretch */
+    flex: 0 0 10%;      /* Image takes only 10% of the width (50% smaller than before) */
+    max-width: 10%;
+    height: auto;
 }
 
 .hero-main-img {
     width: 100%;
-    height: auto; /* Lets the image keep its natural shape */
-    object-fit: contain; /* Shows the WHOLE image, no zooming */
+    height: auto;
+    object-fit: contain; /* Prevents stretching and zooming */
     display: block;
 }
 
 .hero-content {
-    flex: 0 0 80%; /* Address takes the rest of the space */
+    flex: 0 0 90%;      /* Text takes up the rest of the 90% */
     padding: 10px;
 }
-
 @media (max-width: 768px) {
     .hero-section {
-        flex-direction: row !important; /* Forces side-by-side on phones */
+        flex-direction: row !important; /* Force side-by-side on mobile */
         padding: 10px;
         gap: 10px;
     }
 
     .hero-image {
-        flex: 0 0 25% !important; /* Slightly bigger on mobile so it's readable */
-        max-width: 25% !important;
+        flex: 0 0 15% !important; /* Slightly larger than desktop but still very small */
+        max-width: 15% !important;
     }
 
     .hero-content {
-        flex: 0 0 75% !important;
+        flex: 0 0 85% !important;
     }
 
     .hero-content h2 {
         font-size: 1rem;
+        margin-bottom: 4px;
     }
 
-    .hero-content p {
+    .hero-content p, .info-block {
         font-size: 0.75rem;
+        margin: 0.3rem 0; /* Tightens the spacing further */
     }
 }
+
+
 .info-block {
     margin: 0.5rem 0; /* Changed from 1.2rem to 0.5rem */
 }
