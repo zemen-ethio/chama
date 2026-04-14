@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Discover exceptional products from Rikash Gebeya">
+    <meta name="author" content="Rikash Gebeya">
+    <title>Rikash Gebeya | Products</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --fb-blue: #1877f2; --fb-blue-dark: #1464c7; --fb-blue-darker: #0e5fd1; --pure-white: #ffffff; }
+        body { font-family: 'Lato', 'Segoe UI', Arial, sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
+        h1, h2, h3, h4, .nav-menu a { font-family: 'Merriweather', 'Times New Roman', serif; color: var(--pure-white); }
+        h1 { font-size: 2.5rem; text-align: center; }
+        h2 { font-size: 2rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .logo { width: 60px; height: 60px; filter: brightness(0) invert(1); }
+        .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; color: var(--pure-white); }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; flex-wrap: wrap; }
+        .nav-menu li a { display: inline-block; padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); font-weight: 500; opacity: 0.9; }
+        .nav-menu li a:hover, .nav-menu li.active a { opacity: 1; }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--pure-white); }
+        .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .hero-section { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 3rem; }
+        .btn { display: inline-block; background-color: var(--pure-white); color: var(--fb-blue); padding: 0.8rem 1.8rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: transform 0.2s; }
+        .btn:hover { transform: translateY(-2px); }
+        .features-grid { display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; justify-content: center; }
+        .feature-card { flex: 1; min-width: 250px; text-align: center; padding: 1rem; background: var(--fb-blue-dark); border-radius: 12px; }
+        .feature-card img { width: 100%; border-radius: 8px; margin-bottom: 1rem; aspect-ratio: 1.4/1; object-fit: cover; opacity: 0.9; }
+        .two-columns { display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; align-items: center; }
+        .two-columns.reverse { flex-direction: row-reverse; }
+        .col { flex: 1; min-width: 280px; }
+        .col img { width: 100%; border-radius: 12px; opacity: 0.9; }
+        .info-banner { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin: 2rem 0; }
+        .footer { background-color: var(--fb-blue-dark); border-top: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; padding: 2rem; text-align: center; font-size: 0.9rem; }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 1rem; }
+        @media (max-width: 768px) {
+            .header-container { padding: 0.8rem 1rem; }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; width: 100%; flex-direction: column; background: var(--fb-blue-dark); padding: 1rem 0; }
+            .nav-menu.active { display: flex; }
+            .nav-menu li a { padding: 0.8rem 1rem; display: block; }
+            .two-columns, .two-columns.reverse { flex-direction: column; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .brand-name { font-size: 1.2rem; }
+            .logo { width: 45px; height: 45px; }
+            .page-content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+   
+<header class="header">
+    <div class="header-container">
+        <div class="brand">
+           <img class="logo" src="img-logo.png" alt="Rikash Gebeya Logo" style="width: 50px; height: auto;">
+            <span class="brand-name">Rikash Gebeya</span>
+        </div>
+        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="career.html">Career</a></li>
+        </ul>
+    </div>
+</header>
+<main>
+    <div class="page-content">
+        <div class="hero-section"><h1>Discover our exceptional products</h1><p>Get ready to experience innovation and quality. Our upcoming product line is designed with you in mind.</p><div class="mt-2"><a href="shop.html" class="btn">Explore our shop</a></div></div>
+        <div class="text-center"><h2>What makes them unique?</h2><p>Our products are crafted to stand out. We focus on innovation, quality, and user experience.</p></div>
+        <div class="features-grid">
+            <div class="feature-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%231464c7'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3EInnovation%3C/text%3E%3C/svg%3E"><h3>Innovative features</h3><p>Coming soon! Cutting-edge design and technology.</p></div>
+            <div class="feature-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%231464c7'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3EQuality%3C/text%3E%3C/svg%3E"><h3>Premium quality</h3><p>Coming soon! The best materials and craftsmanship.</p></div>
+            <div class="feature-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%231464c7'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3EDesign%3C/text%3E%3C/svg%3E"><h3>User-focused design</h3><p>Coming soon! Designed to make your life easier.</p></div>
+        </div>
+        <div class="text-center"><a href="#" class="btn">Get product updates</a></div>
+        <div class="info-banner"><h2>Who are our products for?</h2><p>Coming soon! Designed for individuals who appreciate quality and innovation.</p></div>
+        <div class="two-columns"><div class="col"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3E%3Crect width='500' height='400' fill='%231464c7'/%3E%3Ctext x='250' y='210' fill='white' text-anchor='middle'%3ESolutions%3C/text%3E%3C/svg%3E"></div><div class="col"><h2>Solving your everyday challenges</h2><p>Coming soon! Our products address common pain points, making your routines smoother.</p></div></div>
+        <div class="two-columns reverse"><div class="col"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3E%3Crect width='500' height='400' fill='%231464c7'/%3E%3Ctext x='250' y='210' fill='white' text-anchor='middle'%3EImpressions%3C/text%3E%3C/svg%3E"></div><div class="col"><h2>Creating positive impressions</h2><p>Coming soon! Every detail is meticulously planned to leave a lasting positive impression.</p><div class="mt-2"><a href="about.html" class="btn">Learn more about us</a></div></div></div>
+    </div>
+</main>
+<footer class="footer"><div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div></footer>
+<script>const toggleBtn=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');if(toggleBtn&&navMenu){toggleBtn.addEventListener('click',function(){navMenu.classList.toggle('active');});}</script>
+<script>
+(function() {
+    const body = document.body;
+    const originalHTML = body.innerHTML;
+    
+    // Clear and rebuild
+    body.innerHTML = '';
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;overflow-x:hidden;position:relative;';
+    
+    const container = document.createElement('div');
+    container.style.cssText = 'display:flex;width:fit-content;animation:scrollRL 50s linear infinite;';
+    
+    function makeCopy() {
+        const copy = document.createElement('div');
+        copy.style.cssText = 'width:100vw;flex-shrink:0;overflow-y:auto;max-height:100vh;';
+        copy.innerHTML = originalHTML;
+        return copy;
+    }
+    
+    container.appendChild(makeCopy());
+    container.appendChild(makeCopy());
+    wrapper.appendChild(container);
+    body.appendChild(wrapper);
+    
+    // Add keyframes
+    const style = document.createElement('style');
+    style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
+    document.head.appendChild(style);
+    
+    // Pause on hover
+    wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
+    wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
+})();
+</script>
+</body>
+</html>
