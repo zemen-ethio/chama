@@ -323,37 +323,38 @@ a:hover {
     .hero-section {
         display: flex;
         flex-direction: row; /* Keeps them side-by-side */
-        align-items: center; /* Centers them vertically */
+        align-items: center; 
         padding: 0.5rem;
-        gap: 10px; /* Adds a small space between image and text */
+        gap: 15px; /* Slightly more gap for better breathing room */
     }
 
     .hero-image {
-        flex: 0 0 40%; /* Forces the image to only take 40% of the width */
-        max-width: 40%;
-        height: 180px; /* Limits the height so it doesn't get huge */
+        flex: 0 0 20%;      /* Image is now 20% of the width (80% reduction from full) */
+        max-width: 20%;
+        height: auto;       /* Let the height adjust naturally to the small width */
         border-radius: var(--border-radius-sm);
     }
 
     .hero-content {
-        flex: 0 0 60%; /* Gives the text 60% of the width */
-        padding: 0.8rem;
+        flex: 0 0 80%;      /* Address text takes the remaining 80% */
+        padding: 0.5rem;
     }
 
     .hero-main-img {
         width: 100%;
-        height: 100%;
-        object-fit: contain; /* ensures the whole sneaker poster is visible */
-        background-color: var(--fb-blue-dark);
+        height: auto;       /* Proportional height */
+        object-fit: contain;
+        background-color: transparent; /* Clean look for the small icon/image */
     }
 
     .hero-content h2 {
-        font-size: 1.1rem; /* Shrinks 'Address' title for mobile */
-        margin-bottom: 0.5rem;
+        font-size: 1rem;    /* Smaller title for better mobile fit */
+        margin-bottom: 0.3rem;
     }
 
     .hero-content p, .info-title {
-        font-size: 0.85rem; /* Shrinks text slightly to fit side-by-side */
+        font-size: 0.75rem; /* Slightly smaller text so it doesn't wrap too much */
+        line-height: 1.2;
     }
 }
 
