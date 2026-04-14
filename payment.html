@@ -18,7 +18,6 @@
         }
         body { font-family: 'Lato', sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; }
 
-        /* Ticker Styling */
         .ticker-wrapper { 
             background-color: var(--fb-blue-darker); 
             overflow: hidden; 
@@ -32,7 +31,6 @@
         .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header & Nav */
         .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid var(--white-transparent); position: sticky; top: 0; z-index: 1000; }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
@@ -43,7 +41,6 @@
         .nav-menu li.active a { background-color: var(--white-transparent); opacity: 1; }
         .mobile-toggle { display: none; font-size: 1.8rem; background: none; border: none; color: white; cursor: pointer; }
 
-        /* Page Layout */
         .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         .hero-section { background-color: var(--fb-blue-dark); text-align: center; padding: 3rem 2rem; border-radius: 12px; margin-bottom: 3rem; }
         .split-section { display: flex; flex-wrap: wrap; gap: 2rem; background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; }
@@ -51,7 +48,6 @@
         .split-image img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
         .split-content { flex: 1; padding: 2.5rem; }
 
-        /* Dropdown Styling */
         .dropdown-container { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
         .dropdown-container label { font-weight: bold; font-size: 1rem; color: var(--pure-white); }
         .payment-select { 
@@ -61,6 +57,9 @@
             background-repeat: no-repeat; background-position: right 10px center; background-size: 20px;
         }
         .payment-select optgroup { background-color: var(--fb-blue-dark); color: #ffd700; font-weight: bold; }
+
+        #payment-btn-container { display: none; margin-top: 2rem; text-align: center; }
+        #unified-pay-btn { background-color: #ffd700; color: #0e5fd1; padding: 15px 30px; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; width: 100%; }
 
         .footer { background-color: var(--fb-blue-dark); padding: 2rem; text-align: center; margin-top: 3rem; border-top: 1px solid var(--white-transparent); }
 
@@ -77,63 +76,111 @@
 <div class="ticker-wrapper">
     <div class="ticker-content">
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
-        <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
-        <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img class="logo" src="img-logo.png" alt="Rikash Gebeya Logo">
+            <img class="logo" src="img-logo.png" alt="Logo">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
         <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
         <ul class="nav-menu" id="navMenu">
             <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
             <li class="active"><a href="payment.html">Payment</a></li>
-            <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
 
-<main>
-    <div class="page-content">
-        <div class="hero-section">
-            <h1>Secure and flexible payments</h1>
-            <p>Choose from our wide range of international and local Ethiopian payment options.</p>
+<main class="page-content">
+    <div class="hero-section">
+        <h1>Secure Payment Options</h1>
+    </div>
+
+    <div class="split-section">
+        <div class="split-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' fill='white' text-anchor='middle'%3ECheckout%3C/text%3E%3C/svg%3E" alt="Checkout">
         </div>
-
-        <div class="split-section">
-            <div class="split-image">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%230e5fd1'/%3E%3Ctext x='300' y='260' fill='white' text-anchor='middle'%3EPayment Gateway%3C/text%3E%3C/svg%3E" alt="Payment Methods">
+        
+        <div class="split-content">
+            <div class="dropdown-container">
+                <label for="global-gateways">🌐 Global Gateways</label>
+                <select id="global-gateways" class="payment-select payment-trigger">
+                    <option value="" disabled selected>Select Gateway</option>
+                    <option value="stripe">Stripe</option>
+                    <option value="paypal">PayPal</option>
+                </select>
             </div>
-            
-            <div class="split-content">
-                <h2>Choose Payment Method:</h2>
-                
-                <div class="dropdown-container">
-                    <label for="global-gateways">🌐 Global Payment Gateways</label>
-                    <select id="global-gateways" class="payment-select payment-trigger">
-                        <option value="" disabled selected>Select International Gateway</option>
-                        <option value="stripe">Stripe</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="checkout">Checkout.com</option>
-                        <option value="adyen">Adyen</option>
-                        <option value="authorize">Authorize.net</option>
-                    </select>
-                </div>
 
-                <div class="dropdown-container" style="margin-top: 1.5rem;">
-                    <label for="local-payments">🇪🇹 Local Ethiopian Payments</label>
-                    <select id="local-payments" class="payment-select payment-trigger">
-                        <option value="" disabled selected>Select Local Bank or Gateway</option>
-                        <optgroup label="Major Payment Gateways">
-                            <option value="chapa">Chapa (Telebirr, CBE Birr, Banks)</option>
-                            <option value="telebirr">
+            <div class="dropdown-container" style="margin-top: 1.5rem;">
+                <label for="local-payments">🇪🇹 Local Payments</label>
+                <select id="local-payments" class="payment-select payment-trigger">
+                    <option value="" disabled selected>Select Local Bank/Gateway</option>
+                    <optgroup label="Gateways">
+                        <option value="chapa">Chapa (Telebirr, CBE Birr, Banks)</option>
+                        <option value="telebirr">Telebirr</option>
+                        <option value="mpesa">M-PESA</option>
+                    </optgroup>
+                    <optgroup label="Banks">
+                        <option value="cbe">CBE</option>
+                        <option value="awash">Awash Bank</option>
+                        <option value="dashen">Dashen Bank</option>
+                        <option value="abyssinia">Bank of Abyssinia</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div id="payment-btn-container">
+                <button id="unified-pay-btn">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const gSelect = document.getElementById('global-gateways');
+    const lSelect = document.getElementById('local-payments');
+    const btnCont = document.getElementById('payment-btn-container');
+    const payBtn = document.getElementById('unified-pay-btn');
+    let selectedMethod = "";
+
+    function handleSelection(target) {
+        selectedMethod = target.value;
+        if (selectedMethod) {
+            if (target.id === 'global-gateways') lSelect.selectedIndex = 0;
+            else gSelect.selectedIndex = 0;
+            btnCont.style.display = 'block';
+            payBtn.innerText = `Pay Now with ${selectedMethod.toUpperCase()}`;
+        }
+    }
+
+    gSelect.addEventListener('change', (e) => handleSelection(e.target));
+    lSelect.addEventListener('change', (e) => handleSelection(e.target));
+
+    [gSelect, lSelect].forEach(s => {
+        s.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSelection(e.target); });
+    });
+
+    payBtn.addEventListener('click', async () => {
+        payBtn.disabled = true;
+        payBtn.innerText = "Processing...";
+        if (selectedMethod === 'chapa') {
+            if (typeof startCheckout === "function") {
+                await startCheckout("150.00", "customer@rikashgebeya.com", "Valued Guest");
+            } else {
+                alert("Loading system...");
+            }
+        } else {
+            window.location.href = `receipt.html?method=${selectedMethod}`;
+        }
+    });
+
+    document.getElementById('mobileMenuToggle').addEventListener('click', () => {
+        document.getElementById('navMenu').classList.toggle('active');
+    });
+</script>
+<script src="main.js"></script>
+</body>
+</html>
