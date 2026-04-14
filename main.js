@@ -1,17 +1,17 @@
 /**
  * Rikash Gebeya - Payment Logic Handler with Supabase Integration
- * Handles redirection and database logging for Global and Local gateways.
+ * Path: D:\WEBSITE PROJECT\RikashGebeya\project\Deepseek\main.js
  */
 
-// 1. Supabase Configuration (Get these from your Supabase Project Settings > API)
-const SUPABASE_URL = https://yiyeuyxbigiitwfdlzhl.supabase.co;
-const SUPABASE_ANON_KEY = 'sb_publishable_JiGXBgIrk1O96LoFUtVMsg_GyKWsEW0';
+// 1. Supabase Credentials
+const SUPABASE_URL = 'https://yiyeuyxbigiitwfdlzhl.supabase.co';
+const SUPABASE_ANON_KEY ='sb_publishable_JiGXBgIrk1O96LoFUtVMsg_GyKWsEW0';
 
 document.addEventListener('DOMContentLoaded', () => {
     const globalSelect = document.getElementById('global-gateways');
     const localSelect = document.getElementById('local-payments');
 
-    // Listen for Global Payment Selection
+    // Listener for International Gateways
     if (globalSelect) {
         globalSelect.addEventListener('change', (e) => {
             const method = e.target.value;
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Listen for Local Payment Selection
+    // Listener for Ethiopian Banks/Gateways
     if (localSelect) {
         localSelect.addEventListener('change', (e) => {
             const method = e.target.value;
@@ -29,16 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Main function to route payment requests and log to database
- * @param {string} method - The value from the dropdown
- * @param {string} category - 'global' or 'local'
+ * Log order attempt to Supabase and handle redirection
  */
-async function processPayment(method, category) {
-    console.log(`Initializing ${method} payment via ${category} gateway...`);
+async function processPayment(method, type) {
+    console.log(`Processing ${method} (${type})...`);
 
-    // First, log the transaction attempt to Supabase
+    // Log the transaction to your new Supabase 'orders' table
     try {
-        await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -48,58 +46,37 @@ async function processPayment(method, category) {
             },
             body: JSON.stringify({
                 payment_method: method,
-                category: category,
+                category: type,
                 status: 'pending',
                 created_at: new Date().toISOString()
             })
         });
+
+        if (response.ok) {
+            console.log('✅ Order logged to Supabase dashboard.');
+        } else {
+            console.error('❌ Failed to log order.');
+        }
     } catch (error) {
-        console.error('Database logging failed, continuing with redirection:', error);
+        console.error('⚠️ Supabase Connection Error:', error);
     }
 
-    // Second, handle the specific redirection logic
-    switch (method) {
-        // --- LOCAL GATEWAYS ---
-        case 'telebirr':
-            initTelebirrPayment();
-            break;
-        case 'chapa':
-            initChapaPayment();
-            break;
-        
-        // --- GLOBAL GATEWAYS ---
-        case 'stripe':
-            window.location.href = "https://checkout.stripe.com/pay/your_session_id"; 
-            break;
-        case 'paypal':
-            window.location.href = "https://www.paypal.com/checkoutnow?token=your_token";
-            break;
+    // Redirect user to the appropriate gateway or receipt page
+    handleRedirection(method);
+}
 
-        // --- DIRECT BANK INSTRUCTIONS ---
-        case 'cbe':
-        case 'awash':
-        case 'dashen':
-            window.location.href = `receipt.html?method=${method}&type=bank_transfer`;
-            break;
+function handleRedirection(method) {
+    const bankList = ['cbe', 'awash', 'dashen', 'abyssinia', 'hibret'];
 
-        default:
-            window.location.href = `receipt.html?method=${method}`;
+    if (bankList.includes(method)) {
+        // Direct to receipt with bank transfer instructions
+        window.location.href = `receipt.html?method=${method}&type=bank_transfer`;
+    } else if (method === 'telebirr' || method === 'chapa') {
+        // Mock redirection for local gateways
+        alert(`Redirecting to ${method.toUpperCase()} secure portal...`);
+        window.location.href = `receipt.html?method=${method}&status=pending`;
+    } else {
+        // Default redirection for international gateways
+        window.location.href = `receipt.html?method=${method}`;
     }
-}
-
-/**
- * CHAPA API FUNCTION
- */
-async function initChapaPayment() {
-    console.log("Initializing Chapa payment flow...");
-    // For now, redirect to receipt while you set up your server-side keys
-    window.location.href = "receipt.html?method=chapa&status=pending";
-}
-
-/**
- * TELEBIRR API FUNCTION
- */
-function initTelebirrPayment() {
-    alert("Redirecting to Telebirr Secure Mobile Portal...");
-    window.location.href = "receipt.html?method=telebirr&status=pending";
 }
