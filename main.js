@@ -1,13 +1,17 @@
 /**
- * Rikash Gebeya - Payment Logic Handler
- * Handles redirection and API initialization for Global and Local gateways.
+ * Rikash Gebeya - Payment Logic Handler with Supabase Integration
+ * Handles redirection and database logging for Global and Local gateways.
  */
+
+// 1. Supabase Configuration (Get these from your Supabase Project Settings > API)
+const SUPABASE_URL = https://yiyeuyxbigiitwfdlzhl.supabase.co;
+const SUPABASE_ANON_KEY = 'sb_publishable_JiGXBgIrk1O96LoFUtVMsg_GyKWsEW0';
 
 document.addEventListener('DOMContentLoaded', () => {
     const globalSelect = document.getElementById('global-gateways');
     const localSelect = document.getElementById('local-payments');
 
-    // 1. Listen for Global Payment Selection
+    // Listen for Global Payment Selection
     if (globalSelect) {
         globalSelect.addEventListener('change', (e) => {
             const method = e.target.value;
@@ -15,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Listen for Local Payment Selection
+    // Listen for Local Payment Selection
     if (localSelect) {
         localSelect.addEventListener('change', (e) => {
             const method = e.target.value;
@@ -25,15 +29,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Main function to route payment requests
- * @param {string} method - The value from the dropdown (e.g., 'telebirr', 'stripe')
- * @param {string} type - 'global' or 'local'
+ * Main function to route payment requests and log to database
+ * @param {string} method - The value from the dropdown
+ * @param {string} category - 'global' or 'local'
  */
-function processPayment(method, type) {
-    console.log(`Initializing ${method} payment via ${type} gateway...`);
+async function processPayment(method, category) {
+    console.log(`Initializing ${method} payment via ${category} gateway...`);
 
-    // Show a loading state or spinner here if desired
-    
+    // First, log the transaction attempt to Supabase
+    try {
+        await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+                payment_method: method,
+                category: category,
+                status: 'pending',
+                created_at: new Date().toISOString()
+            })
+        });
+    } catch (error) {
+        console.error('Database logging failed, continuing with redirection:', error);
+    }
+
+    // Second, handle the specific redirection logic
     switch (method) {
         // --- LOCAL GATEWAYS ---
         case 'telebirr':
@@ -55,36 +79,21 @@ function processPayment(method, type) {
         case 'cbe':
         case 'awash':
         case 'dashen':
-            // Redirect to a page showing your specific bank account details for manual transfer
             window.location.href = `receipt.html?method=${method}&type=bank_transfer`;
             break;
 
         default:
-            // Generic redirection for others
             window.location.href = `receipt.html?method=${method}`;
     }
 }
 
 /**
  * CHAPA API FUNCTION
- * Chapa requires a POST request to their initialize endpoint.
  */
 async function initChapaPayment() {
-    // Note: In a real production environment, this call MUST happen 
-    // through your server to hide your Secret Key.
-    const paymentData = {
-        amount: "100", // This should be dynamic based on the cart
-        currency: "ETB",
-        email: "customer@example.com",
-        first_name: "User",
-        tx_ref: "rikash-" + Date.now(), // Unique reference
-        callback_url: "https://rikashgebeya.com/verify-payment",
-        return_url: "https://rikashgebeya.com/payment-success"
-    };
-
-    console.log("Calling Chapa API...", paymentData);
-    // Logic: Redirect user to Chapa's hosted checkout page
-    // window.location.href = "https://api.chapa.co/v1/transaction/initialize";
+    console.log("Initializing Chapa payment flow...");
+    // For now, redirect to receipt while you set up your server-side keys
+    window.location.href = "receipt.html?method=chapa&status=pending";
 }
 
 /**
@@ -92,6 +101,5 @@ async function initChapaPayment() {
  */
 function initTelebirrPayment() {
     alert("Redirecting to Telebirr Secure Mobile Portal...");
-    // Telebirr integration typically uses a H5 redirect or a QR code generation API
     window.location.href = "receipt.html?method=telebirr&status=pending";
 }
