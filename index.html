@@ -10,15 +10,9 @@
     
     <style>
         /* ============================================
-           Rikash Gebeya - Facebook Blue Theme
-           MOBILE-FRIENDLY with Animated Banner
+           Rikash Gebeya - Original Theme & Layout
            ============================================ */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --fb-blue: #1877f2;
@@ -38,11 +32,7 @@
             min-height: 100vh;
         }
 
-        /* ============================================
-           MOBILE-FRIENDLY MARQUEE / TICKER BANNER
-           Scrolls right-to-left, doesn't affect main content
-           ============================================ */
-        
+        /* Ticker Banner */
         .ticker-wrapper {
             background-color: var(--fb-blue-darker);
             overflow: hidden;
@@ -53,55 +43,12 @@
             z-index: 100;
         }
 
-        .ticker-content {
-            display: inline-block;
-            animation: scrollTicker 25s linear infinite;
-            white-space: nowrap;
-        }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; font-weight: 500; }
+        .ticker-item::before { content: "✦"; margin-right: 12px; color: var(--pure-white); }
 
-        .ticker-item {
-            display: inline-block;
-            margin: 0 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .ticker-item::before {
-            content: "✦";
-            margin-right: 12px;
-            color: var(--pure-white);
-        }
-
-        /* For mobile - slower animation and pause on touch */
-        @media (max-width: 768px) {
-            .ticker-content {
-                animation: scrollTicker 40s linear infinite;
-            }
-            .ticker-item {
-                font-size: 0.85rem;
-                margin: 0 20px;
-            }
-        }
-
-        /* Pause animation on hover (desktop) or touch (mobile) */
-        .ticker-wrapper:hover .ticker-content {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollTicker {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* ============================================
-           MAIN PAGE CONTENT (Static, fully interactive)
-           ============================================ */
-        
         /* Header */
         .header {
             background-color: var(--fb-blue-dark);
@@ -116,392 +63,206 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
+        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; color: var(--pure-white); }
 
-        .logo {
-            width: 55px;
-            height: 55px;
-            filter: brightness(0) invert(1);
-        }
-
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'Merriweather', serif;
-            color: var(--pure-white);
-        }
-
-        /* Navigation - Mobile Friendly */
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 0.25rem;
-            flex-wrap: wrap;
-        }
-
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
         .nav-menu li a {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            color: var(--pure-white);
-            font-weight: 500;
-            opacity: 0.9;
-            border-radius: 8px;
-            transition: all 0.2s;
+            padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); border-radius: 8px; transition: 0.2s;
         }
+        .nav-menu li a:hover, .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        .nav-menu li a:hover, .nav-menu li.active a {
-            opacity: 1;
-            background-color: var(--white-transparent);
-        }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; color: var(--pure-white); cursor: pointer; }
 
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--pure-white);
-        }
-
-        /* Main Content */
-        .page-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Hero Section */
+        /* Main Hero Section */
         .hero-section {
-            max-width: 1200px;
-            margin: 2rem auto;
-            display: flex;
-            flex-wrap: wrap;
-            background-color: var(--fb-blue-dark);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 1200px; margin: 2rem auto; display: flex; flex-wrap: wrap;
+            background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
-        .hero-image {
-            flex: 1;
-            min-width: 280px;
-        }
+        .hero-image { flex: 1; min-width: 280px; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .hero-content {
-            flex: 1;
-            padding: 2.5rem;
-            background-color: var(--fb-blue);
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--pure-white);
-        }
-
-        .info-block {
-            margin: 1.2rem 0;
-        }
-
-        .info-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--white-transparent);
-            margin: 1rem 0;
-        }
-
-        .email-link {
-            color: var(--pure-white);
-            text-decoration: none;
-            opacity: 0.9;
-        }
-
-        .email-link:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        /* Social Links */
-        .social-links {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
+        .hero-content { flex: 1; padding: 2.5rem; background-color: var(--fb-blue); }
+        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
+        .info-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
         .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background-color: var(--pure-white);
-            color: var(--fb-blue);
-            text-decoration: none;
-            transition: transform 0.2s;
-            font-size: 1.2rem;
+            width: 42px; height: 42px; border-radius: 50%; background-color: var(--pure-white);
+            color: var(--fb-blue); display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
 
-        .social-link:hover {
-            transform: scale(1.08);
+        /* TEDDY AFRO LIVE CARD */
+        .stats-column { flex: 1.2; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; }
+        .live-card {
+            width: 100%; max-width: 450px;
+            background: linear-gradient(to bottom, #009b3a 0%, #009b3a 33%, #ffff00 33%, #ffff00 66%, #ff0000 66%, #ff0000 100%);
+            border-radius: 25px; padding: 30px 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        /* Footer */
-        .footer {
-            background-color: var(--fb-blue-dark);
-            border-top: 1px solid var(--white-transparent);
-            margin-top: 3rem;
-            padding: 2rem;
-            text-align: center;
+        .card-icon {
+            background: white; width: 60px; height: 60px; margin: 0 auto 20px;
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
         }
 
-        /* ============================================
-           FULL PAGE INFINITE SCROLL (OPTIONAL)
-           Desktop only - uses CSS columns
-           ============================================ */
-        
-        /* This creates a seamless infinite scroll effect on desktop only */
-        @media (min-width: 992px) {
-            body.desktop-scroll .main-content-wrapper {
-                display: flex;
-                animation: desktopScroll 40s linear infinite;
-                width: fit-content;
-            }
-            
-            body.desktop-scroll .page-copy {
-                width: 100vw;
-                flex-shrink: 0;
-            }
-            
-            @keyframes desktopScroll {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-100%); }
-            }
-            
-            body.desktop-scroll:hover .main-content-wrapper {
-                animation-play-state: paused;
-            }
+        .live-card h3 { 
+            font-size: 1.6rem; font-weight: 900; color: #111; 
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5); margin-bottom: 20px; line-height: 1.2;
         }
 
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        
+        .table-container {
+            background: white; border-radius: 15px; max-height: 350px; 
+            overflow-y: auto; margin: 0 5px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .live-tag { 
+            margin-top: 15px; color: #ffffff; font-size: 1.2rem; font-weight: 900; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); animation: pulse 2s infinite; 
+        }
+
+        @keyframes pulse { 0% {opacity: 1;} 50% {opacity: 0.6;} 100% {opacity: 1;} }
+
+        @media (max-width: 992px) { .hero-section { flex-direction: column; } }
         @media (max-width: 768px) {
-            .header-container {
-                padding: 0.8rem 1rem;
-            }
-            
-            .mobile-toggle {
-                display: block;
-            }
-            
-            .nav-menu {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                background: var(--fb-blue-dark);
-                padding: 1rem 0;
-                border-top: 1px solid var(--white-transparent);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .nav-menu li a {
-                padding: 0.8rem 1rem;
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .hero-section {
-                flex-direction: column;
-                margin: 1rem;
-            }
-            
-            .hero-content {
-                padding: 1.5rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .brand-name {
-                font-size: 1.2rem;
-            }
-            
-            .logo {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .page-content {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content {
-                padding: 1rem;
-            }
-            
-            .social-link {
-                width: 36px;
-                height: 36px;
-            }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; width: 100%; flex-direction: column; }
+            .nav-menu.active { display: flex; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============================================
-     ANIMATED TICKER BANNER (Mobile Friendly)
-     Scrolls right-to-left, fully interactive
-     ============================================ -->
 <div class="ticker-wrapper">
     <div class="ticker-content">
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
         <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
-        <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
-        <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
-        <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
-<!-- MAIN PAGE CONTENT (Static - no scrolling issues) -->
 <header class="header">
     <div class="header-container">
         <div class="brand">
-           <img src="img-logo.webp" alt="Rikash Gebeya" 
-  style="width: 100%; max-width: 120px; height: auto; object-fit: contain;"
->
+            <img src="img-logo.webp" alt="Logo" style="max-width: 100px; height: auto;">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
-        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
+        <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
         <ul class="nav-menu" id="navMenu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact us</a></li>
-            <li><a href="payment.html">Payment</a></li>
-            <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
+
 <main class="page-content">
     <div class="hero-section">
-        
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya" class="hero-main-img">
+            <img src="img-home.webp" alt="Rikash Gebeya">
         </div>
 
         <div class="hero-content">
             <h2>Address</h2>
-            <div class="info-block">
-                <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
-            </div>
+            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
             <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Opening hours</div>
-                <p>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm<br>Sunday: Closed</p>
-            </div>
+            <div class="info-title">Opening hours</div>
+            <p>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm</p>
             <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Get in touch</div>
-                <p>0972919293<br>0967919293</p>
-            </div>
-            <div class="info-block">
-                <a href="mailto:contact@rikashgebeya.com" class="email-link">contact@rikashgebeya.com</a>
-            </div>
+            <div class="info-title">Get in touch</div>
+            <p>0972919293<br>0967919293</p>
             <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Connect with us</div>
-                <div class="social-links">
-                    <a href="https://facebook.com/rikashgebeya" target="_blank" class="social-link"><span>📘</span></a>
-                    <a href="https://instagram.com/rikashgebeya" target="_blank" class="social-link"><span>📷</span></a>
-                    <a href="https://youtube.com/rikashgebeya" target="_blank" class="social-link"><span>▶️</span></a>
-                    <a href="https://tiktok.com/@rikashgebeya" target="_blank" class="social-link"><span>🎵</span></a>
-                    <a href="https://t.me/rikashgebeya" target="_blank" class="social-link"><span>📨</span></a>
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">📨</a>
+            </div>
+        </div>
+
+        <div class="stats-column">
+            <div class="live-card">
+                <div class="card-icon">📊</div>
+                <h3>Teddy Afro - Ethiorika</h3>
+                <div id="counter-host" class="table-container">
+                    <p style="padding: 25px; color: #444;">SYNCING LIVE DATA...</p>
                 </div>
+                <div class="live-tag">● LIVE UPDATING</div>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="footer">
-    <div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div>
-</footer>
-
 <script>
-    // Mobile menu toggle
-    const toggleBtn = document.getElementById('mobileMenuToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (toggleBtn && navMenu) {
-        toggleBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackData = [];
+
+    async function initLiveCounter() {
+        const host = document.getElementById('counter-host');
+        try {
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
+            // Split rows carefully, handling quoted titles with commas
+            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
+            
+            trackData = rows.slice(1).map(row => {
+                // Regex to split by comma except inside quotes
+                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                if (cols && cols.length >= 2) {
+                    return { 
+                        name: cols[0].replace(/"/g, ''), 
+                        views: parseInt(cols[1].replace(/,/g, '')) || 0 
+                    };
+                }
+                return null;
+            }).filter(item => item !== null);
+
+            renderTable();
+            startLiveEffect();
+        } catch (e) {
+            host.innerHTML = "<p style='padding:20px; color:red;'>Offline. Check Connection.</p>";
+        }
+    }
+
+    function renderTable() {
+        let html = `<table style="width:100%; border-collapse:collapse; color:#333; text-align:left; font-size:0.85rem;">
+            <thead><tr style="background:#f4f4f4; position:sticky; top:0;"><th style="padding:12px;">Video Title</th><th style="padding:12px;">View Count</th></tr></thead><tbody>`;
         
-        // Close menu when clicking a link (mobile)
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+        trackData.forEach((t, i) => {
+            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const rowStyle = isTotal ? "background:#fff9c4; font-weight:900; border-top:2px solid #333;" : "border-bottom:1px solid #eee;";
+            
+            html += `<tr style="${rowStyle}">
+                <td style="padding:10px;">${t.name}</td>
+                <td id="val-${i}" style="padding:10px; color:#d32f2f; font-weight:900;">${t.views.toLocaleString()}</td>
+            </tr>`;
+        });
+        html += `</tbody></table>`;
+        document.getElementById('counter-host').innerHTML = html;
+    }
+
+    function startLiveEffect() {
+        setInterval(() => {
+            trackData.forEach((t, i) => {
+                // Only animate individual tracks, not the Grand Total
+                if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                    t.views += Math.floor(Math.random() * 5) + 1;
+                    const el = document.getElementById(`val-${i}`);
+                    if (el) el.innerText = t.views.toLocaleString();
+                }
             });
-        });
+        }, 2500);
     }
-    
-    // Touch optimization: pause ticker animation while scrolling
-    let tickerTimeout;
-    const ticker = document.querySelector('.ticker-content');
-    
-    if (ticker) {
-        document.addEventListener('touchstart', () => {
-            ticker.style.animationPlayState = 'paused';
-            clearTimeout(tickerTimeout);
-            tickerTimeout = setTimeout(() => {
-                ticker.style.animationPlayState = 'running';
-            }, 3000);
-        });
-    }
-    
-    console.log('🚀 Rikash Gebeya | Mobile-friendly animated banner active');
+
+    document.getElementById('mobileMenuToggle').addEventListener('click', () => {
+        document.getElementById('navMenu').classList.toggle('active');
+    });
+
+    initLiveCounter();
 </script>
 
 </body>
