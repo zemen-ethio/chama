@@ -10,7 +10,7 @@
     
     <style>
         /* ============================================
-           Rikash Gebeya - Original Theme & Layout
+           Rikash Gebeya - Core Theme & Layout
            ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -19,7 +19,6 @@
             --fb-blue-dark: #1464c7;
             --fb-blue-darker: #0e5fd1;
             --pure-white: #ffffff;
-            --white-soft: #f0f2f5;
             --white-transparent: rgba(255, 255, 255, 0.15);
         }
 
@@ -39,20 +38,17 @@
             white-space: nowrap;
             padding: 12px 0;
             border-bottom: 1px solid var(--white-transparent);
-            position: relative;
-            z-index: 100;
         }
 
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
         .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; font-weight: 500; }
-        .ticker-item::before { content: "✦"; margin-right: 12px; color: var(--pure-white); }
+        .ticker-item::before { content: "✦"; margin-right: 12px; }
 
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* Header */
         .header {
             background-color: var(--fb-blue-dark);
-            border-bottom: 1px solid var(--white-transparent);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -63,24 +59,24 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem 2rem;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
         }
 
-        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; color: var(--pure-white); }
+        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: white; }
+        .brand-name { font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; }
 
         .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
         .nav-menu li a {
-            padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); border-radius: 8px; transition: 0.2s;
+            padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); border-radius: 8px;
         }
-        .nav-menu li a:hover, .nav-menu li.active a { background-color: var(--white-transparent); }
+        .nav-menu li.active a { background-color: var(--white-transparent); }
 
         .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; color: var(--pure-white); cursor: pointer; }
 
-        /* Main Hero Section */
+        /* Hero Content */
         .hero-section {
             max-width: 1200px; margin: 2rem auto; display: flex; flex-wrap: wrap;
-            background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            background-color: var(--fb-blue-dark); border-radius: 12px; overflow: hidden;
         }
 
         .hero-image { flex: 1; min-width: 280px; }
@@ -88,49 +84,31 @@
 
         .hero-content { flex: 1; padding: 2.5rem; background-color: var(--fb-blue); }
         .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
-        .info-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
-        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
-        .social-link {
-            width: 42px; height: 42px; border-radius: 50%; background-color: var(--pure-white);
-            color: var(--fb-blue); display: flex; align-items: center; justify-content: center; text-decoration: none;
-        }
+        .info-title { font-weight: 700; }
 
-        /* TEDDY AFRO LIVE CARD */
-        .stats-column { flex: 1.2; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; }
+        /* ============================================
+           TEDDY AFRO LIVE TRACKER CARD
+           ============================================ */
+        .stats-column { flex: 1.2; padding: 2rem; display: flex; justify-content: center; }
+        
         .live-card {
             width: 100%; max-width: 450px;
             background: linear-gradient(to bottom, #009b3a 0%, #009b3a 33%, #ffff00 33%, #ffff00 66%, #ff0000 66%, #ff0000 100%);
             border-radius: 25px; padding: 30px 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .card-icon {
-            background: white; width: 60px; height: 60px; margin: 0 auto 20px;
-            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
-        }
+        .card-icon { background: white; width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
 
-        .live-card h3 { 
-            font-size: 1.6rem; font-weight: 900; color: #111; 
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.5); margin-bottom: 20px; line-height: 1.2;
-        }
+        .live-card h3 { font-size: 1.8rem; font-weight: 900; color: #111; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); margin-bottom: 20px; }
 
-        .table-container {
-            background: white; border-radius: 15px; max-height: 350px; 
-            overflow-y: auto; margin: 0 5px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-        }
+        .table-container { background: white; border-radius: 15px; max-height: 380px; overflow-y: auto; margin: 0 5px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
 
-        .live-tag { 
-            margin-top: 15px; color: #ffffff; font-size: 1.2rem; font-weight: 900; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); animation: pulse 2s infinite; 
-        }
+        .live-tag { margin-top: 15px; color: #ffffff; font-size: 1.2rem; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); animation: pulse 2s infinite; }
 
         @keyframes pulse { 0% {opacity: 1;} 50% {opacity: 0.6;} 100% {opacity: 1;} }
 
         @media (max-width: 992px) { .hero-section { flex-direction: column; } }
-        @media (max-width: 768px) {
-            .mobile-toggle { display: block; }
-            .nav-menu { display: none; width: 100%; flex-direction: column; }
-            .nav-menu.active { display: flex; }
-        }
+        @media (max-width: 768px) { .mobile-toggle { display: block; } .nav-menu { display: none; width: 100%; flex-direction: column; } .nav-menu.active { display: flex; } }
     </style>
 </head>
 <body>
@@ -146,17 +124,17 @@
 
 <header class="header">
     <div class="header-container">
-        <div class="brand">
+        <a href="#" class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 100px; height: auto;">
             <span class="brand-name">Rikash Gebeya</span>
-        </div>
+        </a>
         <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
         <ul class="nav-menu" id="navMenu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </div>
 </header>
@@ -169,19 +147,13 @@
 
         <div class="hero-content">
             <h2>Address</h2>
-            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
+            <p>Djibouti street, Town Square Mall, A.A Ethiopia</p>
             <div class="divider"></div>
             <div class="info-title">Opening hours</div>
             <p>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm</p>
             <div class="divider"></div>
-            <div class="info-title">Get in touch</div>
-            <p>0972919293<br>0967919293</p>
-            <div class="divider"></div>
-            <div class="social-links">
-                <a href="#" class="social-link">📘</a>
-                <a href="#" class="social-link">📷</a>
-                <a href="#" class="social-link">📨</a>
-            </div>
+            <div class="info-title">Contact</div>
+            <p>0972919293 / 0967919293</p>
         </div>
 
         <div class="stats-column">
@@ -189,7 +161,7 @@
                 <div class="card-icon">📊</div>
                 <h3>Teddy Afro - Ethiorika</h3>
                 <div id="counter-host" class="table-container">
-                    <p style="padding: 25px; color: #444;">SYNCING LIVE DATA...</p>
+                    <p style="padding: 25px; color: #444; font-weight: bold;">CONNECTING TO LIVE FEED...</p>
                 </div>
                 <div class="live-tag">● LIVE UPDATING</div>
             </div>
@@ -206,61 +178,63 @@
         try {
             const res = await fetch(CSV_URL);
             const text = await res.text();
-            // Split rows carefully, handling quoted titles with commas
+            
+            // This part handles both quoted titles and numbers with commas
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
             trackData = rows.slice(1).map(row => {
-                // Regex to split by comma except inside quotes
+                // Split by comma but ignore commas inside quotes
                 const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
-                        name: cols[0].replace(/"/g, ''), 
-                        views: parseInt(cols[1].replace(/,/g, '')) || 0 
+                        name: cols[0].replace(/"/g, '').trim(), 
+                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
             }).filter(item => item !== null);
 
             renderTable();
-            startLiveEffect();
+            startLiveUpdates();
         } catch (e) {
-            host.innerHTML = "<p style='padding:20px; color:red;'>Offline. Check Connection.</p>";
+            host.innerHTML = "<p style='padding:20px; color:red;'>Sync Offline. Please refresh.</p>";
         }
     }
 
     function renderTable() {
-        let html = `<table style="width:100%; border-collapse:collapse; color:#333; text-align:left; font-size:0.85rem;">
-            <thead><tr style="background:#f4f4f4; position:sticky; top:0;"><th style="padding:12px;">Video Title</th><th style="padding:12px;">View Count</th></tr></thead><tbody>`;
+        let html = `<table style="width:100%; border-collapse:collapse; color:#333; text-align:left; font-size:0.9rem;">
+            <thead><tr style="background:#f4f4f4; position:sticky; top:0;"><th style="padding:12px;">Video Title</th><th style="padding:12px;">Total Views</th></tr></thead><tbody>`;
         
         trackData.forEach((t, i) => {
             const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowStyle = isTotal ? "background:#fff9c4; font-weight:900; border-top:2px solid #333;" : "border-bottom:1px solid #eee;";
+            const rowStyle = isTotal ? "background:#fffde7; font-weight:900; border-top:2px solid #111;" : "border-bottom:1px solid #eee;";
             
             html += `<tr style="${rowStyle}">
-                <td style="padding:10px;">${t.name}</td>
-                <td id="val-${i}" style="padding:10px; color:#d32f2f; font-weight:900;">${t.views.toLocaleString()}</td>
+                <td style="padding:12px;">${t.name}</td>
+                <td id="val-${i}" style="padding:12px; color:#d32f2f; font-weight:900; white-space:nowrap;">${t.views.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('counter-host').innerHTML = html;
     }
 
-    function startLiveEffect() {
+    function startLiveUpdates() {
         setInterval(() => {
             trackData.forEach((t, i) => {
-                // Only animate individual tracks, not the Grand Total
+                // We don't animate the Grand Total, just individual tracks
                 if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                    t.views += Math.floor(Math.random() * 5) + 1;
+                    const increase = Math.floor(Math.random() * 8) + 2;
+                    t.views += increase;
+                    
                     const el = document.getElementById(`val-${i}`);
                     if (el) el.innerText = t.views.toLocaleString();
                 }
             });
-        }, 2500);
+        }, 3000);
     }
 
-    document.getElementById('mobileMenuToggle').addEventListener('click', () => {
-        document.getElementById('navMenu').classList.toggle('active');
-    });
+    // Mobile Menu Toggle
+    document.getElementById('mobileMenuToggle').onclick = () => document.getElementById('navMenu').classList.toggle('active');
 
     initLiveCounter();
 </script>
