@@ -14,6 +14,7 @@
             --fb-blue: #1877f2;
             --fb-blue-dark: #1464c7;
             --fb-blue-darker: #0e5fd1;
+            --sapphire-blue: #0f52ba;
             --pure-white: #ffffff;
             --white-transparent: rgba(255, 255, 255, 0.15);
         }
@@ -50,7 +51,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* LARGER IMAGE (65% width) */
+        /* LARGE IMAGE (65% width) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -65,31 +66,26 @@
             min-width: 300px; 
         }
 
-        /* COMPACT ADDRESS (Left side) */
+        /* ADDRESS (Left side) */
         .address-info { flex: 1; font-size: 0.8rem; }
         .address-info h2 { font-size: 1.2rem; margin-bottom: 8px; }
         .divider { height: 1px; background: var(--white-transparent); margin: 8px 0; }
 
-        /* COMPACT TRACKER (Right side) */
-        .tracker-container { flex: 1.2; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px; max-width: 250px; }
-        .table-wrap { background: white; border-radius: 6px; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: #333; }
-        td { padding: 5px 8px; font-weight: 700; border-bottom: 1px solid #eee; }
+        /* SAPPHIRE BLUE TRACKER (Right side) */
+        .tracker-container { flex: 1.2; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; max-width: 250px; }
+        .table-wrap { background: var(--sapphire-blue); border-radius: 6px; overflow: hidden; border: 1px solid var(--white-transparent); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: var(--pure-white); }
+        td { padding: 6px 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-        /* Flag Themes */
-        .row-green { background-color: #009b3a; color: white !important; }
-        .row-yellow { background-color: #ffff00; color: #111 !important; }
-        .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; font-size: 0.7rem; }
+        /* Themed Rows */
+        .tracker-row { background-color: var(--sapphire-blue); color: var(--pure-white); }
+        .row-total { background: #000000 !important; color: #ffffff !important; border-top: 1.5px solid var(--white-transparent); }
         .view-val { text-align: right; font-weight: 900; }
 
         .live-label { text-align: center; margin-top: 5px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        @media (max-width: 1024px) { 
-            .hero-content { flex-direction: column; } 
-            .tracker-container { max-width: 100%; }
-        }
+        @media (max-width: 1024px) { .hero-content { flex-direction: column; } .tracker-container { max-width: 100%; } }
         @media (max-width: 768px) { .hero-section { flex-direction: column; } .hero-image { height: 300px; } }
     </style>
 </head>
@@ -120,7 +116,7 @@
 <main class="page-content">
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya Main">
+            <img src="img-home.webp" alt="Rikash Gebeya">
         </div>
 
         <div class="hero-content">
@@ -134,7 +130,7 @@
 
             <div class="tracker-container">
                 <div class="table-wrap" id="live-table">
-                    <p style="padding: 10px; text-align: center; color: #999; font-size: 0.5rem;">Connecting Live Feed...</p>
+                    <p style="padding: 10px; text-align: center; font-size: 0.5rem;">Connecting...</p>
                 </div>
                 <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
@@ -143,16 +139,16 @@
 </main>
 
 <script>
-    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let tracks = [];
+    const CSV_SOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackItems = [];
 
-    async function loadFeed() {
+    async function startTracker() {
         try {
-            const res = await fetch(SHEET_CSV);
+            const res = await fetch(CSV_SOURCE);
             const csv = await res.text();
             const lines = csv.split(/\r?\n/).filter(l => l.trim() !== "");
             
-            tracks = lines.slice(1).map(line => {
+            trackItems = lines.slice(1).map(line => {
                 const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
@@ -163,40 +159,38 @@
                 return null;
             }).filter(t => t !== null);
 
-            render();
-            setInterval(liveTick, 2500);
+            renderDisplay();
+            setInterval(updateCounts, 2500);
         } catch (e) {
-            document.getElementById('live-table').innerHTML = "<p style='padding:10px; color:red; text-align:center;'>Feed Error.</p>";
+            document.getElementById('live-table').innerHTML = "<p style='padding:10px; text-align:center;'>Feed Unavailable.</p>";
         }
     }
 
-    function render() {
+    function renderDisplay() {
         let html = `<table><tbody>`;
-        const flagColors = ["row-green", "row-yellow", "row-red"];
-        
-        tracks.forEach((t, i) => {
+        trackItems.forEach((t, i) => {
             const isTotal = t.title.toUpperCase().includes("GRAND TOTAL");
-            const style = isTotal ? "row-total" : flagColors[i % 3];
-            html += `<tr class="${style}">
-                <td style="width: 65%;">${t.title}</td>
-                <td id="num-${i}" class="view-val">${t.count.toLocaleString()}</td>
+            const rowClass = isTotal ? "row-total" : "tracker-row";
+            html += `<tr class="${rowClass}">
+                <td style="width: 60%;">${t.title}</td>
+                <td id="count-${i}" class="view-val">${t.count.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('live-table').innerHTML = html;
     }
 
-    function liveTick() {
-        tracks.forEach((t, i) => {
+    function updateCounts() {
+        trackItems.forEach((t, i) => {
             if (!t.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.5) {
-                t.count += Math.floor(Math.random() * 5) + 1;
-                const el = document.getElementById(`num-${i}`);
-                if (el) el.innerText = t.count.toLocaleString();
+                t.count += Math.floor(Math.random() * 6) + 1;
+                const cell = document.getElementById(`count-${i}`);
+                if (cell) cell.innerText = t.count.toLocaleString();
             }
         });
     }
 
-    loadFeed();
+    startTracker();
 </script>
 
 </body>
