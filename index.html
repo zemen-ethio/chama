@@ -52,9 +52,7 @@
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* ============================================
-           HERO SECTION - ADJUSTED PROPORTIONS
-           Image is now larger (flex: 2), 
-           Address and Tracker are smaller (flex: 1.1 combined)
+           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
            ============================================ */
         .hero-section {
             max-width: 1300px;
@@ -67,18 +65,15 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGER IMAGE (approx 65% width) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* SMALLER ADDRESS AREA */
-        .hero-content { flex: 0.55; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
+        .hero-content { flex: 0.6; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
         .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        /* SMALLER TRACKER AREA */
         .hero-tracker { 
-            flex: 0.55; 
+            flex: 0.6; 
             padding: 1rem; 
             background: #f0f2f5; 
             min-width: 250px;
@@ -89,14 +84,14 @@
 
         .tracker-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        th { background: #eee; color: #333; padding: 8px; text-align: left; }
-        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th { background: #eee; color: #333; padding: 10px; text-align: left; }
+        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
 
         /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
@@ -104,10 +99,28 @@
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
+        /* VIEW COUNT STYLING & ANIMATION */
+        .view-cell { 
+            text-align: right; 
+            font-weight: 900; 
+            font-family: sans-serif; 
+            display: block;
+            transition: transform 0.2s ease-out, color 0.2s ease;
+        }
+
+        /* The Animation Class added by JS */
+        .bump {
+            transform: scale(1.2);
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+        }
+        .row-yellow .bump {
+            color: #000;
+            text-shadow: none;
+        }
 
         .live-status {
-            text-align: center; color: #333; margin-top: 8px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
@@ -121,7 +134,6 @@
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
@@ -129,7 +141,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name">Rikash Gebeya</span>
+            <span class="brand-name" style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -156,9 +168,9 @@
 
         <div class="hero-tracker">
             <div class="tracker-card" id="counter-host">
-                <p style="padding: 15px; color: #666; text-align: center; font-size: 0.7rem;">Connecting Live Feed...</p>
+                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
             </div>
-            <div class="live-status">● LIVE VIEW COUNT</div>
+            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
     </div>
 </main>
@@ -200,7 +212,7 @@
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
-                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
+                <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
             </tr>`;
         });
         html += `</tbody></table>`;
@@ -209,10 +221,21 @@
 
     function animateViews() {
         trackData.forEach((t, i) => {
+            // Randomly update views for a live feel
             if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
                 t.views += Math.floor(Math.random() * 10) + 2;
                 const el = document.getElementById(`val-${i}`);
-                if (el) el.innerText = t.views.toLocaleString();
+                if (el) {
+                    el.innerText = t.views.toLocaleString();
+                    
+                    // Trigger the visual "bump" animation
+                    el.classList.remove('bump');
+                    void el.offsetWidth; // Trigger reflow to restart animation
+                    el.classList.add('bump');
+                    
+                    // Remove class after animation finishes
+                    setTimeout(() => el.classList.remove('bump'), 300);
+                }
             }
         });
     }
