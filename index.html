@@ -75,14 +75,14 @@
         .tracker-container { flex: 1.2; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; max-width: 250px; }
         .table-wrap { background: var(--sapphire-blue); border-radius: 6px; overflow: hidden; border: 1px solid var(--white-transparent); }
         table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: var(--pure-white); }
-        td { padding: 6px 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
         /* Row Styles */
         .tracker-row { background-color: var(--sapphire-blue); color: var(--pure-white); }
-        .row-total { background: #000000 !important; color: #ffffff !important; border-top: 1.5px solid var(--white-transparent); }
+        .row-total { background: #000000 !important; color: #ffffff !important; border-top: 2px solid var(--white-transparent); font-size: 0.7rem; }
         .view-val { text-align: right; font-weight: 900; }
 
-        .live-label { text-align: center; margin-top: 5px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
+        .live-label { text-align: center; margin-top: 8px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         @media (max-width: 1024px) { .hero-content { flex-direction: column; } .tracker-container { max-width: 100%; } }
@@ -116,7 +116,7 @@
 <main class="page-content">
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya">
+            <img src="img-home.webp" alt="Rikash Gebeya Main">
         </div>
 
         <div class="hero-content">
@@ -129,8 +129,8 @@
             </div>
 
             <div class="tracker-container">
-                <div class="table-wrap" id="live-table">
-                    <p style="padding: 10px; text-align: center; font-size: 0.5rem; color: white;">Connecting Feed...</p>
+                <div class="table-wrap" id="live-table-container">
+                    <p style="padding: 15px; text-align: center; font-size: 0.6rem; color: white;">Loading Data...</p>
                 </div>
                 <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
@@ -139,58 +139,59 @@
 </main>
 
 <script>
-    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackerData = [];
+    const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let videoData = [];
 
-    async function initTracker() {
+    async function fetchTrackerData() {
         try {
-            const response = await fetch(SHEET_CSV_URL);
-            const csvText = await response.text();
-            const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== "");
+            const response = await fetch(GOOGLE_SHEET_URL);
+            const data = await response.text();
+            const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
             
-            trackerData = lines.slice(1).map(line => {
-                const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (cols && cols.length >= 2) {
+            // Skip header and parse rows
+            videoData = lines.slice(1).map(line => {
+                const columns = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                if (columns && columns.length >= 2) {
                     return { 
-                        title: cols[0].replace(/"/g, '').trim(), 
-                        count: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                        title: columns[0].replace(/"/g, '').trim(), 
+                        count: parseInt(columns[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(item => item !== null);
+            }).filter(v => v !== null);
 
-            renderTracker();
-            setInterval(animateCounts, 2500);
-        } catch (error) {
-            document.getElementById('live-table').innerHTML = "<p style='padding:10px; text-align:center; color:white;'>Feed Offline.</p>";
+            updateTrackerUI();
+            setInterval(simulateLiveGrowth, 2500);
+        } catch (e) {
+            document.getElementById('live-table-container').innerHTML = "<p style='padding:10px; text-align:center; color:white;'>Feed Error</p>";
         }
     }
 
-    function renderTracker() {
-        let html = `<table><tbody>`;
-        trackerData.forEach((item, index) => {
-            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : "tracker-row";
-            html += `<tr class="${rowClass}">
-                <td style="width: 60%;">${item.title}</td>
-                <td id="count-val-${index}" class="view-val">${item.count.toLocaleString()}</td>
+    function updateTrackerUI() {
+        let tableHtml = `<table><tbody>`;
+        videoData.forEach((video, index) => {
+            const isGrandTotal = video.title.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isGrandTotal ? "row-total" : "tracker-row";
+            tableHtml += `<tr class="${rowClass}">
+                <td style="width: 60%;">${video.title}</td>
+                <td id="live-count-${index}" class="view-val">${video.count.toLocaleString()}</td>
             </tr>`;
         });
-        html += `</tbody></table>`;
-        document.getElementById('live-table').innerHTML = html;
+        tableHtml += `</tbody></table>`;
+        document.getElementById('live-table-container').innerHTML = tableHtml;
     }
 
-    function animateCounts() {
-        trackerData.forEach((item, index) => {
-            if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.5) {
-                item.count += Math.floor(Math.random() * 6) + 1;
-                const cell = document.getElementById(`count-val-${index}`);
-                if (cell) cell.innerText = item.count.toLocaleString();
+    function simulateLiveGrowth() {
+        videoData.forEach((video, index) => {
+            if (!video.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                video.count += Math.floor(Math.random() * 5) + 1;
+                const element = document.getElementById(`live-count-${index}`);
+                if (element) element.innerText = video.count.toLocaleString();
             }
         });
     }
 
-    initTracker();
+    fetchTrackerData();
 </script>
 
 </body>
