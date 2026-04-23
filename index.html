@@ -51,7 +51,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGE IMAGE */
+        /* LARGE IMAGE (65%) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -75,41 +75,43 @@
             background: white;
             border-radius: 10px;
             width: 100%;
-            height: 220px; /* Fixed height for scrolling */
-            overflow: hidden; /* Hide overflow for the scroll effect */
+            height: 250px; /* Viewport for the scroll */
+            overflow: hidden;
             position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .scroll-container {
-            position: absolute;
+        .scroll-wrapper {
             width: 100%;
-            animation: scrollVertical 20s linear infinite;
+            position: absolute;
+            top: 0;
+            animation: infiniteVertical 15s linear infinite;
         }
 
         /* Pause on hover */
-        .tracker-card:hover .scroll-container {
+        .tracker-card:hover .scroll-wrapper {
             animation-play-state: paused;
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; }
-        td { padding: 10px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; table-layout: fixed; }
+        td { padding: 12px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); word-wrap: break-word; }
 
         /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
+        .row-total { background: #111 !important; color: #ffff00 !important; }
 
-        .view-cell { text-align: right; font-weight: 900; }
+        .view-cell { text-align: right; font-weight: 900; width: 80px; }
 
         .live-status {
             text-align: center; color: #333; margin-top: 8px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
         }
 
-        @keyframes scrollVertical {
-            0% { transform: translateY(-50%); }
-            100% { transform: translateY(0%); }
+        /* Keyframes for smooth reset */
+        @keyframes infiniteVertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
@@ -131,7 +133,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name" style="margin-left: 10px;">Rikash Gebeya</span>
+            <span class="brand-name" style="margin-left: 10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -158,77 +160,77 @@
 
         <div class="hero-tracker">
             <div class="tracker-card">
-                <div class="scroll-container" id="tracker-scroll-box">
-                    <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Syncing Live Data...</p>
+                <div class="scroll-wrapper" id="master-scroll-box">
+                    <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Loading Live Stats...</p>
                 </div>
             </div>
-            <div class="live-status">● LIVE VIEW COUNT</div>
+            <div class="live-status">● TEDDY AFRO LIVE VIEWS</div>
         </div>
     </div>
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackData = [];
+    const GOOGLE_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let localData = [];
 
-    async function initTracker() {
+    async function loadTracker() {
         try {
-            const res = await fetch(CSV_URL);
-            const text = await res.text();
-            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
+            const response = await fetch(GOOGLE_CSV);
+            const data = await response.text();
+            const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
             
-            trackData = rows.slice(1).map(row => {
-                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+            localData = lines.slice(1).map(line => {
+                const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
-                        name: cols[0].replace(/"/g, '').trim(), 
+                        title: cols[0].replace(/"/g, '').trim(), 
                         views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(item => item !== null);
+            }).filter(d => d !== null);
 
-            renderScrollTable();
-            setInterval(animateViews, 2500);
+            renderVerticalTracker();
+            setInterval(bumpViews, 2500);
         } catch (e) {
-            document.getElementById('tracker-scroll-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+            document.getElementById('master-scroll-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Offline</p>";
         }
     }
 
-    function generateTableHtml() {
-        let html = `<table><tbody>`;
-        const colors = ["row-green", "row-yellow", "row-red"];
+    function createTable() {
+        let tableHtml = `<table><tbody>`;
+        const flagColors = ["row-green", "row-yellow", "row-red"];
         
-        trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : colors[i % 3];
-            html += `<tr class="${rowClass}">
-                <td>${t.name}</td>
-                <td class="view-cell" data-index="${i}">${t.views.toLocaleString()}</td>
+        localData.forEach((item, index) => {
+            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : flagColors[index % 3];
+            tableHtml += `<tr class="${rowClass}">
+                <td>${item.title}</td>
+                <td class="view-cell" data-ref="${index}">${item.views.toLocaleString()}</td>
             </tr>`;
         });
-        html += `</tbody></table>`;
-        return html;
+        tableHtml += `</tbody></table>`;
+        return tableHtml;
     }
 
-    function renderScrollTable() {
-        const content = generateTableHtml();
-        // Duplicate content for seamless infinite vertical loop
-        document.getElementById('tracker-scroll-box').innerHTML = content + content;
+    function renderVerticalTracker() {
+        const table = createTable();
+        // Doubling the table inside the wrapper creates the infinite loop effect
+        document.getElementById('master-scroll-box').innerHTML = table + table;
     }
 
-    function animateViews() {
-        trackData.forEach((t, i) => {
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                // Update all instances of this view count in the duplicated list
-                const elements = document.querySelectorAll(`[data-index="${i}"]`);
-                elements.forEach(el => el.innerText = t.views.toLocaleString());
+    function bumpViews() {
+        localData.forEach((item, index) => {
+            if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                item.views += Math.floor(Math.random() * 8) + 2;
+                // Sync all instances (original and clone)
+                const cells = document.querySelectorAll(`[data-ref="${index}"]`);
+                cells.forEach(c => c.innerText = item.views.toLocaleString());
             }
         });
     }
 
-    initTracker();
+    loadTracker();
 </script>
 
 </body>
