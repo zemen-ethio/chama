@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
+    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CORE THEME */
+        /* ============================================
+           Rikash Gebeya - Core Theme (Original)
+           ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -24,24 +27,38 @@
             color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Ticker Banner */
-        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); }
-        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
+        .ticker-wrapper {
+            background-color: var(--fb-blue-darker);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--white-transparent);
+        }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        .ticker-item::before { content: "✦"; margin-right: 12px; }
+
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header */
+        /* Header & Nav */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 5px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-size: 0.9rem; }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* HERO SECTION */
-        .page-content { max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem; }
+        /* ============================================
+           HERO SECTION - ADJUSTED PROPORTIONS
+           Image is now larger (flex: 2), 
+           Address and Tracker are smaller (flex: 1.1 combined)
+           ============================================ */
         .hero-section {
+            max-width: 1300px;
+            margin: 2rem auto;
             display: flex;
             flex-wrap: wrap;
             background-color: var(--fb-blue-dark);
@@ -50,16 +67,16 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGER IMAGE (flex: 2) */
+        /* LARGER IMAGE (approx 65% width) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* SMALLER ADDRESS AREA (flex: 0.55) */
+        /* SMALLER ADDRESS AREA */
         .hero-content { flex: 0.55; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
         .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        /* SMALLER TRACKER AREA (flex: 0.55) */
+        /* SMALLER TRACKER AREA */
         .hero-tracker { 
             flex: 0.55; 
             padding: 1rem; 
@@ -67,32 +84,31 @@
             min-width: 250px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
         }
 
         .tracker-card {
             background: white;
             border-radius: 10px;
-            width: 100%;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; table-layout: fixed; }
-        td { padding: 12px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); word-wrap: break-word; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th { background: #eee; color: #333; padding: 8px; text-align: left; }
+        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        /* Ethiopian Flag Colors */
+        /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; }
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        .view-cell { text-align: right; font-weight: 900; width: 85px; }
+        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
 
         .live-status {
-            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
+            text-align: center; color: #333; margin-top: 8px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
         }
-
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         @media (max-width: 1100px) { .hero-section { flex-direction: column; } .hero-image { flex: none; width: 100%; } }
@@ -105,6 +121,7 @@
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
+        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
@@ -112,7 +129,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name" style="margin-left: 10px; font-weight: 900;">Rikash Gebeya</span>
+            <span class="brand-name">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -138,69 +155,69 @@
         </div>
 
         <div class="hero-tracker">
-            <div class="tracker-card" id="static-tracker-box">
-                <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Connecting to Sheet...</p>
+            <div class="tracker-card" id="counter-host">
+                <p style="padding: 15px; color: #666; text-align: center; font-size: 0.7rem;">Connecting Live Feed...</p>
             </div>
-            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
+            <div class="live-status">● LIVE VIEW COUNT</div>
         </div>
     </div>
 </main>
 
 <script>
-    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackerRows = [];
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackData = [];
 
-    async function fetchSheetData() {
+    async function initTracker() {
         try {
-            const res = await fetch(SHEET_CSV);
-            const csv = await res.text();
-            const lines = csv.split(/\r?\n/).filter(line => line.trim() !== "");
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
+            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
-            trackerRows = lines.slice(1).map(line => {
-                const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+            trackData = rows.slice(1).map(row => {
+                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
-                        title: cols[0].replace(/"/g, '').trim(), 
-                        count: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                        name: cols[0].replace(/"/g, '').trim(), 
+                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(d => d !== null);
+            }).filter(item => item !== null);
 
-            displayTable();
-            setInterval(simulateGrowth, 2500);
+            renderTable();
+            setInterval(animateViews, 2500);
         } catch (e) {
-            document.getElementById('static-tracker-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Unavailable</p>";
+            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
         }
     }
 
-    function displayTable() {
-        let html = `<table><tbody>`;
-        const flagSequence = ["row-green", "row-yellow", "row-red"];
+    function renderTable() {
+        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+        const colors = ["row-green", "row-yellow", "row-red"];
         
-        trackerRows.forEach((item, i) => {
-            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : flagSequence[i % 3];
+        trackData.forEach((t, i) => {
+            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
-                <td>${item.title}</td>
-                <td id="count-${i}" class="view-cell">${item.count.toLocaleString()}</td>
+                <td>${t.name}</td>
+                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
-        document.getElementById('static-tracker-box').innerHTML = html;
+        document.getElementById('counter-host').innerHTML = html;
     }
 
-    function simulateGrowth() {
-        trackerRows.forEach((item, i) => {
-            if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                item.count += Math.floor(Math.random() * 8) + 2;
-                const cell = document.getElementById(`count-${i}`);
-                if (cell) cell.innerText = item.count.toLocaleString();
+    function animateViews() {
+        trackData.forEach((t, i) => {
+            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                t.views += Math.floor(Math.random() * 10) + 2;
+                const el = document.getElementById(`val-${i}`);
+                if (el) el.innerText = t.views.toLocaleString();
             }
         });
     }
 
-    fetchSheetData();
+    initTracker();
 </script>
 
 </body>
