@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
-    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================
-           Rikash Gebeya - Core Theme (Original)
-           ============================================ */
+        /* CORE THEME */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -27,35 +24,22 @@
             color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
         /* Ticker Banner */
-        .ticker-wrapper {
-            background-color: var(--fb-blue-darker);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--white-transparent);
-        }
-        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
-        .ticker-item::before { content: "✦"; margin-right: 12px; }
-
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header & Nav */
+        /* Header */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu { display: flex; list-style: none; gap: 5px; }
+        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* ============================================
-           HERO SECTION - ADJUSTED PROPORTIONS
-           Image is now larger (flex: 2), 
-           Address and Tracker are smaller (flex: 1.1 combined)
-           ============================================ */
+        /* HERO SECTION */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -67,7 +51,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGER IMAGE (approx 65% width) */
+        /* LARGE IMAGE */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -76,7 +60,7 @@
         .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        /* SMALLER TRACKER AREA */
+        /* INFINITE VERTICAL TRACKER AREA */
         .hero-tracker { 
             flex: 0.55; 
             padding: 1rem; 
@@ -84,19 +68,32 @@
             min-width: 250px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: center;
         }
 
         .tracker-card {
             background: white;
             border-radius: 10px;
-            overflow: hidden;
+            width: 100%;
+            height: 220px; /* Fixed height for scrolling */
+            overflow: hidden; /* Hide overflow for the scroll effect */
+            position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        th { background: #eee; color: #333; padding: 8px; text-align: left; }
-        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .scroll-container {
+            position: absolute;
+            width: 100%;
+            animation: scrollVertical 20s linear infinite;
+        }
+
+        /* Pause on hover */
+        .tracker-card:hover .scroll-container {
+            animation-play-state: paused;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; }
+        td { padding: 10px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
         /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
@@ -104,11 +101,17 @@
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
+        .view-cell { text-align: right; font-weight: 900; }
 
         .live-status {
             text-align: center; color: #333; margin-top: 8px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
         }
+
+        @keyframes scrollVertical {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0%); }
+        }
+
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         @media (max-width: 1100px) { .hero-section { flex-direction: column; } .hero-image { flex: none; width: 100%; } }
@@ -121,7 +124,6 @@
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
@@ -129,7 +131,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name">Rikash Gebeya</span>
+            <span class="brand-name" style="margin-left: 10px;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -155,8 +157,10 @@
         </div>
 
         <div class="hero-tracker">
-            <div class="tracker-card" id="counter-host">
-                <p style="padding: 15px; color: #666; text-align: center; font-size: 0.7rem;">Connecting Live Feed...</p>
+            <div class="tracker-card">
+                <div class="scroll-container" id="tracker-scroll-box">
+                    <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Syncing Live Data...</p>
+                </div>
             </div>
             <div class="live-status">● LIVE VIEW COUNT</div>
         </div>
@@ -164,7 +168,7 @@
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
 
     async function initTracker() {
@@ -184,15 +188,15 @@
                 return null;
             }).filter(item => item !== null);
 
-            renderTable();
+            renderScrollTable();
             setInterval(animateViews, 2500);
         } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+            document.getElementById('tracker-scroll-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
         }
     }
 
-    function renderTable() {
-        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+    function generateTableHtml() {
+        let html = `<table><tbody>`;
         const colors = ["row-green", "row-yellow", "row-red"];
         
         trackData.forEach((t, i) => {
@@ -200,19 +204,26 @@
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
-                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
+                <td class="view-cell" data-index="${i}">${t.views.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
-        document.getElementById('counter-host').innerHTML = html;
+        return html;
+    }
+
+    function renderScrollTable() {
+        const content = generateTableHtml();
+        // Duplicate content for seamless infinite vertical loop
+        document.getElementById('tracker-scroll-box').innerHTML = content + content;
     }
 
     function animateViews() {
         trackData.forEach((t, i) => {
             if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
                 t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
-                if (el) el.innerText = t.views.toLocaleString();
+                // Update all instances of this view count in the duplicated list
+                const elements = document.querySelectorAll(`[data-index="${i}"]`);
+                elements.forEach(el => el.innerText = t.views.toLocaleString());
             }
         });
     }
