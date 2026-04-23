@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
-    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================
-           Rikash Gebeya - Core Theme (Original)
-           ============================================ */
+        /* CORE THEME */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -27,33 +24,22 @@
             color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
         /* Ticker Banner */
-        .ticker-wrapper {
-            background-color: var(--fb-blue-darker);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--white-transparent);
-        }
-        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
-        .ticker-item::before { content: "✦"; margin-right: 12px; }
-
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header & Nav */
+        /* Header */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu { display: flex; list-style: none; gap: 5px; }
+        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* ============================================
-           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
-           ============================================ */
+        /* HERO SECTION */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -79,48 +65,41 @@
             min-width: 250px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
         .tracker-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        th { background: #eee; color: #333; padding: 10px; text-align: left; }
-        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; }
+        th { background: #eee; padding: 10px; text-align: left; }
+        td { padding: 10px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
         /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
+        
+        /* GRAND TOTAL TOP ROW */
+        .row-total { background: #111 !important; color: #ffff00 !important; border-bottom: 3px solid #1877f2; }
 
-        /* VIEW COUNT STYLING & ANIMATION */
         .view-cell { 
             text-align: right; 
             font-weight: 900; 
-            font-family: sans-serif; 
-            display: block;
-            transition: transform 0.2s ease-out, color 0.2s ease;
+            display: inline-block; 
+            width: 100%;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* The Animation Class added by JS */
-        .bump {
-            transform: scale(1.2);
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255,255,255,0.8);
-        }
-        .row-yellow .bump {
-            color: #000;
-            text-shadow: none;
-        }
+        /* Scaling Animation Class */
+        .scale-up { transform: scale(1.25); color: #fff !important; }
+        .row-total .scale-up { color: #fff !important; transform: scale(1.15); }
 
         .live-status {
-            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
@@ -141,7 +120,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name" style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
+            <span class="brand-name" style="margin-left: 10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -167,8 +146,8 @@
         </div>
 
         <div class="hero-tracker">
-            <div class="tracker-card" id="counter-host">
-                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
+            <div class="tracker-card" id="tracker-container">
+                <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Syncing Live Data...</p>
             </div>
             <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
@@ -176,71 +155,85 @@
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackData = [];
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let dataList = [];
 
-    async function initTracker() {
+    async function startTracker() {
         try {
-            const res = await fetch(CSV_URL);
-            const text = await res.text();
-            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
+            const res = await fetch(SHEET_URL);
+            const csvText = await res.text();
+            const rows = csvText.split(/\r?\n/).filter(r => r.trim() !== "");
             
-            trackData = rows.slice(1).map(row => {
+            let parsed = rows.slice(1).map(row => {
                 const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
                         name: cols[0].replace(/"/g, '').trim(), 
-                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                        val: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(item => item !== null);
+            }).filter(i => i !== null);
 
-            renderTable();
-            setInterval(animateViews, 2500);
+            // Logic: Move Grand Total to Index 0
+            const totalIdx = parsed.findIndex(item => item.name.toUpperCase().includes("GRAND TOTAL"));
+            if (totalIdx !== -1) {
+                const totalItem = parsed.splice(totalIdx, 1)[0];
+                dataList = [totalItem, ...parsed];
+            } else {
+                dataList = parsed;
+            }
+
+            drawTable();
+            setInterval(simulateLiveUpdate, 2500);
         } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+            document.getElementById('tracker-container').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Offline.</p>";
         }
     }
 
-    function renderTable() {
-        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
-        const colors = ["row-green", "row-yellow", "row-red"];
+    function drawTable() {
+        let html = `<table><thead><tr><th>Track</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+        const flagColors = ["row-green", "row-yellow", "row-red"];
         
-        trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : colors[i % 3];
+        dataList.forEach((item, i) => {
+            const isTotal = item.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : flagColors[(i-1) % 3];
+            
             html += `<tr class="${rowClass}">
-                <td>${t.name}</td>
-                <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
+                <td>${item.name}</td>
+                <td style="text-align:right;"><span id="cell-${i}" class="view-cell">${item.val.toLocaleString()}</span></td>
             </tr>`;
         });
         html += `</tbody></table>`;
-        document.getElementById('counter-host').innerHTML = html;
+        document.getElementById('tracker-container').innerHTML = html;
     }
 
-    function animateViews() {
-        trackData.forEach((t, i) => {
-            // Randomly update views for a live feel
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
-                if (el) {
-                    el.innerText = t.views.toLocaleString();
-                    
-                    // Trigger the visual "bump" animation
-                    el.classList.remove('bump');
-                    void el.offsetWidth; // Trigger reflow to restart animation
-                    el.classList.add('bump');
-                    
-                    // Remove class after animation finishes
-                    setTimeout(() => el.classList.remove('bump'), 300);
-                }
+    function simulateLiveUpdate() {
+        dataList.forEach((item, i) => {
+            // Update individual tracks (but not index 0 which is the Grand Total)
+            if (i !== 0 && Math.random() > 0.4) {
+                const add = Math.floor(Math.random() * 12) + 3;
+                item.val += add;
+                dataList[0].val += add; // Add to Grand Total
+
+                triggerScale(i); // Scale the track
+                triggerScale(0); // Scale the Grand Total
             }
         });
     }
 
-    initTracker();
+    function triggerScale(index) {
+        const el = document.getElementById(`cell-${index}`);
+        if (el) {
+            el.innerText = dataList[index].val.toLocaleString();
+            el.classList.remove('scale-up');
+            void el.offsetWidth; // Trigger DOM reflow
+            el.classList.add('scale-up');
+            setTimeout(() => el.classList.remove('scale-up'), 400);
+        }
+    }
+
+    startTracker();
 </script>
 
 </body>
