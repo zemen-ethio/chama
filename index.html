@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
+    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CORE THEME */
+        /* ============================================
+           Rikash Gebeya - Core Theme (Original)
+           ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -22,72 +25,89 @@
             font-family: 'Lato', sans-serif;
             background-color: var(--fb-blue);
             color: var(--pure-white);
-            line-height: 1.4;
+            line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Ticker Banner */
-        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 10px 0; border-bottom: 1px solid var(--white-transparent); }
-        .ticker-content { display: inline-block; animation: scrollTicker 30s linear infinite; white-space: nowrap; }
-        .ticker-item { display: inline-block; margin: 0 25px; font-size: 0.9rem; font-weight: 500; }
+        .ticker-wrapper {
+            background-color: var(--fb-blue-darker);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--white-transparent);
+        }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        .ticker-item::before { content: "✦"; margin-right: 12px; }
+
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header */
-        .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 0.8rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 5px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 6px; font-size: 0.9rem; }
+        /* Header & Nav */
+        .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* HERO SECTION */
-        .page-content { max-width: 1300px; margin: 0 auto; padding: 1.5rem; }
+        /* ============================================
+           HERO SECTION - 3 COLUMN LAYOUT
+           ============================================ */
         .hero-section {
+            max-width: 1300px;
+            margin: 2rem auto;
             display: flex;
             flex-wrap: wrap;
             background-color: var(--fb-blue-dark);
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGE IMAGE (65% width) */
-        .hero-image { flex: 2; min-width: 320px; }
+        .hero-image { flex: 1; min-width: 300px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* CONTENT AREA (35% width) */
-        .hero-content { 
-            flex: 1.2; 
-            padding: 1.5rem; 
-            background-color: var(--fb-blue); 
-            display: flex; 
-            flex-direction: row; 
-            gap: 20px; 
-            min-width: 300px; 
-        }
-
-        /* ADDRESS (Left side) */
-        .address-info { flex: 1; font-size: 0.8rem; }
-        .address-info h2 { font-size: 1.2rem; margin-bottom: 8px; }
+        .hero-content { flex: 1; padding: 2rem; background-color: var(--fb-blue); min-width: 280px; }
+        .hero-content h2 { margin-bottom: 1rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
 
-        /* FLAG TRACKER (Right side) */
-        .tracker-container { flex: 1.2; background: rgba(0,0,0,0.15); padding: 8px; border-radius: 8px; max-width: 280px; }
-        .table-wrap { background: white; border-radius: 6px; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.65rem; color: #111; }
-        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        /* THE TRACKER COLUMN (Right side) */
+        .hero-tracker { 
+            flex: 1.4; 
+            padding: 1.5rem; 
+            background: #f0f2f5; 
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-        /* Row Themes */
+        .tracker-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { background: #eee; color: #333; padding: 10px; text-align: left; }
+        td { padding: 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+        /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; font-weight: 900; }
-        .view-val { text-align: right; }
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        .live-label { text-align: center; margin-top: 8px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
 
-        @media (max-width: 1024px) { .hero-content { flex-direction: column; } .tracker-container { max-width: 100%; } }
-        @media (max-width: 768px) { .hero-section { flex-direction: column; } .hero-image { height: 300px; } }
+        .live-status {
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.9rem; animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        @media (max-width: 992px) { .hero-section { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -97,19 +117,20 @@
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
+        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="height: 40px; width: auto;">
-            <span style="font-size: 1.1rem; font-weight: 700; margin-left: 8px;">Rikash Gebeya</span>
+            <img src="img-logo.webp" alt="Logo" style="max-width: 100px;">
+            <span class="brand-name">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html">Contact us</a></li>
         </ul>
     </div>
 </header>
@@ -117,77 +138,77 @@
 <main class="page-content">
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya Main">
+            <img src="img-home.webp" alt="Store Front">
         </div>
 
         <div class="hero-content">
-            <div class="address-info">
-                <h2>Address</h2>
-                <p>Djibouti street, Town Square Mall<br>Addis Ababa, Ethiopia</p>
-                <div class="divider"></div>
-                <p><strong>Hours:</strong> Mon-Fri 9am-6pm</p>
-                <p><strong>Tel:</strong> 0972919293</p>
-            </div>
+            <h2>Address</h2>
+            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
+            <div class="divider"></div>
+            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
+            <div class="divider"></div>
+            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
+        </div>
 
-            <div class="tracker-container">
-                <div class="table-wrap" id="live-tracker-box">
-                    <p style="padding: 15px; text-align: center; color: #666; font-size: 0.6rem;">Fetching Live Data...</p>
-                </div>
-                <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
+        <div class="hero-tracker">
+            <div class="tracker-card" id="counter-host">
+                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
             </div>
+            <div class="live-status">● LIVE VIEW COUNT</div>
         </div>
     </div>
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let dataSet = [];
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackData = [];
 
     async function initTracker() {
         try {
             const res = await fetch(CSV_URL);
-            const csv = await res.text();
-            const lines = csv.split(/\r?\n/).filter(l => l.trim() !== "");
+            const text = await res.text();
+            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
-            dataSet = lines.slice(1).map(line => {
-                const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (parts && parts.length >= 2) {
+            trackData = rows.slice(1).map(row => {
+                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                if (cols && cols.length >= 2) {
                     return { 
-                        title: parts[0].replace(/"/g, '').trim(), 
-                        count: parseInt(parts[1].replace(/[",]/g, '')) || 0 
+                        name: cols[0].replace(/"/g, '').trim(), 
+                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(d => d !== null);
+            }).filter(item => item !== null);
 
-            renderUI();
-            setInterval(updateCounts, 2500);
+            renderTable();
+            setInterval(animateViews, 2500);
         } catch (e) {
-            document.getElementById('live-tracker-box').innerHTML = "<p style='padding:15px; text-align:center;'>Data Offline.</p>";
+            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
         }
     }
 
-    function renderUI() {
-        let html = `<table><tbody>`;
-        const flags = ["row-green", "row-yellow", "row-red"];
-        dataSet.forEach((item, i) => {
-            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
-            const style = isTotal ? "row-total" : flags[i % 3];
-            html += `<tr class="${style}">
-                <td>${item.title}</td>
-                <td id="view-val-${i}" class="view-val">${item.count.toLocaleString()}</td>
+    function renderTable() {
+        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+        const colors = ["row-green", "row-yellow", "row-red"];
+        
+        trackData.forEach((t, i) => {
+            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : colors[i % 3];
+            html += `<tr class="${rowClass}">
+                <td>${t.name}</td>
+                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
-        document.getElementById('live-tracker-box').innerHTML = html;
+        document.getElementById('counter-host').innerHTML = html;
     }
 
-    function updateCounts() {
-        dataSet.forEach((item, i) => {
-            if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                item.count += Math.floor(Math.random() * 5) + 1;
-                const el = document.getElementById(`view-val-${i}`);
-                if (el) el.innerText = item.count.toLocaleString();
+    function animateViews() {
+        trackData.forEach((t, i) => {
+            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                t.views += Math.floor(Math.random() * 10) + 2;
+                const el = document.getElementById(`val-${i}`);
+                if (el) el.innerText = t.views.toLocaleString();
             }
         });
     }
