@@ -77,7 +77,7 @@
         table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: var(--pure-white); }
         td { padding: 6px 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-        /* Themed Rows */
+        /* Row Styles */
         .tracker-row { background-color: var(--sapphire-blue); color: var(--pure-white); }
         .row-total { background: #000000 !important; color: #ffffff !important; border-top: 1.5px solid var(--white-transparent); }
         .view-val { text-align: right; font-weight: 900; }
@@ -130,7 +130,7 @@
 
             <div class="tracker-container">
                 <div class="table-wrap" id="live-table">
-                    <p style="padding: 10px; text-align: center; font-size: 0.5rem;">Connecting...</p>
+                    <p style="padding: 10px; text-align: center; font-size: 0.5rem; color: white;">Connecting Feed...</p>
                 </div>
                 <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
@@ -139,16 +139,16 @@
 </main>
 
 <script>
-    const CSV_SOURCE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackItems = [];
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackerData = [];
 
-    async function startTracker() {
+    async function initTracker() {
         try {
-            const res = await fetch(CSV_SOURCE);
-            const csv = await res.text();
-            const lines = csv.split(/\r?\n/).filter(l => l.trim() !== "");
+            const response = await fetch(SHEET_CSV_URL);
+            const csvText = await response.text();
+            const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== "");
             
-            trackItems = lines.slice(1).map(line => {
+            trackerData = lines.slice(1).map(line => {
                 const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
@@ -157,40 +157,40 @@
                     };
                 }
                 return null;
-            }).filter(t => t !== null);
+            }).filter(item => item !== null);
 
-            renderDisplay();
-            setInterval(updateCounts, 2500);
-        } catch (e) {
-            document.getElementById('live-table').innerHTML = "<p style='padding:10px; text-align:center;'>Feed Unavailable.</p>";
+            renderTracker();
+            setInterval(animateCounts, 2500);
+        } catch (error) {
+            document.getElementById('live-table').innerHTML = "<p style='padding:10px; text-align:center; color:white;'>Feed Offline.</p>";
         }
     }
 
-    function renderDisplay() {
+    function renderTracker() {
         let html = `<table><tbody>`;
-        trackItems.forEach((t, i) => {
-            const isTotal = t.title.toUpperCase().includes("GRAND TOTAL");
+        trackerData.forEach((item, index) => {
+            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
             const rowClass = isTotal ? "row-total" : "tracker-row";
             html += `<tr class="${rowClass}">
-                <td style="width: 60%;">${t.title}</td>
-                <td id="count-${i}" class="view-val">${t.count.toLocaleString()}</td>
+                <td style="width: 60%;">${item.title}</td>
+                <td id="count-val-${index}" class="view-val">${item.count.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('live-table').innerHTML = html;
     }
 
-    function updateCounts() {
-        trackItems.forEach((t, i) => {
-            if (!t.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.5) {
-                t.count += Math.floor(Math.random() * 6) + 1;
-                const cell = document.getElementById(`count-${i}`);
-                if (cell) cell.innerText = t.count.toLocaleString();
+    function animateCounts() {
+        trackerData.forEach((item, index) => {
+            if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.5) {
+                item.count += Math.floor(Math.random() * 6) + 1;
+                const cell = document.getElementById(`count-val-${index}`);
+                if (cell) cell.innerText = item.count.toLocaleString();
             }
         });
     }
 
-    startTracker();
+    initTracker();
 </script>
 
 </body>
