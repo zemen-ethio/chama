@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* CORE THEME */
@@ -72,15 +72,15 @@
         .divider { height: 1px; background: var(--white-transparent); margin: 8px 0; }
 
         /* SAPPHIRE BLUE TRACKER (Right side) */
-        .tracker-container { flex: 1.2; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; max-width: 250px; }
+        .tracker-container { flex: 1.2; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; max-width: 280px; }
         .table-wrap { background: var(--sapphire-blue); border-radius: 6px; overflow: hidden; border: 1px solid var(--white-transparent); }
-        table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: var(--pure-white); }
-        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.65rem; color: var(--pure-white); }
+        td { padding: 10px 8px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: middle; }
 
         /* Row Styles */
-        .tracker-row { background-color: var(--sapphire-blue); color: var(--pure-white); }
-        .row-total { background: #000000 !important; color: #ffffff !important; border-top: 2px solid var(--white-transparent); font-size: 0.7rem; }
-        .view-val { text-align: right; font-weight: 900; }
+        .tracker-row { background-color: var(--sapphire-blue); }
+        .row-total { background: #000000 !important; color: #ffffff !important; border-top: 2px solid var(--white-transparent); font-weight: 900; }
+        .view-val { text-align: right; font-family: monospace; font-size: 0.75rem; }
 
         .live-label { text-align: center; margin-top: 8px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -129,8 +129,8 @@
             </div>
 
             <div class="tracker-container">
-                <div class="table-wrap" id="live-table-container">
-                    <p style="padding: 15px; text-align: center; font-size: 0.6rem; color: white;">Loading Data...</p>
+                <div class="table-wrap" id="live-data-box">
+                    <p style="padding: 20px; text-align: center; color: white;">Synchronizing Live Data...</p>
                 </div>
                 <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
@@ -139,59 +139,58 @@
 </main>
 
 <script>
-    const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let videoData = [];
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let localData = [];
 
-    async function fetchTrackerData() {
+    async function initializeTracker() {
         try {
-            const response = await fetch(GOOGLE_SHEET_URL);
-            const data = await response.text();
-            const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
+            const response = await fetch(CSV_URL);
+            const text = await response.text();
+            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
-            // Skip header and parse rows
-            videoData = lines.slice(1).map(line => {
-                const columns = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (columns && columns.length >= 2) {
+            localData = rows.slice(1).map(row => {
+                const parts = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                if (parts && parts.length >= 2) {
                     return { 
-                        title: columns[0].replace(/"/g, '').trim(), 
-                        count: parseInt(columns[1].replace(/[",]/g, '')) || 0 
+                        name: parts[0].replace(/"/g, '').trim(), 
+                        views: parseInt(parts[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(v => v !== null);
+            }).filter(d => d !== null);
 
-            updateTrackerUI();
-            setInterval(simulateLiveGrowth, 2500);
+            drawTracker();
+            setInterval(tickViews, 2500);
         } catch (e) {
-            document.getElementById('live-table-container').innerHTML = "<p style='padding:10px; text-align:center; color:white;'>Feed Error</p>";
+            document.getElementById('live-data-box').innerHTML = "<p style='padding:15px; text-align:center;'>Feed Unavailable</p>";
         }
     }
 
-    function updateTrackerUI() {
-        let tableHtml = `<table><tbody>`;
-        videoData.forEach((video, index) => {
-            const isGrandTotal = video.title.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isGrandTotal ? "row-total" : "tracker-row";
-            tableHtml += `<tr class="${rowClass}">
-                <td style="width: 60%;">${video.title}</td>
-                <td id="live-count-${index}" class="view-val">${video.count.toLocaleString()}</td>
+    function drawTracker() {
+        let tableMarkup = `<table><tbody>`;
+        localData.forEach((item, i) => {
+            const isTotal = item.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : "tracker-row";
+            tableMarkup += `<tr class="${rowClass}">
+                <td>${item.name}</td>
+                <td id="view-id-${i}" class="view-val">${item.views.toLocaleString()}</td>
             </tr>`;
         });
-        tableHtml += `</tbody></table>`;
-        document.getElementById('live-table-container').innerHTML = tableHtml;
+        tableMarkup += `</tbody></table>`;
+        document.getElementById('live-data-box').innerHTML = tableMarkup;
     }
 
-    function simulateLiveGrowth() {
-        videoData.forEach((video, index) => {
-            if (!video.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                video.count += Math.floor(Math.random() * 5) + 1;
-                const element = document.getElementById(`live-count-${index}`);
-                if (element) element.innerText = video.count.toLocaleString();
+    function tickViews() {
+        localData.forEach((item, i) => {
+            if (!item.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                item.views += Math.floor(Math.random() * 5) + 1;
+                const el = document.getElementById(`view-id-${i}`);
+                if (el) el.innerText = item.views.toLocaleString();
             }
         });
     }
 
-    fetchTrackerData();
+    initializeTracker();
 </script>
 
 </body>
