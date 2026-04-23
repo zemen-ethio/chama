@@ -50,7 +50,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* LARGE IMAGE (65% width) */
+        /* LARGER IMAGE (65% width) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -60,17 +60,17 @@
             padding: 1.5rem; 
             background-color: var(--fb-blue); 
             display: flex; 
-            flex-direction: row; /* Aligns Address and Tracker side-by-side */
+            flex-direction: row; 
             gap: 20px; 
             min-width: 300px; 
         }
 
-        /* COMPACT ADDRESS (Left side of content) */
+        /* COMPACT ADDRESS (Left side) */
         .address-info { flex: 1; font-size: 0.8rem; }
         .address-info h2 { font-size: 1.2rem; margin-bottom: 8px; }
         .divider { height: 1px; background: var(--white-transparent); margin: 8px 0; }
 
-        /* COMPACT TRACKER (Right side of address) */
+        /* COMPACT TRACKER (Right side) */
         .tracker-container { flex: 1.2; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 8px; max-width: 250px; }
         .table-wrap { background: white; border-radius: 6px; overflow: hidden; }
         table { width: 100%; border-collapse: collapse; font-size: 0.6rem; color: #333; }
@@ -134,16 +134,16 @@
 
             <div class="tracker-container">
                 <div class="table-wrap" id="live-table">
-                    <p style="padding: 10px; text-align: center; color: #999; font-size: 0.5rem;">Syncing...</p>
+                    <p style="padding: 10px; text-align: center; color: #999; font-size: 0.5rem;">Connecting Live Feed...</p>
                 </div>
-                <div class="live-label">● LIVE FEED</div>
+                <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
         </div>
     </div>
 </main>
 
 <script>
-    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let tracks = [];
 
     async function loadFeed() {
@@ -166,7 +166,7 @@
             render();
             setInterval(liveTick, 2500);
         } catch (e) {
-            document.getElementById('live-table').innerHTML = "<p style='padding:10px; color:red; text-align:center;'>Error.</p>";
+            document.getElementById('live-table').innerHTML = "<p style='padding:10px; color:red; text-align:center;'>Feed Error.</p>";
         }
     }
 
