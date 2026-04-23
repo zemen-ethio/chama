@@ -24,10 +24,16 @@
             color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Ticker Banner */
-        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); }
+        .ticker-wrapper { 
+            background-color: var(--fb-blue-darker); 
+            overflow: hidden; 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--white-transparent); 
+        }
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -36,7 +42,7 @@
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .nav-menu { display: flex; list-style: none; gap: 5px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* HERO SECTION */
@@ -51,52 +57,53 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .hero-image { flex: 2; min-width: 320px; }
+        /* Large Store Image */
+        .hero-image { flex: 2.2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+        /* Address Column */
         .hero-content { flex: 0.6; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
-        .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
+        .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; border-bottom: 1px solid var(--white-transparent); padding-bottom: 5px; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
+        /* Tracker Column */
         .hero-tracker { 
             flex: 0.6; 
             padding: 1rem; 
             background: #f0f2f5; 
-            min-width: 250px;
+            min-width: 280px;
             display: flex;
             flex-direction: column;
         }
 
         .tracker-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; }
-        th { background: #eee; padding: 10px; text-align: left; }
-        td { padding: 10px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #111; table-layout: fixed; }
+        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); word-wrap: break-word; }
 
-        /* Ethiopian Flag Pattern Rows */
+        /* Ethiopian Flag Pattern */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
         
-        /* GRAND TOTAL TOP ROW */
-        .row-total { background: #111 !important; color: #ffff00 !important; border-bottom: 3px solid #1877f2; }
+        /* GRAND TOTAL TOP ROW (Pinned) */
+        .row-total { background: #111 !important; color: #ffff00 !important; border-bottom: 4px solid var(--fb-blue); }
 
         .view-cell { 
             text-align: right; 
             font-weight: 900; 
-            display: inline-block; 
-            width: 100%;
+            display: block;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Scaling Animation Class */
-        .scale-up { transform: scale(1.25); color: #fff !important; }
-        .row-total .scale-up { color: #fff !important; transform: scale(1.15); }
+        /* Scaling Animation */
+        .bump { transform: scale(1.3); color: #fff !important; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .row-yellow .bump { color: #000 !important; text-shadow: none; }
 
         .live-status {
             text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
@@ -120,120 +127,136 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name" style="margin-left: 10px; font-weight: 900;">Rikash Gebeya</span>
+            <span style="margin-left: 10px; font-weight: 900; font-size: 1.2rem;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </div>
 </header>
 
-<main class="page-content">
+<main>
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Store Front">
+            <img src="img-home.webp" alt="Rikash Gebeya Store">
         </div>
 
         <div class="hero-content">
-            <h2>Address</h2>
-            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
+            <h2>Our Address</h2>
+            <p>Djibouti street<br>Town Square Mall, Ground Floor<br>Addis Ababa, Ethiopia</p>
             <div class="divider"></div>
-            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
+            <p><strong>Opening Hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
             <div class="divider"></div>
-            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
+            <p><strong>Contact Us</strong><br>0972919293 / 0967919293<br>info@rikashgebeya.com</p>
         </div>
 
         <div class="hero-tracker">
-            <div class="tracker-card" id="tracker-container">
-                <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Syncing Live Data...</p>
+            <div class="tracker-card" id="tracker-box">
+                <p style="padding: 30px; color: #666; text-align: center; font-size: 0.8rem;">🔄 Connecting to Live Stream Data...</p>
             </div>
-            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
+            <div class="live-status">● LIVE TEDDY AFRO VIEW METRICS</div>
         </div>
     </div>
 </main>
 
 <script>
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let dataList = [];
+    // CACHE BUSTER: Prevents the data from "disappearing" by forcing a fresh fetch every time
+    const BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    const CSV_URL = `${BASE_URL}&t=${new Date().getTime()}`;
 
-    async function startTracker() {
+    let trackerData = [];
+
+    async function initTracker() {
         try {
-            const res = await fetch(SHEET_URL);
-            const csvText = await res.text();
-            const rows = csvText.split(/\r?\n/).filter(r => r.trim() !== "");
+            const response = await fetch(CSV_URL);
+            if (!response.ok) throw new Error("Connection lost");
             
-            let parsed = rows.slice(1).map(row => {
+            const text = await response.text();
+            const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+            
+            if (lines.length < 2) throw new Error("Empty Sheet");
+
+            let rawData = lines.slice(1).map(row => {
                 const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
                         name: cols[0].replace(/"/g, '').trim(), 
-                        val: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
-            }).filter(i => i !== null);
+            }).filter(item => item !== null);
 
-            // Logic: Move Grand Total to Index 0
-            const totalIdx = parsed.findIndex(item => item.name.toUpperCase().includes("GRAND TOTAL"));
-            if (totalIdx !== -1) {
-                const totalItem = parsed.splice(totalIdx, 1)[0];
-                dataList = [totalItem, ...parsed];
+            // Reorder: Move Grand Total to position 0 (Top)
+            const totalIndex = rawData.findIndex(item => item.name.toUpperCase().includes("GRAND TOTAL"));
+            if (totalIndex !== -1) {
+                const totalItem = rawData.splice(totalIndex, 1)[0];
+                trackerData = [totalItem, ...rawData];
             } else {
-                dataList = parsed;
+                trackerData = rawData;
             }
 
-            drawTable();
-            setInterval(simulateLiveUpdate, 2500);
-        } catch (e) {
-            document.getElementById('tracker-container').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Offline.</p>";
+            renderTable();
+            // Start simulation for live "bump" effect
+            setInterval(simulateGrowth, 2500);
+
+        } catch (err) {
+            console.error(err);
+            document.getElementById('tracker-box').innerHTML = 
+                `<p style='padding:20px; color:red; text-align:center;'>⚠️ Data Error<br><small>Refresh the page or check internet</small></p>`;
         }
     }
 
-    function drawTable() {
-        let html = `<table><thead><tr><th>Track</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
-        const flagColors = ["row-green", "row-yellow", "row-red"];
+    function renderTable() {
+        let html = `<table><tbody>`;
+        const colors = ["row-green", "row-yellow", "row-red"];
         
-        dataList.forEach((item, i) => {
+        trackerData.forEach((item, index) => {
             const isTotal = item.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : flagColors[(i-1) % 3];
+            // If it's the top row (Total), give it row-total, otherwise cycle flag colors
+            const rowClass = isTotal ? "row-total" : colors[(index - 1) % 3];
             
             html += `<tr class="${rowClass}">
                 <td>${item.name}</td>
-                <td style="text-align:right;"><span id="cell-${i}" class="view-cell">${item.val.toLocaleString()}</span></td>
+                <td style="text-align:right;">
+                    <span id="view-${index}" class="view-cell">${item.views.toLocaleString()}</span>
+                </td>
             </tr>`;
         });
+        
         html += `</tbody></table>`;
-        document.getElementById('tracker-container').innerHTML = html;
+        document.getElementById('tracker-box').innerHTML = html;
     }
 
-    function simulateLiveUpdate() {
-        dataList.forEach((item, i) => {
-            // Update individual tracks (but not index 0 which is the Grand Total)
-            if (i !== 0 && Math.random() > 0.4) {
-                const add = Math.floor(Math.random() * 12) + 3;
-                item.val += add;
-                dataList[0].val += add; // Add to Grand Total
+    function simulateGrowth() {
+        trackerData.forEach((item, index) => {
+            // Update individual tracks (skip Grand Total at index 0)
+            if (index !== 0 && Math.random() > 0.4) {
+                const growth = Math.floor(Math.random() * 15) + 5;
+                item.views += growth;
+                trackerData[0].views += growth; // Add to Grand Total
 
-                triggerScale(i); // Scale the track
-                triggerScale(0); // Scale the Grand Total
+                animateCell(index); // Scale track cell
+                animateCell(0);     // Scale Grand Total cell
             }
         });
     }
 
-    function triggerScale(index) {
-        const el = document.getElementById(`cell-${index}`);
+    function animateCell(idx) {
+        const el = document.getElementById(`view-${idx}`);
         if (el) {
-            el.innerText = dataList[index].val.toLocaleString();
-            el.classList.remove('scale-up');
-            void el.offsetWidth; // Trigger DOM reflow
-            el.classList.add('scale-up');
-            setTimeout(() => el.classList.remove('scale-up'), 400);
+            el.innerText = trackerData[idx].views.toLocaleString();
+            el.classList.remove('bump');
+            void el.offsetWidth; // Trigger reflow
+            el.classList.add('bump');
+            setTimeout(() => el.classList.remove('bump'), 400);
         }
     }
 
-    startTracker();
+    // Launch
+    initTracker();
 </script>
 
 </body>
