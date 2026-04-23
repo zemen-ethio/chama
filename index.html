@@ -6,11 +6,11 @@
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
     <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;400italic;700italic&family=Merriweather:wght@400;700;400italic;700italic&display=swap" rel="stylesheet">
     
     <style>
         /* ============================================
-           Rikash Gebeya - Core Theme (Preserved)
+           CORE THEME & LAYOUT (FROM ORIGINAL)
            ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -30,31 +30,27 @@
             min-height: 100vh;
         }
 
-        /* Ticker Banner */
-        .ticker-wrapper {
-            background-color: var(--fb-blue-darker);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--white-transparent);
-        }
-        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
-        .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        /* Ticker Banner (Original) */
+        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; white-space: nowrap; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); position: relative; z-index: 100; }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
         .ticker-item::before { content: "✦"; margin-right: 12px; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header */
+        /* Header & Nav (Original) */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
-        .nav-menu li.active a { background-color: var(--white-transparent); }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; opacity: 0.9; }
+        .nav-menu li.active a { background-color: var(--white-transparent); opacity: 1; }
 
         /* ============================================
-           HERO SECTION - Layout Preservation
+           HERO SECTION (STRICTLY PRESERVING IMAGE POSITION)
            ============================================ */
-        .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 200px); }
         .hero-section {
+            max-width: 1200px;
+            margin: 2rem auto;
             display: flex;
             flex-wrap: wrap;
             background-color: var(--fb-blue-dark);
@@ -63,31 +59,36 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
+        /* Image - Left Side (Original Size/Location) */
         .hero-image { flex: 1; min-width: 280px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Combined Content & Tracker Column */
-        .hero-content { flex: 1.5; padding: 2.5rem; background-color: var(--fb-blue); display: flex; flex-wrap: wrap; gap: 25px; align-items: flex-start; }
-        .address-info { flex: 1; min-width: 200px; }
-        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
+        /* Content - Right Side (Original Layout with Side-by-Side Tracker) */
+        .hero-content { flex: 1; padding: 2.5rem; background-color: var(--fb-blue); display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+        .address-box { flex: 1; min-width: 220px; }
+        
+        /* Tracker Integration */
+        .tracker-integration { flex: 1.3; min-width: 300px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .tracker-table-wrap { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.7rem; color: #333; }
+        td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        /* Tracker Specific Styles */
-        .tracker-box { flex: 1.2; min-width: 280px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; }
-        .table-wrap { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #333; }
-        th { background: #f4f4f4; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
-        td { padding: 8px; font-weight: 700; }
-
+        /* Flag Row Themes */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
-        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
+        .view-val { text-align: right; font-weight: 900; font-family: 'Segoe UI', sans-serif; }
 
-        .live-label { text-align: center; margin-top: 10px; font-size: 0.8rem; font-weight: 900; color: white; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .live-tag { text-align: center; margin-top: 10px; font-weight: 900; font-size: 0.75rem; color: white; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        @media (max-width: 768px) { .hero-section { flex-direction: column; } .hero-content { padding: 1.5rem; } }
+        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .hero-section { flex-direction: column; }
+            .hero-content { flex-direction: column; padding: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -103,8 +104,8 @@
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="max-width: 100px;">
-            <span style="font-size:1.5rem; font-weight:700; margin-left:10px;">Rikash Gebeya</span>
+            <img src="img-logo.webp" alt="Logo" style="width: 100px; height: auto;">
+            <span style="font-size: 1.5rem; font-weight: 700; font-family: 'Merriweather', serif; margin-left: 10px;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -117,25 +118,24 @@
 <main class="page-content">
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya" class="hero-main-img">
+            <img src="img-home.webp" alt="Rikash Gebeya">
         </div>
 
         <div class="hero-content">
-            <div class="address-info">
-                <h2 style="font-size:1.8rem; margin-bottom:1rem;">Address</h2>
+            <div class="address-box">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Address</h2>
                 <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
                 <div class="divider"></div>
-                <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm</p>
+                <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
                 <div class="divider"></div>
-                <p><strong>Get in touch</strong><br>0972919293 / 0967919293</p>
-                <p><a href="mailto:contact@rikashgebeya.com" style="color:white; text-decoration:none; opacity:0.9;">contact@rikashgebeya.com</a></p>
+                <p><strong>Contact</strong><br>0972919293 / 0967919293</p>
             </div>
 
-            <div class="tracker-box">
-                <div class="table-wrap" id="counter-host">
-                    <p style="padding: 20px; text-align: center; color: #666;">Syncing Feed...</p>
+            <div class="tracker-integration">
+                <div class="tracker-table-wrap" id="counter-host">
+                    <p style="padding: 20px; text-align: center; color: #666; font-size: 0.8rem;">Loading Live View Count...</p>
                 </div>
-                <div class="live-label">● LIVE STREAM UPDATES</div>
+                <div class="live-tag">● LIVE STREAM TRACKER</div>
             </div>
         </div>
     </div>
@@ -145,7 +145,7 @@
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
 
-    async function initTracker() {
+    async function init() {
         try {
             const res = await fetch(CSV_URL);
             const text = await res.text();
@@ -162,40 +162,40 @@
                 return null;
             }).filter(item => item !== null);
 
-            renderTable();
-            setInterval(liveAnimation, 2500);
+            render();
+            setInterval(animate, 2500);
         } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Offline.</p>";
+            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; text-align:center; color:red;'>Offline.</p>";
         }
     }
 
-    function renderTable() {
-        let html = `<table><thead><tr><th>Title</th><th style="text-align:right;">Total Views</th></tr></thead><tbody>`;
+    function render() {
+        let html = `<table><tbody>`;
         const colors = ["row-green", "row-yellow", "row-red"];
         
         trackData.forEach((t, i) => {
             const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
-                <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.05);">${t.name}</td>
-                <td id="val-${i}" class="view-cell" style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.05);">${t.views.toLocaleString()}</td>
+                <td style="width: 65%;">${t.name}</td>
+                <td id="val-${i}" class="view-val">${t.views.toLocaleString()}</td>
             </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('counter-host').innerHTML = html;
     }
 
-    function liveAnimation() {
+    function animate() {
         trackData.forEach((t, i) => {
             if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
+                t.views += Math.floor(Math.random() * 8) + 2;
                 const el = document.getElementById(`val-${i}`);
                 if (el) el.innerText = t.views.toLocaleString();
             }
         });
     }
 
-    initTracker();
+    init();
 </script>
 
 </body>
