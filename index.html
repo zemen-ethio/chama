@@ -36,13 +36,12 @@
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .nav-menu { display: flex; list-style: none; gap: 5px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-size: 0.9rem; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* HERO SECTION */
+        .page-content { max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem; }
         .hero-section {
-            max-width: 1300px;
-            margin: 2rem auto;
             display: flex;
             flex-wrap: wrap;
             background-color: var(--fb-blue-dark);
@@ -51,16 +50,16 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* LARGE IMAGE (65%) */
+        /* LARGER IMAGE (flex: 2) */
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* SMALLER ADDRESS AREA */
+        /* SMALLER ADDRESS AREA (flex: 0.55) */
         .hero-content { flex: 0.55; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
         .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        /* INFINITE VERTICAL TRACKER AREA */
+        /* SMALLER TRACKER AREA (flex: 0.55) */
         .hero-tracker { 
             flex: 0.55; 
             padding: 1rem; 
@@ -68,50 +67,30 @@
             min-width: 250px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: flex-start;
         }
 
         .tracker-card {
             background: white;
             border-radius: 10px;
             width: 100%;
-            height: 250px; /* Viewport for the scroll */
             overflow: hidden;
-            position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .scroll-wrapper {
-            width: 100%;
-            position: absolute;
-            top: 0;
-            animation: infiniteVertical 15s linear infinite;
-        }
-
-        /* Pause on hover */
-        .tracker-card:hover .scroll-wrapper {
-            animation-play-state: paused;
         }
 
         table { width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #111; table-layout: fixed; }
         td { padding: 12px 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); word-wrap: break-word; }
 
-        /* Ethiopian Flag Pattern Rows */
+        /* Ethiopian Flag Colors */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; }
 
-        .view-cell { text-align: right; font-weight: 900; width: 80px; }
+        .view-cell { text-align: right; font-weight: 900; width: 85px; }
 
         .live-status {
-            text-align: center; color: #333; margin-top: 8px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
-        }
-
-        /* Keyframes for smooth reset */
-        @keyframes infiniteVertical {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.75rem; animation: pulse 2s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
@@ -159,78 +138,69 @@
         </div>
 
         <div class="hero-tracker">
-            <div class="tracker-card">
-                <div class="scroll-wrapper" id="master-scroll-box">
-                    <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Loading Live Stats...</p>
-                </div>
+            <div class="tracker-card" id="static-tracker-box">
+                <p style="padding: 20px; color: #666; text-align: center; font-size: 0.7rem;">Connecting to Sheet...</p>
             </div>
-            <div class="live-status">● TEDDY AFRO LIVE VIEWS</div>
+            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
     </div>
 </main>
 
 <script>
-    const GOOGLE_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let localData = [];
+    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackerRows = [];
 
-    async function loadTracker() {
+    async function fetchSheetData() {
         try {
-            const response = await fetch(GOOGLE_CSV);
-            const data = await response.text();
-            const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
+            const res = await fetch(SHEET_CSV);
+            const csv = await res.text();
+            const lines = csv.split(/\r?\n/).filter(line => line.trim() !== "");
             
-            localData = lines.slice(1).map(line => {
+            trackerRows = lines.slice(1).map(line => {
                 const cols = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (cols && cols.length >= 2) {
                     return { 
                         title: cols[0].replace(/"/g, '').trim(), 
-                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                        count: parseInt(cols[1].replace(/[",]/g, '')) || 0 
                     };
                 }
                 return null;
             }).filter(d => d !== null);
 
-            renderVerticalTracker();
-            setInterval(bumpViews, 2500);
+            displayTable();
+            setInterval(simulateGrowth, 2500);
         } catch (e) {
-            document.getElementById('master-scroll-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Offline</p>";
+            document.getElementById('static-tracker-box').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Unavailable</p>";
         }
     }
 
-    function createTable() {
-        let tableHtml = `<table><tbody>`;
-        const flagColors = ["row-green", "row-yellow", "row-red"];
+    function displayTable() {
+        let html = `<table><tbody>`;
+        const flagSequence = ["row-green", "row-yellow", "row-red"];
         
-        localData.forEach((item, index) => {
+        trackerRows.forEach((item, i) => {
             const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : flagColors[index % 3];
-            tableHtml += `<tr class="${rowClass}">
+            const rowClass = isTotal ? "row-total" : flagSequence[i % 3];
+            html += `<tr class="${rowClass}">
                 <td>${item.title}</td>
-                <td class="view-cell" data-ref="${index}">${item.views.toLocaleString()}</td>
+                <td id="count-${i}" class="view-cell">${item.count.toLocaleString()}</td>
             </tr>`;
         });
-        tableHtml += `</tbody></table>`;
-        return tableHtml;
+        html += `</tbody></table>`;
+        document.getElementById('static-tracker-box').innerHTML = html;
     }
 
-    function renderVerticalTracker() {
-        const table = createTable();
-        // Doubling the table inside the wrapper creates the infinite loop effect
-        document.getElementById('master-scroll-box').innerHTML = table + table;
-    }
-
-    function bumpViews() {
-        localData.forEach((item, index) => {
+    function simulateGrowth() {
+        trackerRows.forEach((item, i) => {
             if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                item.views += Math.floor(Math.random() * 8) + 2;
-                // Sync all instances (original and clone)
-                const cells = document.querySelectorAll(`[data-ref="${index}"]`);
-                cells.forEach(c => c.innerText = item.views.toLocaleString());
+                item.count += Math.floor(Math.random() * 8) + 2;
+                const cell = document.getElementById(`count-${i}`);
+                if (cell) cell.innerText = item.count.toLocaleString();
             }
         });
     }
 
-    loadTracker();
+    fetchSheetData();
 </script>
 
 </body>
