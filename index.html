@@ -68,20 +68,20 @@
         /* ADDRESS (Left side) */
         .address-info { flex: 1; font-size: 0.8rem; }
         .address-info h2 { font-size: 1.2rem; margin-bottom: 8px; }
-        .divider { height: 1px; background: var(--white-transparent); margin: 8px 0; }
+        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
 
-        /* ETHIOPIAN FLAG TRACKER (Right side) */
+        /* FLAG TRACKER (Right side) */
         .tracker-container { flex: 1.2; background: rgba(0,0,0,0.15); padding: 8px; border-radius: 8px; max-width: 280px; }
         .table-wrap { background: white; border-radius: 6px; overflow: hidden; }
         table { width: 100%; border-collapse: collapse; font-size: 0.65rem; color: #111; }
         td { padding: 8px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        /* Flag Row Theme */
+        /* Row Themes */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; font-weight: 900; }
-        .view-val { text-align: right; font-family: sans-serif; }
+        .view-val { text-align: right; }
 
         .live-label { text-align: center; margin-top: 8px; font-size: 0.6rem; font-weight: 900; color: white; animation: blink 2s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -131,7 +131,7 @@
 
             <div class="tracker-container">
                 <div class="table-wrap" id="live-tracker-box">
-                    <p style="padding: 15px; text-align: center; color: #666; font-size: 0.6rem;">Loading Live Viewers...</p>
+                    <p style="padding: 15px; text-align: center; color: #666; font-size: 0.6rem;">Fetching Live Data...</p>
                 </div>
                 <div class="live-label">● TEDDY AFRO LIVE VIEW COUNT</div>
             </div>
@@ -140,16 +140,16 @@
 </main>
 
 <script>
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let liveData = [];
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let dataSet = [];
 
-    async function startLiveTracker() {
+    async function initTracker() {
         try {
-            const response = await fetch(SHEET_URL);
-            const csvText = await response.text();
-            const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== "");
+            const res = await fetch(CSV_URL);
+            const csv = await res.text();
+            const lines = csv.split(/\r?\n/).filter(l => l.trim() !== "");
             
-            liveData = lines.slice(1).map(line => {
+            dataSet = lines.slice(1).map(line => {
                 const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
                 if (parts && parts.length >= 2) {
                     return { 
@@ -160,40 +160,39 @@
                 return null;
             }).filter(d => d !== null);
 
-            renderTrackerUI();
-            setInterval(updateLiveCounts, 2500);
+            renderUI();
+            setInterval(updateCounts, 2500);
         } catch (e) {
-            document.getElementById('live-tracker-box').innerHTML = "<p style='padding:15px; text-align:center;'>Feed Error.</p>";
+            document.getElementById('live-tracker-box').innerHTML = "<p style='padding:15px; text-align:center;'>Data Offline.</p>";
         }
     }
 
-    function renderTrackerUI() {
-        let tableHtml = `<table><tbody>`;
-        const colors = ["row-green", "row-yellow", "row-red"];
-        
-        liveData.forEach((item, index) => {
-            const isGrand = item.title.toUpperCase().includes("GRAND TOTAL");
-            const rowStyle = isGrand ? "row-total" : colors[index % 3];
-            tableHtml += `<tr class="${rowStyle}">
+    function renderUI() {
+        let html = `<table><tbody>`;
+        const flags = ["row-green", "row-yellow", "row-red"];
+        dataSet.forEach((item, i) => {
+            const isTotal = item.title.toUpperCase().includes("GRAND TOTAL");
+            const style = isTotal ? "row-total" : flags[i % 3];
+            html += `<tr class="${style}">
                 <td>${item.title}</td>
-                <td id="view-count-${index}" class="view-val">${item.count.toLocaleString()}</td>
+                <td id="view-val-${i}" class="view-val">${item.count.toLocaleString()}</td>
             </tr>`;
         });
-        tableHtml += `</tbody></table>`;
-        document.getElementById('live-tracker-box').innerHTML = tableHtml;
+        html += `</tbody></table>`;
+        document.getElementById('live-tracker-box').innerHTML = html;
     }
 
-    function updateLiveCounts() {
-        liveData.forEach((item, index) => {
+    function updateCounts() {
+        dataSet.forEach((item, i) => {
             if (!item.title.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
                 item.count += Math.floor(Math.random() * 5) + 1;
-                const el = document.getElementById(`view-count-${index}`);
+                const el = document.getElementById(`view-val-${i}`);
                 if (el) el.innerText = item.count.toLocaleString();
             }
         });
     }
 
-    startLiveTracker();
+    initTracker();
 </script>
 
 </body>
