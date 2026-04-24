@@ -6,11 +6,11 @@
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
     <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* ============================================
-           Rikash Gebeya - Core Theme (Original)
+           Rikash Gebeya - Core Theme
            ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -48,12 +48,10 @@
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
         .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* ============================================
-           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
-           ============================================ */
+        /* Hero Section */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -89,7 +87,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #111; }
         th { background: #eee; color: #333; padding: 10px; text-align: left; }
         td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
 
@@ -99,25 +97,20 @@
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        /* VIEW COUNT STYLING & ANIMATION */
+        /* View Animation */
         .view-cell { 
             text-align: right; 
             font-weight: 900; 
-            font-family: sans-serif; 
             display: block;
             transition: transform 0.2s ease-out, color 0.2s ease;
         }
 
-        /* The Animation Class added by JS */
         .bump {
             transform: scale(1.2);
             color: #ffffff;
             text-shadow: 0 0 8px rgba(255,255,255,0.8);
         }
-        .row-yellow .bump {
-            color: #000;
-            text-shadow: none;
-        }
+        .row-yellow .bump { color: #000; text-shadow: none; }
 
         .live-status {
             text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
@@ -141,7 +134,7 @@
     <div class="header-container">
         <div class="brand">
             <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span class="brand-name" style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
+            <span style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -153,9 +146,7 @@
 
 <main class="page-content">
     <div class="hero-section">
-        <div class="hero-image">
-            <img src="img-home.webp" alt="Store Front">
-        </div>
+        <div class="hero-image"><img src="img-home.webp" alt="Store Front"></div>
 
         <div class="hero-content">
             <h2>Address</h2>
@@ -176,12 +167,14 @@
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
+    let totalRowIndex = -1;
 
     async function initTracker() {
         try {
-            const res = await fetch(CSV_URL);
+            // Cache buster ensures fresh data from Google Sheet script
+            const res = await fetch(CSV_URL + '?t=' + Date.now());
             const text = await res.text();
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
@@ -196,7 +189,11 @@
                 return null;
             }).filter(item => item !== null);
 
+            // Find where the Grand Total is (usually at the bottom)
+            totalRowIndex = trackData.findIndex(t => t.name.toUpperCase().includes("GRAND TOTAL"));
+
             renderTable();
+            // Start the live simulation
             setInterval(animateViews, 2500);
         } catch (e) {
             document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
@@ -208,7 +205,7 @@
         const colors = ["row-green", "row-yellow", "row-red"];
         
         trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const isTotal = i === totalRowIndex;
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
@@ -221,25 +218,38 @@
 
     function animateViews() {
         trackData.forEach((t, i) => {
-            // Randomly update views for a live feel
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
-                if (el) {
-                    el.innerText = t.views.toLocaleString();
-                    
-                    // Trigger the visual "bump" animation
-                    el.classList.remove('bump');
-                    void el.offsetWidth; // Trigger reflow to restart animation
-                    el.classList.add('bump');
-                    
-                    // Remove class after animation finishes
-                    setTimeout(() => el.classList.remove('bump'), 300);
+            // Skip the total row during random song updates
+            if (i !== totalRowIndex && Math.random() > 0.4) {
+                const increment = Math.floor(Math.random() * 10) + 2;
+                
+                // 1. Update individual track
+                t.views += increment;
+                triggerBump(i);
+
+                // 2. MATH SYNC: Add same amount to Grand Total
+                if (totalRowIndex !== -1) {
+                    trackData[totalRowIndex].views += increment;
+                    triggerBump(totalRowIndex);
                 }
             }
         });
     }
 
+    function triggerBump(index) {
+        const el = document.getElementById(`val-${index}`);
+        if (el) {
+            el.innerText = trackData[index].views.toLocaleString();
+            el.classList.remove('bump');
+            void el.offsetWidth; // Force CSS restart
+            el.classList.add('bump');
+            setTimeout(() => el.classList.remove('bump'), 300);
+        }
+    }
+
+    // Pull from Sheet every 5 mins to stay accurate with your YouTube Script
+    setInterval(initTracker, 300000); 
+
+    // Start on page load
     initTracker();
 </script>
 
