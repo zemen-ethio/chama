@@ -51,9 +51,7 @@
         .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* ============================================
-           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
-           ============================================ */
+        /* HERO SECTION */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -89,35 +87,29 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #333; }
         th { background: #eee; color: #333; padding: 10px; text-align: left; }
         td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
 
-        /* Ethiopian Flag Pattern Rows */
+        /* Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        /* VIEW COUNT STYLING & ANIMATION */
         .view-cell { 
             text-align: right; 
             font-weight: 900; 
-            font-family: sans-serif; 
             display: block;
-            transition: transform 0.2s ease-out, color 0.2s ease;
+            transition: transform 0.2s ease-out;
         }
 
-        /* The Animation Class added by JS */
         .bump {
             transform: scale(1.2);
             color: #ffffff;
             text-shadow: 0 0 8px rgba(255,255,255,0.8);
         }
-        .row-yellow .bump {
-            color: #000;
-            text-shadow: none;
-        }
+        .row-yellow .bump { color: #000; text-shadow: none; }
 
         .live-status {
             text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
@@ -178,10 +170,12 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
+    let totalIdx = -1;
 
     async function initTracker() {
         try {
-            const res = await fetch(CSV_URL);
+            // Added Cache Buster (?t=) to ensure we always get the fresh data from Google Sheets
+            const res = await fetch(CSV_URL + "&t=" + Date.now());
             const text = await res.text();
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
@@ -196,8 +190,14 @@
                 return null;
             }).filter(item => item !== null);
 
+            // Find the index of the Grand Total
+            totalIdx = trackData.findIndex(t => t.name.toUpperCase().includes("GRAND TOTAL"));
+
             renderTable();
             setInterval(animateViews, 2500);
+            
+            // Hard Refresh data from Sheet every 5 minutes
+            setInterval(() => location.reload(), 300000); 
         } catch (e) {
             document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
         }
@@ -208,7 +208,7 @@
         const colors = ["row-green", "row-yellow", "row-red"];
         
         trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const isTotal = i === totalIdx;
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
@@ -221,23 +221,31 @@
 
     function animateViews() {
         trackData.forEach((t, i) => {
-            // Randomly update views for a live feel
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
-                if (el) {
-                    el.innerText = t.views.toLocaleString();
-                    
-                    // Trigger the visual "bump" animation
-                    el.classList.remove('bump');
-                    void el.offsetWidth; // Trigger reflow to restart animation
-                    el.classList.add('bump');
-                    
-                    // Remove class after animation finishes
-                    setTimeout(() => el.classList.remove('bump'), 300);
+            // Update individual songs randomly
+            if (i !== totalIdx && Math.random() > 0.4) {
+                const growth = Math.floor(Math.random() * 8) + 2;
+                t.views += growth;
+                
+                // Keep the Grand Total mathematically synced
+                if (totalIdx !== -1) {
+                    trackData[totalIdx].views += growth;
+                    triggerBump(totalIdx);
                 }
+                
+                triggerBump(i);
             }
         });
+    }
+
+    function triggerBump(idx) {
+        const el = document.getElementById(`val-${idx}`);
+        if (el) {
+            el.innerText = trackData[idx].views.toLocaleString();
+            el.classList.remove('bump');
+            void el.offsetWidth; // Force reflow
+            el.classList.add('bump');
+            setTimeout(() => el.classList.remove('bump'), 300);
+        }
     }
 
     initTracker();
