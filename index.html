@@ -52,7 +52,7 @@
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* ============================================
-           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
+           HERO SECTION - 3 COLUMN LAYOUT
            ============================================ */
         .hero-section {
             max-width: 1300px;
@@ -93,7 +93,7 @@
         th { background: #eee; color: #333; padding: 10px; text-align: left; }
         td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
 
-        /* Ethiopian Flag Pattern Rows */
+        /* Ethiopian Flag Pattern Rows (only for tracks) */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
@@ -108,7 +108,6 @@
             transition: transform 0.2s ease-out, color 0.2s ease;
         }
 
-        /* The Animation Class added by JS */
         .bump {
             transform: scale(1.2);
             color: #ffffff;
@@ -168,79 +167,151 @@
 
         <div class="hero-tracker">
             <div class="tracker-card" id="counter-host">
-                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
+                <p style="padding: 20px; color: #666; text-align: center;">Loading live data...</p>
             </div>
-            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
+            <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT (auto-refresh)</div>
         </div>
     </div>
 </main>
 
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    // Refresh every 5 minutes
+    const REFRESH_INTERVAL = 300000;
     let trackData = [];
 
-    async function initTracker() {
+    function parseCSVLine(line) {
+        const result = [];
+        let inQuote = false;
+        let current = '';
+        for (let i = 0; i < line.length; i++) {
+            const ch = line[i];
+            if (ch === '"') {
+                inQuote = !inQuote;
+            } else if (ch === ',' && !inQuote) {
+                result.push(current.trim().replace(/^"|"$/g, ''));
+                current = '';
+            } else {
+                current += ch;
+            }
+        }
+        result.push(current.trim().replace(/^"|"$/g, ''));
+        return result;
+    }
+
+    async function fetchLiveData() {
         try {
-            const res = await fetch(CSV_URL);
-            const text = await res.text();
-            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
-            
-            trackData = rows.slice(1).map(row => {
-                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (cols && cols.length >= 2) {
-                    return { 
-                        name: cols[0].replace(/"/g, '').trim(), 
-                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
-                    };
+            const response = await fetch(CSV_URL + '?t=' + Date.now());
+            if (!response.ok) throw new Error('Network error');
+            const csvText = await response.text();
+            const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
+            if (lines.length < 2) throw new Error('No data rows');
+
+            const headers = parseCSVLine(lines[0]);
+            const rawRows = [];
+            for (let i = 1; i < lines.length; i++) {
+                const cols = parseCSVLine(lines[i]);
+                if (cols.length < 2) continue;
+                let title = cols[0] || '';
+                let views = parseInt(cols[1]?.replace(/[^0-9-]/g, '')) || 0;
+                rawRows.push({ name: title, views: views });
+            }
+
+            // Separate total row and tracks
+            let totalRow = null;
+            const tracks = [];
+            for (let row of rawRows) {
+                if (row.name.toUpperCase().includes("GRAND TOTAL")) {
+                    totalRow = row;
+                } else {
+                    tracks.push(row);
                 }
-                return null;
-            }).filter(item => item !== null);
+            }
+            // Build final array: total first (if exists), then all tracks
+            trackData = [];
+            if (totalRow) trackData.push(totalRow);
+            trackData.push(...tracks);
 
             renderTable();
-            setInterval(animateViews, 2500);
-        } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+        } catch (error) {
+            console.error('Fetch error:', error);
+            document.getElementById('counter-host').innerHTML = '<p style="padding:20px; color:red; text-align:center;">⚠️ Unable to load statistics. Retrying...</p>';
         }
     }
 
     function renderTable() {
+        if (!trackData.length) {
+            document.getElementById('counter-host').innerHTML = '<p style="padding:20px; color:#666; text-align:center;">No data available yet.</p>';
+            return;
+        }
+
         let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
         const colors = ["row-green", "row-yellow", "row-red"];
-        
-        trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : colors[i % 3];
+        let colorIndex = 0;
+
+        trackData.forEach((item, idx) => {
+            const isTotal = item.name.toUpperCase().includes("GRAND TOTAL");
+            let rowClass = "";
+            if (isTotal) {
+                rowClass = "row-total";
+            } else {
+                rowClass = colors[colorIndex % colors.length];
+                colorIndex++;
+            }
             html += `<tr class="${rowClass}">
-                <td>${t.name}</td>
-                <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
-            </tr>`;
+                        <td>${item.name}</td>
+                        <td style="text-align:right;"><span id="val-${idx}" class="view-cell">${item.views.toLocaleString()}</span></td>
+                    </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('counter-host').innerHTML = html;
     }
 
-    function animateViews() {
-        trackData.forEach((t, i) => {
-            // Randomly update views for a live feel
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
+    // Optional bump animation when data changes (only on refresh)
+    let previousData = [];
+    function animateChanges() {
+        if (!trackData.length) return;
+        trackData.forEach((item, idx) => {
+            const prev = previousData[idx];
+            if (prev && prev.views !== item.views) {
+                const el = document.getElementById(`val-${idx}`);
                 if (el) {
-                    el.innerText = t.views.toLocaleString();
-                    
-                    // Trigger the visual "bump" animation
                     el.classList.remove('bump');
-                    void el.offsetWidth; // Trigger reflow to restart animation
+                    void el.offsetWidth;
                     el.classList.add('bump');
-                    
-                    // Remove class after animation finishes
                     setTimeout(() => el.classList.remove('bump'), 300);
                 }
             }
         });
+        previousData = trackData.map(t => ({ ...t }));
     }
 
-    initTracker();
+    async function refreshAndAnimate() {
+        const oldData = trackData.map(t => ({ ...t }));
+        await fetchLiveData();
+        // Compare and animate only changed rows
+        if (trackData.length) {
+            trackData.forEach((item, idx) => {
+                const oldItem = oldData[idx];
+                if (oldItem && oldItem.views !== item.views) {
+                    const el = document.getElementById(`val-${idx}`);
+                    if (el) {
+                        el.classList.remove('bump');
+                        void el.offsetWidth;
+                        el.classList.add('bump');
+                        setTimeout(() => el.classList.remove('bump'), 300);
+                    }
+                }
+            });
+        }
+        previousData = trackData.map(t => ({ ...t }));
+    }
+
+    // Initial load
+    fetchLiveData().then(() => {
+        previousData = trackData.map(t => ({ ...t }));
+        setInterval(refreshAndAnimate, REFRESH_INTERVAL);
+    });
 </script>
 
 </body>
