@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Rikash Gebeya | Home</title>
+    <title>Rikash Gebeya | Live Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -22,26 +21,13 @@
             color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* Ticker Banner */
-        .ticker-wrapper { 
-            background-color: var(--fb-blue-darker); 
-            overflow: hidden; 
-            padding: 12px 0; 
-            border-bottom: 1px solid var(--white-transparent); 
-        }
+        /* Ticker */
+        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; padding: 12px 0; border-bottom: 1px solid var(--white-transparent); }
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; white-space: nowrap; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* Header */
-        .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 5px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
-        .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* Hero Layout */
         .hero-section {
@@ -57,40 +43,29 @@
 
         .hero-image { flex: 2; min-width: 320px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
         .hero-content { flex: 0.6; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
-        .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
-        .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
-
+        
         /* Tracker Styling */
-        .hero-tracker { 
-            flex: 0.6; 
-            padding: 1rem; 
-            background: #f0f2f5; 
-            min-width: 250px;
-            display: flex;
-            flex-direction: column;
-        }
-
+        .hero-tracker { flex: 0.7; padding: 1rem; background: #f0f2f5; min-width: 280px; display: flex; flex-direction: column; }
         .tracker-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; color: #111; }
         td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        /* Row Colors */
-        .row-total { background: #111 !important; color: #ffff00 !important; border-bottom: 3px solid var(--fb-blue); }
+        /* Colors */
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 3px solid var(--fb-blue); }
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
 
         /* Animation */
         .view-cell { text-align: right; display: block; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .bump { transform: scale(1.3); color: #fff !important; }
-        .row-yellow .bump { color: #000 !important; }
+        .bump { transform: scale(1.25); color: #fff !important; text-shadow: 0 0 8px rgba(255,255,255,0.8); }
+        .row-yellow .bump { color: #000 !important; text-shadow: none; }
 
         .live-status { text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        @media (max-width: 1100px) { .hero-section { flex-direction: column; } .hero-image { flex: none; width: 100%; } }
+        @media (max-width: 1100px) { .hero-section { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -103,34 +78,17 @@
     </div>
 </div>
 
-<header class="header">
-    <div class="header-container">
-        <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
-            <span style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
-        </div>
-        <ul class="nav-menu">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact us</a></li>
-        </ul>
-    </div>
-</header>
-
 <main>
     <div class="hero-section">
         <div class="hero-image"><img src="img-home.webp" alt="Store Front"></div>
         <div class="hero-content">
             <h2>Address</h2>
-            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
-            <div class="divider"></div>
-            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
-            <div class="divider"></div>
-            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
+            <p>Djibouti street, A.A Ethiopia</p>
+            <p><strong>Contact</strong><br>0972919293</p>
         </div>
         <div class="hero-tracker">
             <div class="tracker-card" id="tracker-host">
-                <p style="padding: 20px; color: #666; text-align: center;">Syncing Live Data...</p>
+                <p style="padding: 20px; color: #666; text-align: center;">Syncing Data...</p>
             </div>
             <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
@@ -140,46 +98,34 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
+    let totalRowIndex = -1;
 
-    async function fetchTracker() {
+    async function fetchData() {
         try {
-            // Cache buster forces a fresh fetch from Google
-            const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
-            const text = await response.text();
+            const res = await fetch(`${CSV_URL}&t=${Date.now()}`);
+            const text = await res.text();
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
-            let parsed = rows.slice(1).map(row => {
+            trackData = rows.slice(1).map(row => {
                 const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (cols && cols.length >= 2) {
-                    return { 
-                        name: cols[0].replace(/"/g, '').trim(), 
-                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
-                    };
-                }
-                return null;
-            }).filter(i => i !== null);
+                return { 
+                    name: cols[0].replace(/"/g, '').trim(), 
+                    views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                };
+            });
 
-            // Move Grand Total to Index 0
-            const totalIdx = parsed.findIndex(item => item.name.toUpperCase().includes("GRAND TOTAL"));
-            if (totalIdx !== -1) {
-                const totalRow = parsed.splice(totalIdx, 1)[0];
-                trackData = [totalRow, ...parsed];
-            } else {
-                trackData = parsed;
-            }
-
+            // Find where the Grand Total is in your Sheet
+            totalRowIndex = trackData.findIndex(item => item.name.toUpperCase().includes("GRAND TOTAL"));
             renderTable();
-        } catch (e) {
-            document.getElementById('tracker-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Feed Offline.</p>";
-        }
+        } catch (e) { console.error(e); }
     }
 
     function renderTable() {
         let html = `<table><tbody>`;
-        const colors = ["row-green", "row-yellow", "row-red"];
+        const flagColors = ["row-green", "row-yellow", "row-red"];
         trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : colors[(i - 1) % 3];
+            const isTotal = i === totalRowIndex;
+            const rowClass = isTotal ? "row-total" : flagColors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
                 <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
@@ -188,20 +134,21 @@
         document.getElementById('tracker-host').innerHTML = html + `</tbody></table>`;
     }
 
-    function simulateLiveGrowth() {
-        if (trackData.length < 2) return;
+    function simulateGrowth() {
+        if (trackData.length === 0) return;
+        
         trackData.forEach((item, idx) => {
-            // Grow tracks randomly (skip index 0 as it's the Total)
-            if (idx !== 0 && Math.random() > 0.4) {
-                const growth = Math.floor(Math.random() * 10) + 2;
-                item.views += growth;
-                
-                // SYNC GRAND TOTAL
-                if (trackData[0]) {
-                    trackData[0].views += growth;
-                    triggerBump(0); // Animate Total
+            // Only update actual songs, not the Total row itself
+            if (idx !== totalRowIndex && Math.random() > 0.4) {
+                const add = Math.floor(Math.random() * 15) + 5;
+                item.views += add;
+
+                // ADD to the Grand Total row mathematically
+                if (totalRowIndex !== -1) {
+                    trackData[totalRowIndex].views += add;
+                    triggerBump(totalRowIndex); // Animate Total
                 }
-                triggerBump(idx); // Animate Track
+                triggerBump(idx); // Animate Song
             }
         });
     }
@@ -211,18 +158,16 @@
         if (el) {
             el.innerText = trackData[idx].views.toLocaleString();
             el.classList.remove('bump');
-            void el.offsetWidth; // Trigger CSS reset
+            void el.offsetWidth;
             el.classList.add('bump');
             setTimeout(() => el.classList.remove('bump'), 400);
         }
     }
 
-    // Initial load + Intervals
-    fetchTracker().then(() => {
-        setInterval(simulateLiveGrowth, 2800);
-        setInterval(fetchTracker, 300000); // Resync with actual Sheet every 5 mins
+    fetchData().then(() => {
+        setInterval(simulateGrowth, 3000); // Live updates
+        setInterval(fetchData, 300000);   // Refresh from Google Sheet every 5 mins
     });
 </script>
-
 </body>
 </html>
