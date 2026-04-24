@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
-    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================
-           Rikash Gebeya - Core Theme
-           ============================================ */
+        /* CORE THEME */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -26,7 +22,6 @@
             background-color: var(--fb-blue);
             color: var(--pure-white);
             line-height: 1.6;
-            overflow-x: hidden;
             min-height: 100vh;
         }
 
@@ -40,18 +35,16 @@
         }
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
-        .ticker-item::before { content: "✦"; margin-right: 12px; }
-
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header & Nav */
+        /* Header */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
+        .nav-menu { display: flex; list-style: none; gap: 10px; }
+        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* Hero Section */
+        /* Layout */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -67,57 +60,29 @@
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .hero-content { flex: 0.6; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
-        .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        .hero-tracker { 
-            flex: 0.6; 
-            padding: 1rem; 
-            background: #f0f2f5; 
-            min-width: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        /* Tracker */
+        .hero-tracker { flex: 0.7; padding: 1rem; background: #f0f2f5; min-width: 280px; }
+        .tracker-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; color: #111; }
+        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        .tracker-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #111; }
-        th { background: #eee; color: #333; padding: 10px; text-align: left; }
-        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
-
-        /* Ethiopian Flag Pattern Rows */
+        /* Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 3px solid var(--fb-blue); }
 
-        /* View Animation */
-        .view-cell { 
-            text-align: right; 
-            font-weight: 900; 
-            display: block;
-            transition: transform 0.2s ease-out, color 0.2s ease;
-        }
+        /* Animation */
+        .view-cell { text-align: right; display: block; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .bump { transform: scale(1.3); color: #fff !important; text-shadow: 0 0 8px white; }
+        .row-yellow .bump { color: #000 !important; }
 
-        .bump {
-            transform: scale(1.2);
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255,255,255,0.8);
-        }
-        .row-yellow .bump { color: #000; text-shadow: none; }
-
-        .live-status {
-            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
-        }
+        .live-status { text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        @media (max-width: 1100px) { .hero-section { flex-direction: column; } .hero-image { flex: none; width: 100%; } }
+        @media (max-width: 1100px) { .hero-section { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -133,7 +98,7 @@
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
+            <img src="img-logo.webp" alt="Logo" style="max-width: 60px;">
             <span style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
@@ -144,22 +109,20 @@
     </div>
 </header>
 
-<main class="page-content">
+<main>
     <div class="hero-section">
         <div class="hero-image"><img src="img-home.webp" alt="Store Front"></div>
-
         <div class="hero-content">
             <h2>Address</h2>
             <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
             <div class="divider"></div>
-            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
+            <p><strong>Contact</strong><br>0972919293 / 0967919293</p>
             <div class="divider"></div>
-            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
+            <p><strong>Hours</strong><br>Mon - Sat: 9am - 6pm</p>
         </div>
-
         <div class="hero-tracker">
-            <div class="tracker-card" id="counter-host">
-                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
+            <div class="tracker-card" id="tracker-host">
+                <p style="padding:20px; color:#666; text-align:center;">Syncing Live Data...</p>
             </div>
             <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
@@ -169,13 +132,12 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
-    let totalRowIndex = -1;
+    let totalRowIdx = -1;
 
-    async function initTracker() {
+    async function loadData() {
         try {
-            // Cache buster ensures fresh data from Google Sheet script
-            const res = await fetch(CSV_URL + '?t=' + Date.now());
-            const text = await res.text();
+            const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
+            const text = await response.text();
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
             trackData = rows.slice(1).map(row => {
@@ -187,70 +149,60 @@
                     };
                 }
                 return null;
-            }).filter(item => item !== null);
+            }).filter(i => i !== null);
 
-            // Find where the Grand Total is (usually at the bottom)
-            totalRowIndex = trackData.findIndex(t => t.name.toUpperCase().includes("GRAND TOTAL"));
-
-            renderTable();
-            // Start the live simulation
-            setInterval(animateViews, 2500);
+            totalRowIdx = trackData.findIndex(t => t.name.toUpperCase().includes("GRAND TOTAL"));
+            render();
         } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+            console.error("Fetch Error:", e);
         }
     }
 
-    function renderTable() {
-        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+    function render() {
         const colors = ["row-green", "row-yellow", "row-red"];
-        
+        let html = `<table><tbody>`;
         trackData.forEach((t, i) => {
-            const isTotal = i === totalRowIndex;
-            const rowClass = isTotal ? "row-total" : colors[i % 3];
-            html += `<tr class="${rowClass}">
+            const isTotal = i === totalRowIdx;
+            const cls = isTotal ? "row-total" : colors[i % 3];
+            html += `<tr class="${cls}">
                 <td>${t.name}</td>
                 <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
             </tr>`;
         });
-        html += `</tbody></table>`;
-        document.getElementById('counter-host').innerHTML = html;
+        document.getElementById('tracker-host').innerHTML = html + `</tbody></table>`;
     }
 
-    function animateViews() {
-        trackData.forEach((t, i) => {
-            // Skip the total row during random song updates
-            if (i !== totalRowIndex && Math.random() > 0.4) {
-                const increment = Math.floor(Math.random() * 10) + 2;
-                
-                // 1. Update individual track
-                t.views += increment;
-                triggerBump(i);
-
-                // 2. MATH SYNC: Add same amount to Grand Total
-                if (totalRowIndex !== -1) {
-                    trackData[totalRowIndex].views += increment;
-                    triggerBump(totalRowIndex);
+    function simulate() {
+        if (trackData.length < 1) return;
+        trackData.forEach((item, idx) => {
+            if (idx !== totalRowIdx && Math.random() > 0.4) {
+                const growth = Math.floor(Math.random() * 10) + 2;
+                item.views += growth;
+                if (totalRowIdx !== -1) {
+                    trackData[totalRowIdx].views += growth;
+                    bump(totalRowIdx);
                 }
+                bump(idx);
             }
         });
     }
 
-    function triggerBump(index) {
-        const el = document.getElementById(`val-${index}`);
+    function bump(idx) {
+        const el = document.getElementById(`val-${idx}`);
         if (el) {
-            el.innerText = trackData[index].views.toLocaleString();
+            el.innerText = trackData[idx].views.toLocaleString();
             el.classList.remove('bump');
-            void el.offsetWidth; // Force CSS restart
+            void el.offsetWidth;
             el.classList.add('bump');
-            setTimeout(() => el.classList.remove('bump'), 300);
+            setTimeout(() => el.classList.remove('bump'), 400);
         }
     }
 
-    // Pull from Sheet every 5 mins to stay accurate with your YouTube Script
-    setInterval(initTracker, 300000); 
-
-    // Start on page load
-    initTracker();
+    // Initialize
+    loadData().then(() => {
+        setInterval(simulate, 3000);
+        setInterval(loadData, 300000); // Fresh pull every 5 mins
+    });
 </script>
 
 </body>
