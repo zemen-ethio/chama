@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
+    <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CORE THEME */
+        /* ============================================
+           Rikash Gebeya - Core Theme (Original)
+           ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
@@ -22,6 +26,7 @@
             background-color: var(--fb-blue);
             color: var(--pure-white);
             line-height: 1.6;
+            overflow-x: hidden;
             min-height: 100vh;
         }
 
@@ -35,16 +40,20 @@
         }
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
         .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        .ticker-item::before { content: "✦"; margin-right: 12px; }
+
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Header */
+        /* Header & Nav */
         .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 10px; }
-        .nav-menu li a { padding: 8px 15px; text-decoration: none; color: white; border-radius: 8px; font-weight: 700; }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
         .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* Layout */
+        /* ============================================
+           HERO SECTION - 3 COLUMN LAYOUT (Adjusted Proportions)
+           ============================================ */
         .hero-section {
             max-width: 1300px;
             margin: 2rem auto;
@@ -60,29 +69,62 @@
         .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .hero-content { flex: 0.6; padding: 1.5rem; background-color: var(--fb-blue); min-width: 250px; font-size: 0.9rem; }
+        .hero-content h2 { margin-bottom: 0.8rem; font-size: 1.3rem; }
         .divider { height: 1px; background: var(--white-transparent); margin: 0.8rem 0; }
 
-        /* Tracker */
-        .hero-tracker { flex: 0.7; padding: 1rem; background: #f0f2f5; min-width: 280px; }
-        .tracker-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; color: #111; }
-        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .hero-tracker { 
+            flex: 0.6; 
+            padding: 1rem; 
+            background: #f0f2f5; 
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-        /* Rows */
+        .tracker-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th { background: #eee; color: #333; padding: 10px; text-align: left; }
+        td { padding: 12px 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+
+        /* Ethiopian Flag Pattern Rows */
         .row-green { background-color: #009b3a; color: white !important; }
         .row-yellow { background-color: #ffff00; color: #111 !important; }
         .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 3px solid var(--fb-blue); }
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        /* Animation */
-        .view-cell { text-align: right; display: block; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .bump { transform: scale(1.3); color: #fff !important; text-shadow: 0 0 8px white; }
-        .row-yellow .bump { color: #000 !important; }
+        /* VIEW COUNT STYLING & ANIMATION */
+        .view-cell { 
+            text-align: right; 
+            font-weight: 900; 
+            font-family: sans-serif; 
+            display: block;
+            transition: transform 0.2s ease-out, color 0.2s ease;
+        }
 
-        .live-status { text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite; }
+        /* The Animation Class added by JS */
+        .bump {
+            transform: scale(1.2);
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+        }
+        .row-yellow .bump {
+            color: #000;
+            text-shadow: none;
+        }
+
+        .live-status {
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.8rem; animation: pulse 2s infinite;
+        }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        @media (max-width: 1100px) { .hero-section { flex-direction: column; } }
+        @media (max-width: 1100px) { .hero-section { flex-direction: column; } .hero-image { flex: none; width: 100%; } }
     </style>
 </head>
 <body>
@@ -98,8 +140,8 @@
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="max-width: 60px;">
-            <span style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
+            <img src="img-logo.webp" alt="Logo" style="max-width: 80px;">
+            <span class="brand-name" style="margin-left:10px; font-weight: 900;">Rikash Gebeya</span>
         </div>
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
@@ -109,20 +151,24 @@
     </div>
 </header>
 
-<main>
+<main class="page-content">
     <div class="hero-section">
-        <div class="hero-image"><img src="img-home.webp" alt="Store Front"></div>
+        <div class="hero-image">
+            <img src="img-home.webp" alt="Store Front">
+        </div>
+
         <div class="hero-content">
             <h2>Address</h2>
             <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
             <div class="divider"></div>
-            <p><strong>Contact</strong><br>0972919293 / 0967919293</p>
+            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
             <div class="divider"></div>
-            <p><strong>Hours</strong><br>Mon - Sat: 9am - 6pm</p>
+            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
         </div>
+
         <div class="hero-tracker">
-            <div class="tracker-card" id="tracker-host">
-                <p style="padding:20px; color:#666; text-align:center;">Syncing Live Data...</p>
+            <div class="tracker-card" id="counter-host">
+                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
             </div>
             <div class="live-status">● TEDDY AFRO LIVE VIEW COUNT</div>
         </div>
@@ -130,14 +176,13 @@
 </main>
 
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
-    let totalRowIdx = -1;
 
-    async function loadData() {
+    async function initTracker() {
         try {
-            const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
-            const text = await response.text();
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
             const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
             
             trackData = rows.slice(1).map(row => {
@@ -149,60 +194,53 @@
                     };
                 }
                 return null;
-            }).filter(i => i !== null);
+            }).filter(item => item !== null);
 
-            totalRowIdx = trackData.findIndex(t => t.name.toUpperCase().includes("GRAND TOTAL"));
-            render();
+            renderTable();
+            setInterval(animateViews, 2500);
         } catch (e) {
-            console.error("Fetch Error:", e);
+            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
         }
     }
 
-    function render() {
+    function renderTable() {
+        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
         const colors = ["row-green", "row-yellow", "row-red"];
-        let html = `<table><tbody>`;
+        
         trackData.forEach((t, i) => {
-            const isTotal = i === totalRowIdx;
-            const cls = isTotal ? "row-total" : colors[i % 3];
-            html += `<tr class="${cls}">
+            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : colors[i % 3];
+            html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
                 <td style="text-align:right;"><span id="val-${i}" class="view-cell">${t.views.toLocaleString()}</span></td>
             </tr>`;
         });
-        document.getElementById('tracker-host').innerHTML = html + `</tbody></table>`;
+        html += `</tbody></table>`;
+        document.getElementById('counter-host').innerHTML = html;
     }
 
-    function simulate() {
-        if (trackData.length < 1) return;
-        trackData.forEach((item, idx) => {
-            if (idx !== totalRowIdx && Math.random() > 0.4) {
-                const growth = Math.floor(Math.random() * 10) + 2;
-                item.views += growth;
-                if (totalRowIdx !== -1) {
-                    trackData[totalRowIdx].views += growth;
-                    bump(totalRowIdx);
+    function animateViews() {
+        trackData.forEach((t, i) => {
+            // Randomly update views for a live feel
+            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                t.views += Math.floor(Math.random() * 10) + 2;
+                const el = document.getElementById(`val-${i}`);
+                if (el) {
+                    el.innerText = t.views.toLocaleString();
+                    
+                    // Trigger the visual "bump" animation
+                    el.classList.remove('bump');
+                    void el.offsetWidth; // Trigger reflow to restart animation
+                    el.classList.add('bump');
+                    
+                    // Remove class after animation finishes
+                    setTimeout(() => el.classList.remove('bump'), 300);
                 }
-                bump(idx);
             }
         });
     }
 
-    function bump(idx) {
-        const el = document.getElementById(`val-${idx}`);
-        if (el) {
-            el.innerText = trackData[idx].views.toLocaleString();
-            el.classList.remove('bump');
-            void el.offsetWidth;
-            el.classList.add('bump');
-            setTimeout(() => el.classList.remove('bump'), 400);
-        }
-    }
-
-    // Initialize
-    loadData().then(() => {
-        setInterval(simulate, 3000);
-        setInterval(loadData, 300000); // Fresh pull every 5 mins
-    });
+    initTracker();
 </script>
 
 </body>
