@@ -10,7 +10,7 @@
     
     <style>
         /* ============================================
-           Core Theme & Layout
+           Rikash Gebeya - Core Theme
            ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -35,7 +35,7 @@
             padding: 2rem;
         }
 
-        /* ---------- Hero Section Skeleton ---------- */
+        /* ---------- Hero Section Layout ---------- */
         .hero-section {
             display: flex;
             flex-direction: row;
@@ -47,9 +47,9 @@
             min-height: 450px;
         }
 
-        /* ---------- Home Image (Centered & 50% Reduced) ---------- */
+        /* ---------- Home Image: Same Location, 50% Smaller ---------- */
         .hero-image {
-            flex: 0 0 50%;
+            flex: 0 0 50%; /* Keeps the container at the same 50% width */
             max-width: 50%;
             display: flex;
             align-items: center;
@@ -58,13 +58,14 @@
         }
 
         .hero-image img { 
-            width: 50%; /* Reduced by 0.5 from original size */
+            width: 50%; /* This is the 0.5 reduction of the image itself */
             height: auto; 
             object-fit: contain;
             display: block;
+            margin: 0 auto; /* Ensures centering in the same spot */
         }
 
-        /* ---------- Address & Info Section ---------- */
+        /* ---------- Info Section ---------- */
         .hero-content {
             flex: 0 0 25%;
             padding: 2rem;
@@ -80,7 +81,7 @@
             text-transform: uppercase;
         }
 
-        /* ---------- Live Tracker Section ---------- */
+        /* ---------- Tracker Section ---------- */
         .hero-tracker { 
             flex: 0 0 25%;
             padding: 1rem; 
@@ -103,14 +104,14 @@
 
         .row-total { background-color: #ffd700; font-weight: bold; }
 
-        /* Responsive Mobile Layout */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; }
             .hero-image, .hero-content, .hero-tracker { 
                 flex: 0 0 100%; 
                 max-width: 100%; 
             }
-            .hero-image img { width: 70%; }
+            .hero-image img { width: 70%; } /* Slightly larger on mobile for visibility */
         }
     </style>
 </head>
@@ -119,35 +120,35 @@
 <main class="page-content">
     <div class="hero-section">
         <div class="hero-image">
-            <img src="img-home.webp" alt="Featured Product">
+            <img src="img-home.webp" alt="Rikash Gebeya Featured Sneaker">
         </div>
 
         <div class="hero-content">
-            <h2>Our Location</h2>
-            <p>Djibouti Street, 22<br>Addis Ababa, Ethiopia</p>
+            <h2>Address</h2>
+            <p>Djibouti street<br>22 , A.A Ethiopia</p>
             <br>
-            <p><strong>Hours:</strong><br>Mon-Sat: 9am - 7pm</p>
+            <p><strong>Opening hours</strong><br>Mon - Sat: 9am - 7pm</p>
         </div>
 
         <div class="hero-tracker">
             <div id="counter-host">
-                <p style="text-align:center; padding:20px;">Loading Tracker...</p>
+                <p style="text-align:center; padding:20px;">Loading Live Data...</p>
             </div>
-            <p style="font-size: 0.7rem; margin-top: 10px; font-weight: bold;">● LIVE VIEW STATISTICS</p>
+            <p style="font-size: 0.7rem; margin-top: 10px; font-weight: bold; color: #1877f2;">● TEDDY AFRO LIVE STATUS</p>
         </div>
     </div>
 </main>
 
 <script>
-    // Simplified Tracker Logic for Demo
+    // Logic to simulate/render your view tracker
     const trackData = [
-        { name: "Teddy Afro - Demo", views: 1250430 },
-        { name: "Grand Total", views: 1250430 }
+        { name: "Teddy Afro - Ethiopia", views: 2450890 },
+        { name: "Grand Total", views: 2450890 }
     ];
 
     function renderTable() {
         let html = `<table><thead><tr><th>Title</th><th>Views</th></tr></thead><tbody>`;
-        trackData.forEach((t, i) => {
+        trackData.forEach((t) => {
             const isTotal = t.name.includes("Total");
             html += `<tr class="${isTotal ? 'row-total' : ''}">
                 <td>${t.name}</td>
