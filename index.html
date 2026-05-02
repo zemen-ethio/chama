@@ -181,7 +181,11 @@
         <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact us</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
@@ -212,10 +216,8 @@
 
 <script>
     // ========== ROBUST LIVE TRACKER WITH FALLBACK DATA ==========
-    // Your published CSV URL – ensure it is publicly accessible
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     
-    // Fallback data in case fetch fails
     const FALLBACK_DATA = [
         { name: "TEDDY AFRO - ልሳ ጣል (አጋው) - Das Tal (Ansaw) | Track 1", views: 21662992 },
         { name: "TEDDY AFRO - ብምምንን (ተፈላ) - Sememene (GuReggae) | Track 5", views: 10299728 },
@@ -224,7 +226,7 @@
         { name: "TEDDY AFRO - የቃል - Ze Tsedal | Track 14", views: 8079936 },
         { name: "TEDDY AFRO - መሆን - Merema | Track 15", views: 7303673 },
         { name: "TEDDY AFRO - መርሐ - Merkeb | Track 16", views: 7303673 },
-        { name: "GRAND TOTAL", views: 7303673 + 8079936 + 8917535 + 9696906 + 10299728 + 21662992 } // approximate sum
+        { name: "GRAND TOTAL", views: 7303673 + 8079936 + 8917535 + 9696906 + 10299728 + 21662992 }
     ];
 
     let trackData = [];
@@ -283,7 +285,6 @@
     function animateViews() {
         let changed = false;
         trackData.forEach((t, i) => {
-            // For all rows, increment randomly (skip if you want only live increments, but we keep animation)
             if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.55) {
                 t.views += Math.floor(Math.random() * 7) + 1;
                 const el = document.getElementById(`val-${i}`);
@@ -293,7 +294,6 @@
                     changed = true;
                 }
             } else if (t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.7) {
-                // Grand total also gets occasional increments
                 t.views += Math.floor(Math.random() * 15) + 5;
                 const el = document.getElementById(`val-${i}`);
                 if (el) {
