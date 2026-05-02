@@ -273,28 +273,37 @@ a:hover {
     gap: 0;
 }
 
+/* Container for the image */
 .hero-image {
-    flex: 0 0 50%; /* Locks image to exactly half width */
+    flex: 0 0 50%; /* Locks the left side to exactly half width */
     max-width: 50%;
-    height: auto;
+    display: flex;
+    align-items: center; /* Vertically centers the image */
+    background-color: var(--fb-blue-dark); /* Maintains the theme background */
 }
 
-.hero-main-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fills the half-box without white gaps */
-    display: block;
+/* The actual image inside the container */
+.hero-image img { 
+    width: 50%; /* Scales the image down to 50% of the container */
+    height: auto; 
+    object-fit: contain; /* Prevents cropping of the sneaker */
+    display: block; 
+    margin: 0 auto; /* Centers the image horizontally */
+}
 }
 
 .hero-content {
-    flex: 0 0 50%; /* Locks address to exactly half width */
-    padding: 2.5rem;
-    background-color: var(--fb-blue); /* Distinct background for address side */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 0 0 25%; /* Takes up a quarter of the width */
+    padding: 1.5rem;
+    background-color: var(--fb-blue);
+    font-size: 0.9rem;
 }
 
+.hero-tracker { 
+    flex: 0 0 25%; /* Takes up the final quarter */
+    padding: 1rem; 
+    background: #f0f2f5; 
+}
 /* ---------- Mobile Responsiveness ---------- */
 @media (max-width: 768px) {
     .hero-section {
