@@ -47,7 +47,7 @@
         .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; transition: 0.2s; }
         .nav-menu li a:hover, .nav-menu li.active a { background-color: var(--white-transparent); }
 
-        /* ========== STACKED LAYOUT (DESKTOP + MOBILE) ========== */
+        /* ========== STACKED LAYOUT (desktop + mobile) ========== */
         .hero-section {
             max-width: 1000px;
             margin: 2rem auto;
@@ -102,10 +102,6 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            transition: transform 0.2s ease-out;
-        }
-        .tracker-card.scale-up {
-            transform: scale(1.02);
         }
         table {
             width: 100%;
@@ -127,7 +123,21 @@
         .row-yellow { background-color: #ffff00; color: #111; }
         .row-red { background-color: #ff0000; color: white; }
         .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
-        .view-cell { text-align: right; font-weight: 900; font-family: monospace; }
+        .view-cell {
+            text-align: right;
+            font-weight: 900;
+            font-family: monospace;
+            transition: all 0.05s linear;
+        }
+        /* Individual cell scale-up animation */
+        .view-cell.scale-up {
+            animation: cellPop 0.2s ease-out;
+        }
+        @keyframes cellPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); background-color: rgba(255,255,255,0.4); border-radius: 8px; }
+            100% { transform: scale(1); }
+        }
         .live-status {
             text-align: center;
             color: #333;
@@ -138,7 +148,7 @@
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        /* Small screen adjustments */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero-image img { max-width: 95%; max-height: 300px; }
             .hero-content { padding: 1.5rem; }
@@ -198,9 +208,9 @@
             <p><strong>📞 Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
         </div>
 
-        <!-- BOTTOM: live tracker with scale-up animation -->
+        <!-- BOTTOM: live tracker with per-cell scale-up animation -->
         <div class="hero-tracker">
-            <div class="tracker-card" id="trackerCard">
+            <div class="tracker-card">
                 <div id="counter-host">
                     <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
                 </div>
@@ -211,7 +221,7 @@
 </main>
 
 <script>
-    // ========== LIVE TRACKER WITH SCALE-UP ANIMATION (RESTORED) ==========
+    // ========== LIVE TRACKER WITH PER-ROW SCALE-UP ANIMATION ==========
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
     let trackData = [];
 
@@ -248,34 +258,30 @@
             const rowClass = isTotal ? "row-total" : colors[i % 3];
             html += `<tr class="${rowClass}">
                 <td>${t.name}</td>
-                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
+                <td id="val-${i}" class="view-cell" data-last="${t.views}">${t.views.toLocaleString()}</td>
             </tr>`;
         });
-        html += `</tbody><tr>`;
+        html += `</tbody></table>`;
         document.getElementById('counter-host').innerHTML = html;
     }
 
     function animateViews() {
-        let changed = false;
         trackData.forEach((t, i) => {
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+            // For all rows (including GRAND TOTAL) – update views and animate if changed
+            if (Math.random() > 0.4) {
+                const oldViews = t.views;
                 t.views += Math.floor(Math.random() * 10) + 2;
                 const el = document.getElementById(`val-${i}`);
                 if (el) {
                     el.innerText = t.views.toLocaleString();
-                    changed = true;
+                    // Add scale-up class to this individual cell
+                    el.classList.add('scale-up');
+                    setTimeout(() => {
+                        el.classList.remove('scale-up');
+                    }, 200);
                 }
             }
         });
-        if (changed) {
-            const card = document.querySelector('.tracker-card');
-            if (card) {
-                card.classList.add('scale-up');
-                setTimeout(() => {
-                    card.classList.remove('scale-up');
-                }, 200);
-            }
-        }
     }
 
     initTracker();
