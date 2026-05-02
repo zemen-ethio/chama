@@ -37,9 +37,13 @@
         .btn-submit { background-color: var(--pure-white); color: var(--fb-blue); padding: 0.8rem 2rem; border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
         .btn-submit:hover { transform: translateY(-2px); }
         .map-placeholder { background-color: var(--fb-blue-darker); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--pure-white); margin-bottom: 1rem; }
+        
+        /* Social media icon styles */
         .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
-        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: var(--pure-white); color: var(--fb-blue); text-decoration: none; transition: transform 0.2s; }
-        .social-link:hover { transform: scale(1.05); }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background-color: var(--pure-white); transition: transform 0.2s, background-color 0.2s; }
+        .social-link:hover { transform: scale(1.08); background-color: #f0f2f5; }
+        .social-link svg { width: 24px; height: 24px; fill: var(--fb-blue); }
+        
         .footer { background-color: var(--fb-blue-dark); border-top: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; padding: 2rem; text-align: center; font-size: 0.9rem; }
         @media (max-width: 768px) {
             .header-container { padding: 0.8rem 1rem; }
@@ -52,52 +56,130 @@
             .logo { width: 45px; height: 45px; }
             .page-content { padding: 1rem; }
             .two-columns { flex-direction: column; }
+            .social-link { width: 40px; height: 40px; }
+            .social-link svg { width: 20px; height: 20px; }
         }
     </style>
 </head>
 <body>
-   
+
 <header class="header">
     <div class="header-container">
         <div class="brand">
-                 <img src="img-logo.webp" alt="Rikash Gebeya" 
-  style="width: 100%; max-width: 120px; height: auto; object-fit: contain;"
->
+            <img src="img-logo.webp" alt="Rikash Gebeya" style="width: 100%; max-width: 120px; height: auto; object-fit: contain;">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
         <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
         <ul class="nav-menu" id="navMenu">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
+            <li class="active"><a href="contact.html">Contact us</a></li>
             <li><a href="payment.html">Payment</a></li>
             <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
+
 <main>
     <div class="page-content">
-        <div class="hero-section"><h2>Information</h2><p>We pride ourselves on our adaptability and commitment to excellence in every aspect of our service. Explore what we have to offer and how we can contribute to your success.</p></div>
-        <div class="contact-cards">
-            <div class="contact-card"><div class="contact-icon">📧</div><h3>Email</h3><p>contact@rikashgebeya.com</p></div>
-            <div class="contact-card"><div class="contact-icon">🌐</div><h3>Social Media</h3><div class="social-links"><a href="https://facebook.com/rikashgebeya" target="_blank" class="social-link"><span>📘</span></a><a href="https://instagram.com/rikashgebeya" target="_blank" class="social-link"><span>📷</span></a><a href="https://youtube.com/rikashgebeya" target="_blank" class="social-link"><span>▶️</span></a><a href="https://tiktok.com/@rikashgebeya" target="_blank" class="social-link"><span>🎵</span></a><a href="https://t.me/rikashgebeya" target="_blank" class="social-link"><span>📨</span></a></div></div>
+        <div class="hero-section">
+            <h2>Information</h2>
+            <p>We pride ourselves on our adaptability and commitment to excellence in every aspect of our service. Explore what we have to offer and how we can contribute to your success.</p>
         </div>
+
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p>contact@rikashgebeya.com</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🌐</div>
+                <h3>Social Media</h3>
+                <div class="social-links">
+                    <!-- Facebook -->
+                    <a href="https://facebook.com/rikashgebeya" target="_blank" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+                        </svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/rikashgebeya" target="_blank" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.053.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="https://youtube.com/rikashgebeya" target="_blank" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.248.406 4.814a2.56 2.56 0 0 0 1.778 1.778c1.567.403 7.83.403 7.83.403s6.265 0 7.831-.403a2.56 2.56 0 0 0 1.778-1.778c.413-1.566.417-4.814.417-4.814s.004-3.248-.406-4.814zM10 15.5v-7l6 3.5-6 3.5z"/>
+                        </svg>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/@rikashgebeya" target="_blank" class="social-link" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.59 6.69a4.1 4.1 0 0 1-3.29-1.7 4 4 0 0 1-.68-1.47 4 4 0 0 1 2.17-2.09 4 4 0 0 1 1.8-.26 4.1 4.1 0 0 1 3.28 1.7 4 4 0 0 1 .68 1.47 4 4 0 0 1-2.17 2.09 4 4 0 0 1-1.79.26zM20 10v4c-1.5 0-2.9.5-4 1.3V10h-2v10c0 1.7-1.3 3-3 3s-3-1.3-3-3 1.3-3 3-3v2c-.6 0-1 .4-1 1s.4 1 1 1 1-.4 1-1V10h4z"/>
+                        </svg>
+                    </a>
+                    <!-- Telegram -->
+                    <a href="https://t.me/rikashgebeya" target="_blank" class="social-link" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.196 1.161-.22 1.462l4.552 1.42 10.534-6.645c.497-.298.952-.14.579.192l-8.533 7.701h-.002l.002.001-.315 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="two-columns">
-            <div class="col"><h2>Contact us</h2><form id="contactForm"><div class="form-group"><label for="name">Name *</label><input type="text" id="name" name="name" required></div><div class="form-group"><label for="email">Email address *</label><input type="email" id="email" name="email" required></div><div class="form-group"><label for="message">Message *</label><textarea id="message" name="message" rows="5" required></textarea></div><button type="submit" class="btn-submit">Submit form</button></form><p style="font-size: 0.8rem; margin-top: 1rem;">* Required fields</p></div>
-            <div class="col"><div class="map-placeholder">📍 Map View - Town Square Mall, Addis Ababa</div><div class="location-info"><h3>Location</h3><p>Djibouti Street,<br>Town Square Mall 22, Addis Ababa</p></div></div>
+            <div class="col">
+                <h2>Contact us</h2>
+                <form id="contactForm">
+                    <div class="form-group"><label for="name">Name *</label><input type="text" id="name" name="name" required></div>
+                    <div class="form-group"><label for="email">Email address *</label><input type="email" id="email" name="email" required></div>
+                    <div class="form-group"><label for="message">Message *</label><textarea id="message" name="message" rows="5" required></textarea></div>
+                    <button type="submit" class="btn-submit">Submit form</button>
+                </form>
+                <p style="font-size: 0.8rem; margin-top: 1rem;">* Required fields</p>
+            </div>
+            <div class="col">
+                <div class="map-placeholder">📍 Map View - Town Square Mall, Addis Ababa</div>
+                <div class="location-info"><h3>Location</h3><p>Djibouti Street,<br>Town Square Mall 22, Addis Ababa</p></div>
+            </div>
         </div>
     </div>
 </main>
-<footer class="footer"><div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div></footer>
-<script>const toggleBtn=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');if(toggleBtn&&navMenu){toggleBtn.addEventListener('click',function(){navMenu.classList.toggle('active');});}const form=document.getElementById('contactForm');if(form){form.addEventListener('submit',function(e){e.preventDefault();alert('Thank you for your message! We will get back to you soon.');form.reset();});}</script>
-    <script>
+
+<footer class="footer">
+    <div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if(toggleBtn && navMenu){
+        toggleBtn.addEventListener('click', function(){
+            navMenu.classList.toggle('active');
+        });
+    }
+    const form = document.getElementById('contactForm');
+    if(form){
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            form.reset();
+        });
+    }
+</script>
+
+<!-- Infinite scroll script (keeps page scrollable horizontally) -->
+<script>
 (function() {
     const body = document.body;
     const originalHTML = body.innerHTML;
     
-    // Clear and rebuild
     body.innerHTML = '';
     
     const wrapper = document.createElement('div');
@@ -118,15 +200,14 @@
     wrapper.appendChild(container);
     body.appendChild(wrapper);
     
-    // Add keyframes
     const style = document.createElement('style');
     style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
     document.head.appendChild(style);
     
-    // Pause on hover
     wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
     wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
 })();
 </script>
+
 </body>
 </html>
