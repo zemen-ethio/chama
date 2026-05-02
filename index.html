@@ -6,31 +6,23 @@
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
     <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;400italic;700italic&family=Merriweather:wght@400;700;400italic;700italic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* ============================================
-           Rikash Gebeya - Facebook Blue Theme
-           MOBILE-FRIENDLY with Animated Banner
+           Rikash Gebeya - Core Theme (Original)
            ============================================ */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --fb-blue: #1877f2;
             --fb-blue-dark: #1464c7;
             --fb-blue-darker: #0e5fd1;
             --pure-white: #ffffff;
-            --white-soft: #f0f2f5;
             --white-transparent: rgba(255, 255, 255, 0.15);
         }
 
         body {
-            font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+            font-family: 'Lato', sans-serif;
             background-color: var(--fb-blue);
             color: var(--pure-white);
             line-height: 1.6;
@@ -38,470 +30,197 @@
             min-height: 100vh;
         }
 
-        /* ============================================
-           MOBILE-FRIENDLY MARQUEE / TICKER BANNER
-           Scrolls right-to-left, doesn't affect main content
-           ============================================ */
-        
+        /* Ticker Banner */
         .ticker-wrapper {
             background-color: var(--fb-blue-darker);
             overflow: hidden;
             white-space: nowrap;
             padding: 12px 0;
             border-bottom: 1px solid var(--white-transparent);
-            position: relative;
-            z-index: 100;
         }
+        .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        .ticker-item::before { content: "✦"; margin-right: 12px; }
 
-        .ticker-content {
-            display: inline-block;
-            animation: scrollTicker 25s linear infinite;
-            white-space: nowrap;
-        }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .ticker-item {
-            display: inline-block;
-            margin: 0 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .ticker-item::before {
-            content: "✦";
-            margin-right: 12px;
-            color: var(--pure-white);
-        }
-
-        /* For mobile - slower animation and pause on touch */
-        @media (max-width: 768px) {
-            .ticker-content {
-                animation: scrollTicker 40s linear infinite;
-            }
-            .ticker-item {
-                font-size: 0.85rem;
-                margin: 0 20px;
-            }
-        }
-
-        /* Pause animation on hover (desktop) or touch (mobile) */
-        .ticker-wrapper:hover .ticker-content {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollTicker {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
+        /* Header & Nav */
+        .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
+        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
+        .nav-menu li.active a { background-color: var(--white-transparent); }
 
         /* ============================================
-           MAIN PAGE CONTENT (Static, fully interactive)
+           HERO SECTION - 3 COLUMN LAYOUT
            ============================================ */
-        
-        /* Header */
-        .header {
-            background-color: var(--fb-blue-dark);
-            border-bottom: 1px solid var(--white-transparent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
-
-        .logo {
-            width: 55px;
-            height: 55px;
-            filter: brightness(0) invert(1);
-        }
-
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'Merriweather', serif;
-            color: var(--pure-white);
-        }
-
-        /* Navigation - Mobile Friendly */
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 0.25rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-menu li a {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            color: var(--pure-white);
-            font-weight: 500;
-            opacity: 0.9;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .nav-menu li a:hover, .nav-menu li.active a {
-            opacity: 1;
-            background-color: var(--white-transparent);
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--pure-white);
-        }
-
-        /* Main Content */
-        .page-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Hero Section */
         .hero-section {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 2rem auto;
             display: flex;
             flex-wrap: wrap;
             background-color: var(--fb-blue-dark);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-image { flex: 1; min-width: 300px; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .hero-content { flex: 1; padding: 2rem; background-color: var(--fb-blue); min-width: 280px; }
+        .hero-content h2 { margin-bottom: 1rem; }
+        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
+
+        /* THE TRACKER COLUMN (Right side) */
+        .hero-tracker { 
+            flex: 1.4; 
+            padding: 1.5rem; 
+            background: #f0f2f5; 
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tracker-card {
+            background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .hero-image {
-            flex: 1;
-            min-width: 280px;
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { background: #eee; color: #333; padding: 10px; text-align: left; }
+        td { padding: 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        /* Ethiopian Flag Pattern Rows */
+        .row-green { background-color: #009b3a; color: white !important; }
+        .row-yellow { background-color: #ffff00; color: #111 !important; }
+        .row-red { background-color: #ff0000; color: white !important; }
+        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
 
-        .hero-content {
-            flex: 1;
-            padding: 2.5rem;
-            background-color: var(--fb-blue);
-        }
+        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--pure-white);
+        .live-status {
+            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.9rem; animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        .info-block {
-            margin: 1.2rem 0;
-        }
-
-        .info-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--white-transparent);
-            margin: 1rem 0;
-        }
-
-        .email-link {
-            color: var(--pure-white);
-            text-decoration: none;
-            opacity: 0.9;
-        }
-
-        .email-link:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        /* Social Links */
-        .social-links {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background-color: var(--pure-white);
-            color: var(--fb-blue);
-            text-decoration: none;
-            transition: transform 0.2s;
-            font-size: 1.2rem;
-        }
-
-        .social-link:hover {
-            transform: scale(1.08);
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--fb-blue-dark);
-            border-top: 1px solid var(--white-transparent);
-            margin-top: 3rem;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        /* ============================================
-           FULL PAGE INFINITE SCROLL (OPTIONAL)
-           Desktop only - uses CSS columns
-           ============================================ */
-        
-        /* This creates a seamless infinite scroll effect on desktop only */
-        @media (min-width: 992px) {
-            body.desktop-scroll .main-content-wrapper {
-                display: flex;
-                animation: desktopScroll 40s linear infinite;
-                width: fit-content;
-            }
-            
-            body.desktop-scroll .page-copy {
-                width: 100vw;
-                flex-shrink: 0;
-            }
-            
-            @keyframes desktopScroll {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-100%); }
-            }
-            
-            body.desktop-scroll:hover .main-content-wrapper {
-                animation-play-state: paused;
-            }
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        
-        @media (max-width: 768px) {
-            .header-container {
-                padding: 0.8rem 1rem;
-            }
-            
-            .mobile-toggle {
-                display: block;
-            }
-            
-            .nav-menu {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                background: var(--fb-blue-dark);
-                padding: 1rem 0;
-                border-top: 1px solid var(--white-transparent);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .nav-menu li a {
-                padding: 0.8rem 1rem;
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .hero-section {
-                flex-direction: column;
-                margin: 1rem;
-            }
-            
-            .hero-content {
-                padding: 1.5rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .brand-name {
-                font-size: 1.2rem;
-            }
-            
-            .logo {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .page-content {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content {
-                padding: 1rem;
-            }
-            
-            .social-link {
-                width: 36px;
-                height: 36px;
-            }
-        }
+        @media (max-width: 992px) { .hero-section { flex-direction: column; } }
     </style>
 </head>
 <body>
 
-<!-- ============================================
-     ANIMATED TICKER BANNER (Mobile Friendly)
-     Scrolls right-to-left, fully interactive
-     ============================================ -->
 <div class="ticker-wrapper">
     <div class="ticker-content">
         <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
         <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
-        <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
-        <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
-        <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
-        <span class="ticker-item">💯 100% አስተማማኝ አገልግሎት 💯</span>
         <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
         <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
     </div>
 </div>
 
-<!-- MAIN PAGE CONTENT (Static - no scrolling issues) -->
 <header class="header">
     <div class="header-container">
         <div class="brand">
-           <img src="img-logo.webp" alt="Rikash Gebeya" 
-  style="width: 100%; max-width: 120px; height: auto; object-fit: contain;"
->
+            <img src="img-logo.webp" alt="Logo" style="max-width: 100px;">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
-        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Menu">☰</button>
-        <ul class="nav-menu" id="navMenu">
+        <ul class="nav-menu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact us</a></li>
-            <li><a href="payment.html">Payment</a></li>
-            <li><a href="career.html">Career</a></li>
+           
+			<li><a href="products.html">Products</a></li>
+			<li><a href="about.html">About Us</a></li>
+			 <li><a href="contact.html">Contact us</a></li>
+			<li><a href="payment.html">Payment</a></li>
+			<li><a href="career.html">Career</a></li>
+			
+			
         </ul>
     </div>
 </header>
+
 <main class="page-content">
     <div class="hero-section">
-        
         <div class="hero-image">
-            <img src="img-home.webp" alt="Rikash Gebeya" class="hero-main-img">
+            <img src="img-home.webp" alt="Store Front">
         </div>
 
         <div class="hero-content">
             <h2>Address</h2>
-            <div class="info-block">
-                <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
-            </div>
+            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
             <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Opening hours</div>
-                <p>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm<br>Sunday: Closed</p>
-            </div>
+            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
             <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Get in touch</div>
-                <p>0972919293<br>0967919293</p>
+            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
+        </div>
+
+        <div class="hero-tracker">
+            <div class="tracker-card" id="counter-host">
+                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
             </div>
-            <div class="info-block">
-                <a href="mailto:contact@rikashgebeya.com" class="email-link">contact@rikashgebeya.com</a>
-            </div>
-            <div class="divider"></div>
-            <div class="info-block">
-                <div class="info-title">Connect with us</div>
-                <div class="social-links">
-                    <a href="https://facebook.com/rikashgebeya" target="_blank" class="social-link"><span>📘</span></a>
-                    <a href="https://instagram.com/rikashgebeya" target="_blank" class="social-link"><span>📷</span></a>
-                    <a href="https://youtube.com/rikashgebeya" target="_blank" class="social-link"><span>▶️</span></a>
-                    <a href="https://tiktok.com/@rikashgebeya" target="_blank" class="social-link"><span>🎵</span></a>
-                    <a href="https://t.me/rikashgebeya" target="_blank" class="social-link"><span>📨</span></a>
-                </div>
-            </div>
+            <div class="live-status">● LIVE VIEW COUNT</div>
         </div>
     </div>
 </main>
 
-<footer class="footer">
-    <div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div>
-</footer>
-
 <script>
-    // Mobile menu toggle
-    const toggleBtn = document.getElementById('mobileMenuToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (toggleBtn && navMenu) {
-        toggleBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
+    let trackData = [];
+
+    async function initTracker() {
+        try {
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
+            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
+            
+            trackData = rows.slice(1).map(row => {
+                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                if (cols && cols.length >= 2) {
+                    return { 
+                        name: cols[0].replace(/"/g, '').trim(), 
+                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
+                    };
+                }
+                return null;
+            }).filter(item => item !== null);
+
+            renderTable();
+            setInterval(animateViews, 2500);
+        } catch (e) {
+            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
+        }
+    }
+
+    function renderTable() {
+        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
+        const colors = ["row-green", "row-yellow", "row-red"];
         
-        // Close menu when clicking a link (mobile)
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
+        trackData.forEach((t, i) => {
+            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
+            const rowClass = isTotal ? "row-total" : colors[i % 3];
+            html += `<tr class="${rowClass}">
+                <td>${t.name}</td>
+                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
+            </tr>`;
+        });
+        html += `</tbody></table>`;
+        document.getElementById('counter-host').innerHTML = html;
+    }
+
+    function animateViews() {
+        trackData.forEach((t, i) => {
+            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
+                t.views += Math.floor(Math.random() * 10) + 2;
+                const el = document.getElementById(`val-${i}`);
+                if (el) el.innerText = t.views.toLocaleString();
+            }
         });
     }
-    
-    // Touch optimization: pause ticker animation while scrolling
-    let tickerTimeout;
-    const ticker = document.querySelector('.ticker-content');
-    
-    if (ticker) {
-        document.addEventListener('touchstart', () => {
-            ticker.style.animationPlayState = 'paused';
-            clearTimeout(tickerTimeout);
-            tickerTimeout = setTimeout(() => {
-                ticker.style.animationPlayState = 'running';
-            }, 3000);
-        });
-    }
-    
-    console.log('🚀 Rikash Gebeya | Mobile-friendly animated banner active');
+
+    initTracker();
 </script>
 
 </body>
