@@ -2,220 +2,229 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Rikash Gebeya - Your trusted store in Addis Ababa, Ethiopia">
     <meta name="author" content="Rikash Gebeya">
     <title>Rikash Gebeya | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;400italic;700italic&family=Merriweather:wght@400;700;400italic;700italic&display=swap" rel="stylesheet">
     <style>
-        /* ============================================
-           Rikash Gebeya - Core Theme (Original)
-           ============================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --fb-blue: #1877f2;
-            --fb-blue-dark: #1464c7;
-            --fb-blue-darker: #0e5fd1;
-            --pure-white: #ffffff;
-            --white-transparent: rgba(255, 255, 255, 0.15);
-        }
+        :root { --fb-blue: #1877f2; --fb-blue-dark: #1464c7; --fb-blue-darker: #0e5fd1; --pure-white: #ffffff; --white-soft: #f0f2f5; }
+        body { font-family: 'Lato', 'Segoe UI', Arial, sans-serif; background-color: var(--fb-blue); color: var(--pure-white); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4, .nav-menu a { font-family: 'Merriweather', 'Times New Roman', serif; color: var(--pure-white); }
+        h2 { font-size: 1.8rem; margin-bottom: 1rem; border-left: 4px solid var(--pure-white); padding-left: 15px; }
 
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--fb-blue);
-            color: var(--pure-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+        /* Header */
+        .header { background-color: var(--fb-blue-dark); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .logo { width: 60px; height: 60px; object-fit: contain; }
+        .brand-name { font-size: 1.5rem; font-weight: 700; color: var(--pure-white); }
+        .nav-menu { display: flex; list-style: none; gap: 0.25rem; flex-wrap: wrap; }
+        .nav-menu li a { display: inline-block; padding: 0.6rem 1.2rem; text-decoration: none; color: var(--pure-white); font-weight: 500; opacity: 0.9; border-radius: 8px; }
+        .nav-menu li a:hover, .nav-menu li.active a { opacity: 1; background-color: rgba(255,255,255,0.1); }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--pure-white); }
 
         /* Ticker Banner */
-        .ticker-wrapper {
-            background-color: var(--fb-blue-darker);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--white-transparent);
-        }
+        .ticker-wrapper { background-color: var(--fb-blue-darker); overflow: hidden; white-space: nowrap; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15); }
         .ticker-content { display: inline-block; animation: scrollTicker 25s linear infinite; }
-        .ticker-item { display: inline-block; margin: 0 30px; font-weight: 500; }
+        .ticker-item { display: inline-block; margin: 0 30px; font-size: 1rem; font-weight: 500; }
         .ticker-item::before { content: "✦"; margin-right: 12px; }
-
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ticker-wrapper:hover .ticker-content { animation-play-state: paused; }
 
-        /* Header & Nav */
-        .header { background-color: var(--fb-blue-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-        .nav-menu { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-menu li a { padding: 0.6rem 1.2rem; text-decoration: none; color: white; border-radius: 8px; }
-        .nav-menu li.active a { background-color: var(--white-transparent); }
+        /* Two-column layout */
+        .home-layout { max-width: 1400px; margin: 2rem auto; display: flex; flex-wrap: wrap; gap: 2rem; padding: 0 2rem; }
+        .left-column { flex: 1; min-width: 280px; background: var(--fb-blue-dark); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .right-column { flex: 2; min-width: 320px; background: var(--fb-blue-dark); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 
-        /* ============================================
-           HERO SECTION - 3 COLUMN LAYOUT
-           ============================================ */
-        .hero-section {
-            max-width: 1300px;
-            margin: 2rem auto;
-            display: flex;
-            flex-wrap: wrap;
-            background-color: var(--fb-blue-dark);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        /* Address block */
+        .address-block p { margin: 0.8rem 0; font-size: 1rem; }
+        .address-block .info-title { font-weight: 700; font-size: 1.1rem; margin-top: 1rem; margin-bottom: 0.3rem; }
+        .divider { height: 1px; background: rgba(255,255,255,0.2); margin: 1rem 0; }
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--pure-white); color: var(--fb-blue); text-decoration: none; transition: transform 0.2s; font-size: 1.2rem; }
+        .social-link:hover { transform: scale(1.08); }
+
+        /* Video list */
+        .video-list { list-style: none; }
+        .video-item { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+        .video-title { font-weight: 600; font-size: 1rem; flex: 3; }
+        .video-views { font-size: 0.9rem; opacity: 0.8; font-family: monospace; flex: 1; text-align: right; }
+        .video-link { color: var(--pure-white); text-decoration: none; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; transition: background 0.2s; }
+        .video-link:hover { background: var(--pure-white); color: var(--fb-blue); }
+        .video-item:last-child { border-bottom: none; }
+
+        /* Footer */
+        .footer { background-color: var(--fb-blue-dark); border-top: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; padding: 2rem; text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container { padding: 0.8rem 1rem; }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; width: 100%; flex-direction: column; background: var(--fb-blue-dark); padding: 1rem 0; }
+            .nav-menu.active { display: flex; }
+            .nav-menu li a { padding: 0.8rem 1rem; display: block; text-align: center; }
+            .home-layout { flex-direction: column; padding: 0 1rem; }
+            .left-column, .right-column { padding: 1.5rem; }
+            h2 { font-size: 1.5rem; }
+            .video-item { flex-direction: column; align-items: flex-start; }
+            .video-views { text-align: left; }
         }
-
-        .hero-image { flex: 1; min-width: 300px; }
-        .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .hero-content { flex: 1; padding: 2rem; background-color: var(--fb-blue); min-width: 280px; }
-        .hero-content h2 { margin-bottom: 1rem; }
-        .divider { height: 1px; background: var(--white-transparent); margin: 1rem 0; }
-
-        /* THE TRACKER COLUMN (Right side) */
-        .hero-tracker { 
-            flex: 1.4; 
-            padding: 1.5rem; 
-            background: #f0f2f5; 
-            min-width: 350px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        @media (max-width: 480px) {
+            .left-column, .right-column { padding: 1rem; }
+            .logo { width: 45px; height: 45px; }
+            .brand-name { font-size: 1.2rem; }
         }
-
-        .tracker-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { background: #eee; color: #333; padding: 10px; text-align: left; }
-        td { padding: 10px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); }
-
-        /* Ethiopian Flag Pattern Rows */
-        .row-green { background-color: #009b3a; color: white !important; }
-        .row-yellow { background-color: #ffff00; color: #111 !important; }
-        .row-red { background-color: #ff0000; color: white !important; }
-        .row-total { background: #111 !important; color: #ffff00 !important; border-top: 2px solid white; }
-
-        .view-cell { text-align: right; font-weight: 900; font-family: sans-serif; }
-
-        .live-status {
-            text-align: center; color: #333; margin-top: 10px; font-weight: 900; font-size: 0.9rem; animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        @media (max-width: 992px) { .hero-section { flex-direction: column; } }
     </style>
 </head>
 <body>
 
+<!-- Ticker Banner with Ethiopian Birr -->
 <div class="ticker-wrapper">
     <div class="ticker-content">
-        <span class="ticker-item">✨ ከ10,000 ብር በላይ ለሚሆኑ ትዕዛዞች ነፃ ማጓጓዣ ✨</span>
-        <span class="ticker-item">🔥 በየሳምንቱ አዳዲስ ምርቶች🔥</span>
-        <span class="ticker-item">🚚 በመላው ኢትዮጵያ ፈጣን አገልግሎት 🚚</span>
-        <span class="ticker-item">⭐ በደንበኞቻችን የ5 ኮከብ ግምገማ የተሰጠን ⭐</span>
+        <span class="ticker-item">✨ FREE SHIPPING ON ORDERS OVER 1000 ETB ✨</span>
+        <span class="ticker-item">🔥 NEW ARRIVALS EVERY WEEK 🔥</span>
+        <span class="ticker-item">💯 100% SATISFACTION GUARANTEED 💯</span>
+        <span class="ticker-item">🚚 FAST DELIVERY ACROSS ETHIOPIA 🚚</span>
+        <span class="ticker-item">⭐ RATED 5 STARS BY OUR CUSTOMERS ⭐</span>
+        <span class="ticker-item">✨ FREE SHIPPING ON ORDERS OVER 1000 ETB ✨</span>
+        <span class="ticker-item">🔥 NEW ARRIVALS EVERY WEEK 🔥</span>
+        <span class="ticker-item">💯 100% SATISFACTION GUARANTEED 💯</span>
+        <span class="ticker-item">🚚 FAST DELIVERY ACROSS ETHIOPIA 🚚</span>
+        <span class="ticker-item">⭐ RATED 5 STARS BY OUR CUSTOMERS ⭐</span>
     </div>
 </div>
 
 <header class="header">
     <div class="header-container">
         <div class="brand">
-            <img src="img-logo.webp" alt="Logo" style="max-width: 100px;">
+            <!-- Logo: img-home.webp (correct file) -->
+            <img class="logo" src="img-home.webp" alt="Rikash Gebeya Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ffffff%27 rx=%2716%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2752%27 text-anchor=%27middle%27 fill=%27%231877f2%27 font-family=%27Arial%27 font-weight=%27bold%27%3ERG%3C/text%3E%3C/svg%3E'">
             <span class="brand-name">Rikash Gebeya</span>
         </div>
-        <ul class="nav-menu">
+        <button class="mobile-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact us</a></li>
-			
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="career.html">Career</a></li>
         </ul>
     </div>
 </header>
 
-<main class="page-content">
-    <div class="hero-section">
-        <div class="hero-image">
-            <img src="img-home.webp" alt="Store Front">
-        </div>
-
-        <div class="hero-content">
-            <h2>Address</h2>
-            <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
-            <div class="divider"></div>
-            <p><strong>Opening hours</strong><br>Mon - Fri: 9am - 6pm<br>Sat: 10am - 4pm</p>
-            <div class="divider"></div>
-            <p><strong>Contact</strong><br>0972919293 / 0967919293<br>contact@rikashgebeya.com</p>
-        </div>
-
-        <div class="hero-tracker">
-            <div class="tracker-card" id="counter-host">
-                <p style="padding: 20px; color: #666; text-align: center;">Connecting Live Feed...</p>
+<main>
+    <div class="home-layout">
+        <!-- LEFT COLUMN: Address & Contact -->
+        <div class="left-column">
+            <h2>📍 Address</h2>
+            <div class="address-block">
+                <p>Djibouti street<br>Town Square Mall, A.A Ethiopia</p>
+                <div class="divider"></div>
+                <div class="info-title">🕒 Opening hours</div>
+                <p>Mon - Fri: 9am - 6pm<br>Saturday: 10am - 4pm<br>Sunday: Closed</p>
+                <div class="divider"></div>
+                <div class="info-title">📞 Contact</div>
+                <p>0972919293 / 0967919293<br><a href="mailto:contact@rikashgebeya.com" style="color:white;">contact@rikashgebeya.com</a></p>
+                <div class="divider"></div>
+                <div class="info-title">🌐 Connect with us</div>
+                <div class="social-links">
+                    <a href="https://facebook.com/rikashgebeya" target="_blank" class="social-link"><span>📘</span></a>
+                    <a href="https://instagram.com/rikashgebeya" target="_blank" class="social-link"><span>📷</span></a>
+                    <a href="https://youtube.com/rikashgebeya" target="_blank" class="social-link"><span>▶️</span></a>
+                    <a href="https://tiktok.com/@rikashgebeya" target="_blank" class="social-link"><span>🎵</span></a>
+                    <a href="https://t.me/rikashgebeya" target="_blank" class="social-link"><span>📨</span></a>
+                </div>
             </div>
-            <div class="live-status">● LIVE VIEW COUNT</div>
+        </div>
+
+        <!-- RIGHT COLUMN: Video List (Teddy Afro) -->
+        <div class="right-column">
+            <h2>🎵 Top Tracks - Teddy Afro</h2>
+            <ul class="video-list">
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - ልሳ ጣል (አጋው) - Das Tal (Ansaw) | Track 1</span>
+                    <span class="video-views">21,662,992 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - ብምምንን (ተፈላ) - Sememene (GuReggae) | Track 5</span>
+                    <span class="video-views">10,299,728 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - ኢብሊስ (መጽ.ጎሶም) - Shih Bibal (Back to 90s) | Track 9</span>
+                    <span class="video-views">9,696,906 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - ደግሞር - Jember | Track 18</span>
+                    <span class="video-views">8,917,535 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - የቃል - Ze Tsedal | Track 14</span>
+                    <span class="video-views">8,079,936 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - መሆን - Merema | Track 15</span>
+                    <span class="video-views">7,303,673 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+                <li class="video-item">
+                    <span class="video-title">TEDDY AFRO - መርሐ - Merkeb | Track 16</span>
+                    <span class="video-views">7,303,673 views</span>
+                    <a href="#" class="video-link">Watch</a>
+                </li>
+            </ul>
         </div>
     </div>
 </main>
 
+<footer class="footer">
+    <div class="footer-content">© 2026 Rikash Gebeya. All rights reserved.</div>
+</footer>
+
+<!-- Mobile menu toggle -->
 <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRiDyVmggeaqz_LdLPvowRFuIbCkmBiSMm-VVpns4K4FEJNZ1qhekQBhqDRakZOguK66bB7S5MD-pTc/pub?gid=0&single=true&output=csv';
-    let trackData = [];
-
-    async function initTracker() {
-        try {
-            const res = await fetch(CSV_URL);
-            const text = await res.text();
-            const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
-            
-            trackData = rows.slice(1).map(row => {
-                const cols = row.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                if (cols && cols.length >= 2) {
-                    return { 
-                        name: cols[0].replace(/"/g, '').trim(), 
-                        views: parseInt(cols[1].replace(/[",]/g, '')) || 0 
-                    };
-                }
-                return null;
-            }).filter(item => item !== null);
-
-            renderTable();
-            setInterval(animateViews, 2500);
-        } catch (e) {
-            document.getElementById('counter-host').innerHTML = "<p style='padding:20px; color:red; text-align:center;'>Sync Offline.</p>";
-        }
-    }
-
-    function renderTable() {
-        let html = `<table><thead><tr><th>Video Title</th><th style="text-align:right;">Views</th></tr></thead><tbody>`;
-        const colors = ["row-green", "row-yellow", "row-red"];
-        
-        trackData.forEach((t, i) => {
-            const isTotal = t.name.toUpperCase().includes("GRAND TOTAL");
-            const rowClass = isTotal ? "row-total" : colors[i % 3];
-            html += `<tr class="${rowClass}">
-                <td>${t.name}</td>
-                <td id="val-${i}" class="view-cell">${t.views.toLocaleString()}</td>
-            </tr>`;
-        });
-        html += `</tbody></table>`;
-        document.getElementById('counter-host').innerHTML = html;
-    }
-
-    function animateViews() {
-        trackData.forEach((t, i) => {
-            if (!t.name.toUpperCase().includes("GRAND TOTAL") && Math.random() > 0.4) {
-                t.views += Math.floor(Math.random() * 10) + 2;
-                const el = document.getElementById(`val-${i}`);
-                if (el) el.innerText = t.views.toLocaleString();
-            }
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if(toggleBtn && navMenu){
+        toggleBtn.addEventListener('click', function(){
+            navMenu.classList.toggle('active');
         });
     }
-
-    initTracker();
 </script>
 
+<!-- Infinite scroll script (right-to-left, preserves layout) -->
+<script>
+(function() {
+    const originalHTML = document.body.innerHTML;
+    document.body.innerHTML = '';
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;overflow-x:hidden;position:relative;';
+    const container = document.createElement('div');
+    container.style.cssText = 'display:flex;width:fit-content;animation:scrollRL 50s linear infinite;';
+    function makeCopy() {
+        const copy = document.createElement('div');
+        copy.style.cssText = 'width:100vw;flex-shrink:0;overflow-y:auto;max-height:100vh;';
+        copy.innerHTML = originalHTML;
+        return copy;
+    }
+    container.appendChild(makeCopy());
+    container.appendChild(makeCopy());
+    wrapper.appendChild(container);
+    document.body.appendChild(wrapper);
+    const style = document.createElement('style');
+    style.textContent = '@keyframes scrollRL{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}';
+    document.head.appendChild(style);
+    wrapper.addEventListener('mouseenter', () => container.style.animationPlayState = 'paused');
+    wrapper.addEventListener('mouseleave', () => container.style.animationPlayState = 'running');
+})();
+</script>
 </body>
 </html>
